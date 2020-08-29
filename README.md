@@ -1,4 +1,4 @@
-# Jarvis Ai
+# Jarvis AI
 
 ***Last Upadted: 29 August, 2020***
 
