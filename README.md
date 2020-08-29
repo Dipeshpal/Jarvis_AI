@@ -144,7 +144,7 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 
 ## 5. Future?
 
-Lots of possibilities, GUI, Integrate with GPT-3, support for android, APIs, as pip package etc.
+Lots of possibilities, GUI, Integrate with GPT-3, support for android, IOT, Home Automation, APIs, as pip package etc.
 
 ### **Let's make it big.**
 
