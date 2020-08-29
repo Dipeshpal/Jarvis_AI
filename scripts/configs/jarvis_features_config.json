@@ -1,0 +1,12 @@
+[
+  {
+    "regex": "weather|temperature|wind|clouds|rainy",
+    "import": "features.weather.weather",
+    "function_name": "weather_app"
+  },
+  {
+    "regex": "setup|set up",
+    "import": "features.setup.user_setup",
+    "function_name": "setup_mode"
+  }
+]
