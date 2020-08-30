@@ -103,7 +103,6 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 		if __name__ == '__main__':  
 		    response = tell_me_date()  
 		    print(response)
-					```		
 
 
 	- **4.3.4. Integrate your module to Jarvis AI-**
