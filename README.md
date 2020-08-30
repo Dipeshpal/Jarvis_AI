@@ -92,10 +92,10 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 		# Function should return something because this is the output we want to show user  
 		def tell_me_date(self, inp=None):  
 		    # inp (do something if you want to do with inp)  
-			date = datetime.datetime.now()  
+		  date = datetime.datetime.now()  
 		  
 		    # the return format should be string only  
-			return date  
+		  return date  
 		  
 		  
 		# you can run and test your script by calling from main  
