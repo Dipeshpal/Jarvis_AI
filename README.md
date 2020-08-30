@@ -82,28 +82,26 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 	
 	- **4.3.4. Write this kind of script (you can modify according to your own script).** ***Read comments in script below to understand format***- 
 		```
-	    # imports  
-	    import datetime
-	      
-	    # A OOPs approach is recommended  
-	    class Dt:  
-	        def __init__(self):  
-	            pass  
-	      
-	      # do not remove inp=None the function format should be same, name can be change  
-	     # inp is the input from the user (query ask by user) # you can use this inp inside the function. LOL, because you may need user input # Function should return something because this is the output we want to show user def tell_me_date(self, inp=None):    
-	            # inp (do something if you want to do with inp)  
-	      date = datetime.datetime.now()  
-	              
-	            # the return format should be string only  
-	      return date  
-	      
-	      
-	    # you can run and test your script by calling from main  
-	    if __name__ == '__main__':  
-	        obj = Dt()  
-	        response = obj.tell_me_date()  
-	        print(response)
+		# imports  
+		import datetime  
+		  
+		  
+		# do not remove inp=None the function format should be same, name can be change  
+		# inp is the input from the user (query ask by user)  
+		# you can use this inp inside the function. LOL, because you may need user input  
+		# Function should return something because this is the output we want to show user  
+		def tell_me_date(self, inp=None):  
+		    # inp (do something if you want to do with inp)  
+			date = datetime.datetime.now()  
+		  
+		    # the return format should be string only  
+			return date  
+		  
+		  
+		# you can run and test your script by calling from main  
+		if __name__ == '__main__':  
+		    response = tell_me_date()  
+		    print(response)
 	        
 		```
 	- **4.3.4. Integrate your module to Jarvis AI-**
