@@ -81,6 +81,7 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 	- **4.3.3. Create a python script name- 'jarvis_date_time'**
 	
 	- **4.3.4. Write this kind of script (you can modify according to your own script).** ***Read comments in script below to understand format***- 
+
 		```
 		# imports  
 		import datetime  
@@ -102,8 +103,9 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 		if __name__ == '__main__':  
 		    response = tell_me_date()  
 		    print(response)
-	        
-		```
+					```		
+
+
 	- **4.3.4. Integrate your module to Jarvis AI-**
 		- Remember? We have configs folder.
 		   We have 'scripts\configs\jarvis_features_config.json' this json file in it. It contains data releated to run modules.
