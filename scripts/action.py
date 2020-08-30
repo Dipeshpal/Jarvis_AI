@@ -20,8 +20,6 @@ class Action:
                 mymodule = importlib.import_module(import_statement)
                 response = getattr(mymodule, function_name)(inp)
                 return response
-            else:
-                return "Sorry I couldn't understand, try again"
 
 
 if __name__ == '__main__':
