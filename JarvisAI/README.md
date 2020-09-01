@@ -21,7 +21,9 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
  
  ### Jus run this on terminal-
  `pip install JarvisAI`
- https://pypi.org/project/JarvisAI/
+
+ PyPi: https://pypi.org/project/JarvisAI/
+
  This will install the latest version available.
  
 ### Usage and Features-
