@@ -11,25 +11,20 @@
 ## 1. What is Jarvis AI-
 Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. Currently it is in development stage. Currently only support CLI method, no UI yet. Well, you can contribute on this project to make it more powerful.
 
+Check more details here- https://github.com/Dipeshpal/Jarvis_AI
+
 ## 2. Prerequisite-
-Python is the only prerequisite for basic scripting, Machine Learning and Deep Learning knowledge will help this model to do task like AI-ML.
-All the require libraries available in [requirements.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/requirements.txt).
+To use it only Python (> 3.6) is required.
+To contribute in project: Python is the only prerequisite for basic scripting, Machine Learning and Deep Learning knowledge will help this model to do task like AI-ML.
 
-## 3. Getting Started (How to use it)?
-**Steps-**
-
- 1. Clone this [reop](https://github.com/Dipeshpal/Jarvis_AI)
- 2. Create virtual environment in python.
- 3. Install requirements from [requirements.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/requirements.txt).
-	 `pip install requirements.txt`
-4. Now run, [jarvis.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis.py)
-	`python jarvis.py`
-	(Currently only support input as text, working on input from mic. Mic is in beta stage, sometimes not works)
--  So, once you run the [jarvis.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis.py) it will ask you to enter text.  
-- It will produce output as text and audio accordingly.
-- You no need to run script again and again, it will keep asking you to enter next queries. If you want to stop, just close the script.
-
-### 3.1 . Usage and Features-
+## 3. Getting Started (How to use it)-
+ 
+ ### Jus run this on terminal-
+ `pip install jarvis-ai`
+ 
+ This will install the latest version available.
+ 
+### Usage and Features-
 **The input you can enter to perform different task-**
 
 1. **Setup Jarvis Ai-**
@@ -44,6 +39,18 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 
 
 ## 4. How to contribute?
+
+1. Clone this [reop](https://github.com/Dipeshpal/Jarvis_AI)
+ 2. Create virtual environment in python.
+ 3. Install requirements from [requirements.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/requirements.txt).
+	 `pip install requirements.txt`
+4. Now run, [jarvis.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis.py)
+	`python jarvis.py`
+	(Currently only support input as text, working on input from mic. Mic is in beta stage, sometimes not works)
+-  So, once you run the [jarvis.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis.py) it will ask you to enter text.  
+- It will produce output as text and audio accordingly.
+- You no need to run script again and again, it will keep asking you to enter next queries. If you want to stop, just close the script.
+
 
  - You can clone the repo and understand how this works.
  - You can add your own features / scripts. Follow this guideline while writing scripts-
@@ -151,6 +158,7 @@ All the require libraries available in [requirements.txt](https://github.com/Dip
 		- **regex:** you can put all the possible match pattern which user can aks. Multilple patterns can be seperated by `|` operator. Check existing regex pattern in dictionary before adding your regex. In this case `tell me date|date|today is what day`
 		- **import:** you need to put your module's path. In this case- `jarvis_ai.features.date_time.jarvis_date_time`
 		- **function_name:** your function name according to your script file. In this case `tell_me_date` and `tell_me_time`
+		- Now, if you added any library in the project (Example- Pandas) then make sure to add it in `requirements.txt`. And also add to `setup.py`  `install_requires=['pandas']` .
 		
 4.4. **That's it, if you applied all the things as per as guidelines then now just run jarvis.py it should works fine.**
 
