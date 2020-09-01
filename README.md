@@ -1,4 +1,4 @@
-# Jarvis AI
+# JarvisAI
 
 ***Last Upadted: 01 September, 2020***
 
@@ -20,7 +20,7 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
 ## 3. Getting Started (How to use it)-
  
  ### Jus run this on terminal-
- `pip install jarvis-ai`
+ `pip install JarvisAI`
  
  This will install the latest version available.
  
@@ -45,12 +45,12 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
 
 1. Clone this [reop](https://github.com/Dipeshpal/Jarvis_AI)
  2. Create virtual environment in python.
- 3. Install requirements from [requirements.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis_ai/requirements.txt).
+ 3. Install requirements from [requirements.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/requirements.txt).
 	 `pip install requirements.txt`
-4. Now run, [__init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis_ai/__init__.py)
+4. Now run, [__init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/__init__.py)
 	`python __init__.py`
 	(Currently only support input as text, working on input from mic. Mic is in beta stage, sometimes not works)
--  So, once you run the [__init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis_ai/__init__.py) it will ask you to enter text.  
+-  So, once you run the [__init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/__init__.py) it will ask you to enter text.  
 - It will produce output as text and audio accordingly.
 - You no need to run script again and again, it will keep asking you to enter next queries. If you want to stop, just close the script.
 
@@ -62,7 +62,7 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
 	Lets understand the projects structure first-
 
 	```
-	jarvis_ai:.
+	JarvisAI:.
 	├───configs
 	├───features
 	│   ├───setup
@@ -74,9 +74,9 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
 	4.1. **All these above things are folders. Lets understand-**
 	
 	
-	 - **jarvis_ai:** 	Root folder containing all the files
+	 - **JarvisAI:** 	Root folder containing all the files
 	 - **configs:** It contain .py files, just a configuration files. Which may need by any script. We will talk about it later.
-	 - **features:** All the features supported by jarvis_ai. This 'features' folder contains the different modules, you can create your own modules. Example of modules- "weather", "setup". These are the two folders inside 'features' directory.
+	 - **features:** All the features supported by JarvisAI. This 'features' folder contains the different modules, you can create your own modules. Example of modules- "weather", "setup". These are the two folders inside 'features' directory.
 	 - **action.py:** Perform action according to input. It call exact module / function according to user input. If user input matches in `jarvis_features_config.py` file then it call respected function.
 	 - **jarvis.py:** Main file to get input from user, call action file and perform action accordingly then show output to user.
 	
@@ -125,18 +125,18 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
 
 	- **4.3.4. Integrate your module to Jarvis AI-**
 		- Remember? We have configs folder.
-		   We have 'jarvis_ai\configs\jarvis_features_config.py' this python file. It contains data releated to run modules.
+		   We have 'JarvisAI\configs\jarvis_features_config.py' this python file. It contains data releated to run modules.
 		 - Format of this Json file-
 			```
 			jarvis_features_config = [  
 				{  
 				  "regex": "weather|temperature|wind|clouds|rainy",  
-				  "import": "jarvis_ai.features.weather.weather",  
+				  "import": "JarvisAI.features.weather.weather",  
 				  "function_name": "weather_app"  
 				},  
 				{  
 				  "regex": "setup|set up",  
-				  "import": "jarvis_ai.features.setup.user_setup",  
+				  "import": "JarvisAI.features.setup.user_setup",  
 				  "function_name": "setup_mode"  
 				},
 			]
@@ -148,21 +148,21 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
 				},
 				{  
 				  "regex": "tell me date|date|today is what day",  
-				  "import": "jarvis_ai.features.date_time.jarvis_date_time",  
+				  "import": "JarvisAI.features.date_time.jarvis_date_time",  
 				  "function_name": "tell_me_date"  
 				},  
 				{  
 				  "regex": "time",  
-				  "import": "jarvis_ai.features.date_time.jarvis_date_time",  
+				  "import": "JarvisAI.features.date_time.jarvis_date_time",  
 				  "function_name": "tell_me_time"  
 				}
 			]	
 		
 		- **regex:** you can put all the possible match pattern which user can aks. Multilple patterns can be seperated by `|` operator. Check existing regex pattern in dictionary before adding your regex. In this case `tell me date|date|today is what day`
-		- **import:** you need to put your module's path. In this case- `jarvis_ai.features.date_time.jarvis_date_time`
+		- **import:** you need to put your module's path. In this case- `JarvisAI.features.date_time.jarvis_date_time`
 		- **function_name:** your function name according to your script file. In this case `tell_me_date` and `tell_me_time`
 		- Now, if you added any library in the project (Example- Pandas) then make sure to add it in `requirements.txt`. And also add to `setup.py`  `install_requires=['pandas']` .
-		- Now one last thing, change mode='pro' to mode='dev' in [jarvis.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis_ai/jarvis.py) and [_ _init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/jarvis_ai/jarvis_ai/__init__.py). This is because you may need to run this in local machine. Otherwise you will get an error. Make sure to change it back to 'pro' before pushing.
+		- Now one last thing, change mode='pro' to mode='dev' in [jarvis.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/jarvis.py) and [_ _init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/__init__.py). This is because you may need to run this in local machine. Otherwise you will get an error. Make sure to change it back to 'pro' before pushing.
 		- Now run `__init__.py` to check it on local.
 		
 4.4. **That's it, if you applied all the things as per as guidelines then now just run jarvis.py it should works fine.**
@@ -186,7 +186,7 @@ Ans: Existing code.
 Ans: You will definetly get credit for your contribution.
 
 5. Note-
-Ans: Once you created your module, test it with different environment (windows / linux). Make sure the quality of code because your features will get added to the Jarvis_AI and publish as PyPi project.
+Ans: Once you created your module, test it with different environment (windows / linux). Make sure the quality of code because your features will get added to the JarvisAI and publish as PyPi project.
 
 6. Help / Contact?
 Ans. Contact me on any of my social media or Email.
