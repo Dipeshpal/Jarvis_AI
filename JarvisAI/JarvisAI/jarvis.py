@@ -4,18 +4,16 @@ import speech_recognition as sr
 import os
 
 
-mode = 'pro'  # dev or pro
-
-if mode != 'dev':
-    from . import action
-if mode != 'pro':
-    import action
-
-
 class Jarvis:
-    def __init__(self, jarvis_features_config, user_config):
-        self.jarvis_features_config = jarvis_features_config
-        self.user_config = user_config
+    def __init__(self, features_config, user_name="Sir",
+                 country='India', city='Pune', age=0):
+        self.features_config = features_config
+        self.user_config = {
+            'user_name': user_name,
+            'country': country,
+            'city': city,
+            'age': age
+        }
 
     def txt2speech(self, mytext):
         try:
@@ -30,7 +28,6 @@ class Jarvis:
             myobj.save("tmp.mp3")
             playsound("tmp.mp3")
             os.remove("tmp.mp3")
-
 
     def mic_input(self):
         r = sr.Recognizer()
@@ -60,24 +57,39 @@ class Jarvis:
             inp = self.mic_input()
         if inp_src == "txt":
             inp = self.txt_input()
+        inp = inp.lower()
         return inp
 
     def check_input(self, inp_txt):
         output = "Output from Jarvis"
         self.txt2speech(output)
 
+    def update_user_config(self, user_name, country, city, age):
+        self.user_config = {
+            'user_name': user_name,
+            'country': country,
+            'city': city,
+            'age': age
+        }
 
-def start(jarvis_features_config, user_config):
-    inp_src = "txt"  # mic / txt
 
-    jarvis_obj = Jarvis(jarvis_features_config, user_config)
-    action_obj = action.Action(jarvis_features_config, user_config)
+def start(features_config, action, models, MIC_MODE, DEV_MODE):
+    if MIC_MODE:
+        inp_src = 'mic'
+    else:
+        inp_src = 'txt'
+
+    jarvis_obj = Jarvis(features_config)
+    action_obj = action.Action()
     while True:
         inp = jarvis_obj.get_user_input(inp_src)
-        output = action_obj.take_action(inp, user_config)
+        data = {
+            'user_input': inp,
+            'features_config': jarvis_obj.features_config,
+            'user_config': jarvis_obj.user_config,
+            'DEV_MODE': DEV_MODE,
+            'jarvis_obj': jarvis_obj
+        }
+        output = action_obj.take_action(data, models)
         print(output)
         jarvis_obj.txt2speech(output)
-
-
-if __name__ == '__main__':
-    start()

@@ -1,9 +1,5 @@
 import requests
 import string
-import spacy
-import json
-
-nlp = spacy.load('en_core_web_lg')
 
 
 def get_temperature(json_data):
@@ -44,7 +40,9 @@ def main_weather(city):
     return weather_details
 
 
-def weather_app(inp):
+def weather_app(data, models):
+    inp = data['user_input']
+    nlp = models['spacy_nlp']
     inp = string.capwords(inp)  # capitalize first letter of each word
     doc = nlp(f'u{inp}')  # doc is a simple string
 
@@ -54,13 +52,8 @@ def weather_app(inp):
             weather_res = main_weather(city)
             return weather_res
         else:
-            with open("configs/user_config.json", "r") as json_file:
-                json_user_config = json.load(json_file)
-            city = json_user_config["city"]
+            user_config = data['user_config']
+            city = user_config["city"]
             weather_res = main_weather(city)
             return weather_res
 
-
-if __name__ == '__main__':
-    weather_details = weather_app("Temperature in Indore")
-    print(weather_details)

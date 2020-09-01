@@ -6,14 +6,21 @@ import datetime
 # inp is the input from the user (query ask by user)
 # you can use this inp inside the function. LOL, because you may need user input
 # Function should return something because this is the output we want to show user
-def tell_me_date(inp=None):
+def tell_me_date(data=None, model=None):
+    # inp = inp_and_userconfig['inp']  # user input as string
+    # user_config = inp_and_userconfig['user_config']  # user_config as dict
+    # user_config = {
+    #     "name": "Sir",
+    #     "age": 22,
+    #     "city": "Indore"
+    # }
     # inp (do something if you want to do with inp)
     date = datetime.datetime.now().strftime("%b %d %Y")
     # the return format should be string or integer only
     return date
 
 
-def tell_me_time(inp=None):
+def tell_me_time(data=None, model=None):
     time = datetime.datetime.now().strftime("%H:%M")
     # the return format should be string or integer only
     return time

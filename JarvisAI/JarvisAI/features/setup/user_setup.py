@@ -1,26 +1,22 @@
-import json
+import string
 
 
-def setup_mode(inp=None):
+def setup_mode(data=None, model=None):
     print("You are in Setup mode, let's setup few things")
-    name = input("Enter your name: ")
-
+    user_name = input("Enter your name: ")
+    country = input("Enter your country: ")
+    country = string.capwords(country)
     not_int = False
     while not not_int:
         try:
             age = int(input("Enter your age: "))
             not_int = True
         except Exception as e:
+            age = 0
             print("Enter only numbers")
 
     city = input("Enter your city: ")
-
-    dict_config = {
-        "name": name,
-        "age": age,
-        "city": city
-    }
-
-    with open('configs/user_config.json', 'w') as json_file:
-        json.dump(dict_config, json_file, indent=4)
+    city = string.capwords(city)
+    data['jarvis_obj'].update_user_config(user_name, country, city, age)
+    print("New Configurations- \n", data['jarvis_obj'].user_config)
     return "Setup Completed"

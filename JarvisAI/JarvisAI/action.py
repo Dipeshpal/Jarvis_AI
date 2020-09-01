@@ -3,26 +3,20 @@ import importlib
 
 
 class Action:
-    """
-    Class to take action according to user input
-    """
-    def __init__(self, jarvis_features_config, user_config):
-        self.jarvis_features_config = jarvis_features_config
-        self.user_config = user_config
+    def __init__(self):
+        pass
 
-    def take_action(self, inp, user_config):
-        inp = inp.lower()
-        for i in self.jarvis_features_config:
+    def take_action(self, data, models):
+        features_config = data['features_config']
+        for i in features_config:
             regex_exp = i["regex"]
             import_statement = i["import"]
             function_name = i["function_name"]
 
-            if re.search(regex_exp, inp):
-                mymodule = importlib.import_module(import_statement)
-                response = getattr(mymodule, function_name)(inp)
+            if re.search(regex_exp, data['user_input']):
+                if data['DEV_MODE']:
+                    mymodule = importlib.import_module(import_statement)
+                else:
+                    mymodule = importlib.import_module('JarvisAI.' + import_statement)
+                response = getattr(mymodule, function_name)(data, models)
                 return response
-
-
-if __name__ == '__main__':
-    obj = Action()
-    obj.take_action("pass")
