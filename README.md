@@ -35,6 +35,9 @@ To contribute in project: Python is the only prerequisite for basic scripting, M
 		We are using NLP here to understand human inputs. So there may be lots of possibilities to say one command.
 	 - *Example:* What is the weather? / What is temerature? What is temperature in `your city`? etc.
 
+3. **Ask time and date-**
+	- *Example:* tell me time, tell me date/
+		 
 	**Working on new features like chatbot, notes, reminder, perform task, show photos from PC etc**
 
 
