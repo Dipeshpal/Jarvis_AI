@@ -1,8 +1,15 @@
 from gtts import gTTS
 from playsound import playsound
 import speech_recognition as sr
-from . import action
 import os
+
+
+mode = 'pro'  # dev or pro
+
+if mode != 'dev':
+    from . import action
+if mode != 'pro':
+    import action
 
 
 class Jarvis:
@@ -11,10 +18,19 @@ class Jarvis:
         self.user_config = user_config
 
     def txt2speech(self, mytext):
-        myobj = gTTS(text=mytext, lang='en', slow=False)
-        myobj.save("tmp.mp3")
-        playsound("tmp.mp3")
-        os.remove("tmp.mp3")
+        try:
+            myobj = gTTS(text=mytext, lang='en', slow=False)
+            myobj.save("tmp.mp3")
+            playsound("tmp.mp3")
+            os.remove("tmp.mp3")
+        except Exception:
+            mytext = "Sorry I couldn't understand, or not implemented to handle this input"
+            print(mytext)
+            myobj = gTTS(text=mytext, lang='en', slow=False)
+            myobj.save("tmp.mp3")
+            playsound("tmp.mp3")
+            os.remove("tmp.mp3")
+
 
     def mic_input(self):
         r = sr.Recognizer()
