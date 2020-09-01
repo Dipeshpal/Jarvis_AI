@@ -1,13 +1,14 @@
 from gtts import gTTS
 from playsound import playsound
 import speech_recognition as sr
-import action
+from . import action
 import os
 
 
 class Jarvis:
-    def __init__(self):
-        pass
+    def __init__(self, jarvis_features_config, user_config):
+        self.jarvis_features_config = jarvis_features_config
+        self.user_config = user_config
 
     def txt2speech(self, mytext):
         myobj = gTTS(text=mytext, lang='en', slow=False)
@@ -50,13 +51,17 @@ class Jarvis:
         self.txt2speech(output)
 
 
-if __name__ == '__main__':
+def start(jarvis_features_config, user_config):
     inp_src = "txt"  # mic / txt
 
-    jarvis_obj = Jarvis()
-    action_obj = action.Action()
+    jarvis_obj = Jarvis(jarvis_features_config, user_config)
+    action_obj = action.Action(jarvis_features_config, user_config)
     while True:
         inp = jarvis_obj.get_user_input(inp_src)
         output = action_obj.take_action(inp)
         print(output)
         jarvis_obj.txt2speech(output)
+
+
+if __name__ == '__main__':
+    start()

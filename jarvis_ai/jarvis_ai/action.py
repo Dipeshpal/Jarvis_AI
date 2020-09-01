@@ -1,4 +1,3 @@
-import json
 import re
 import importlib
 
@@ -7,11 +6,12 @@ class Action:
     """
     Class to take action according to user input
     """
-    def take_action(self, inp):
-        with open("configs/jarvis_features_config.json", "r") as json_file:
-            json_dict_features_data = json.load(json_file)
+    def __init__(self, jarvis_features_config, user_config):
+        self.jarvis_features_config = jarvis_features_config
+        self.user_config = user_config
 
-        for i in json_dict_features_data:
+    def take_action(self, inp):
+        for i in self.jarvis_features_config:
             regex_exp = i["regex"]
             import_statement = i["import"]
             function_name = i["function_name"]

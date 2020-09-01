@@ -1,4 +1,4 @@
-# imports
+# import statements
 import datetime
 
 
@@ -9,13 +9,13 @@ import datetime
 def tell_me_date(inp=None):
     # inp (do something if you want to do with inp)
     date = datetime.datetime.now().strftime("%b %d %Y")
-
-    # the return format should be string only
+    # the return format should be string or integer only
     return date
 
 
 def tell_me_time(inp=None):
     time = datetime.datetime.now().strftime("%H:%M")
+    # the return format should be string or integer only
     return time
 
 
