@@ -1,4 +1,4 @@
-DEV_MODE = True
+DEV_MODE = False
 MIC_MODE = False
 
 if DEV_MODE:
