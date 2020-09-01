@@ -74,7 +74,7 @@ def start(jarvis_features_config, user_config):
     action_obj = action.Action(jarvis_features_config, user_config)
     while True:
         inp = jarvis_obj.get_user_input(inp_src)
-        output = action_obj.take_action(inp)
+        output = action_obj.take_action(inp, user_config)
         print(output)
         jarvis_obj.txt2speech(output)
 

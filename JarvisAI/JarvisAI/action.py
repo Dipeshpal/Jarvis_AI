@@ -10,7 +10,8 @@ class Action:
         self.jarvis_features_config = jarvis_features_config
         self.user_config = user_config
 
-    def take_action(self, inp):
+    def take_action(self, inp, user_config):
+        inp = inp.lower()
         for i in self.jarvis_features_config:
             regex_exp = i["regex"]
             import_statement = i["import"]
