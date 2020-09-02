@@ -24,6 +24,16 @@ jarvis_features_config = [
     "regex": "about|about me",
     "import": "features.about_me.about_me",
     "function_name": "about_me"
+  },
+  {
+    "regex": "open|open website|website",
+    "import": "features.open_website.open_website",
+    "function_name": "website_opener"
+  },
+  {
+    "regex": "mail|send mail|email",
+    "import": "features.email_send.email_send",
+    "function_name": "send_mail"
   }
 
 ]

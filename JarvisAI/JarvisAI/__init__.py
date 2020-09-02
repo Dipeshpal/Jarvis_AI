@@ -25,6 +25,15 @@ except Exception as e:
     os.system('python -m spacy download en_core_web_lg')
     print("Model has been downloaded successfully, please restart JarvisAI")
 
+try:
+    import pyaudio
+except Exception as e:
+    try:
+        os.system("pipwin install pyaudio")
+    except Exception as e:
+        print("Exception occur ", e)
+        print("Go through docs or install requirements manually")
+
 
 # ML Models
 models = {

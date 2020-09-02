@@ -6,13 +6,14 @@ import os
 
 class Jarvis:
     def __init__(self, features_config, user_name="Sir",
-                 country='India', city='Pune', age=0):
+                 country='India', city='Pune', age=0, email=None):
         self.features_config = features_config
         self.user_config = {
             'user_name': user_name,
             'country': country,
             'city': city,
-            'age': age
+            'age': age,
+            'email': email,
         }
 
     def txt2speech(self, mytext):
@@ -64,12 +65,13 @@ class Jarvis:
         output = "Output from Jarvis"
         self.txt2speech(output)
 
-    def update_user_config(self, user_name, country, city, age):
+    def update_user_config(self, user_name, country, city, age, email):
         self.user_config = {
             'user_name': user_name,
             'country': country,
             'city': city,
-            'age': age
+            'age': age,
+            'email': email
         }
 
 
@@ -82,14 +84,17 @@ def start(features_config, action, models, MIC_MODE, DEV_MODE):
     jarvis_obj = Jarvis(features_config)
     action_obj = action.Action()
     while True:
-        inp = jarvis_obj.get_user_input(inp_src)
-        data = {
-            'user_input': inp,
-            'features_config': jarvis_obj.features_config,
-            'user_config': jarvis_obj.user_config,
-            'DEV_MODE': DEV_MODE,
-            'jarvis_obj': jarvis_obj
-        }
-        output = action_obj.take_action(data, models)
-        print(output)
-        jarvis_obj.txt2speech(output)
+        try:
+            inp = jarvis_obj.get_user_input(inp_src)
+            data = {
+                'user_input': inp,
+                'features_config': jarvis_obj.features_config,
+                'user_config': jarvis_obj.user_config,
+                'DEV_MODE': DEV_MODE,
+                'jarvis_obj': jarvis_obj
+            }
+            output = action_obj.take_action(data, models)
+            print(output)
+            jarvis_obj.txt2speech(output)
+        except Exception as e:
+            print("Exception occur, please report to solve your issue. \n Exception- \n ", e)

@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="JarvisAI",
-    version="0.0.7",
+    version="0.0.9",
     author="Dipesh",
     author_email="dipeshpal17@gmail.com",
     description="JarvisAI is AI python library",
@@ -17,7 +17,7 @@ setuptools.setup(
     include_package_data=True,
     packages=find_namespace_packages(include=['JarvisAI.*', 'JarvisAI']),
     install_requires=['numpy', 'gtts', 'playsound', 'SpeechRecognition',
-                      'spacy'],
+                      'spacy', 'pipwin', 'smtplib'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

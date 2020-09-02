@@ -55,6 +55,13 @@ It will start automatically, you will asked to enter text (input).
 	 Basic details about the user. The details according to setup configuration.
 	 - **Example:** about me / about / what do you know about me.
 	 
+5. **Send Mail-**
+	Send Email to other. Only Gmail support for now.
+	- **Example:** send mail / mail / email / send email.
+
+6. **Open any website-**
+	- **Example:** open facebook.com / open amazon.in	
+	
 	**Working on new features like chatbot, notes, reminder, perform task, show photos from PC etc**
 
 

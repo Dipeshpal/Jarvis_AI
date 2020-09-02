@@ -3,3 +3,5 @@ gtts
 playsound
 SpeechRecognition
 spacy
+pipwin
+smtplib
