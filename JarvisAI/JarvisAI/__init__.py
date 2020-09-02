@@ -1,5 +1,5 @@
 DEV_MODE = False
-MIC_MODE = False
+MIC_MODE = True
 
 if DEV_MODE:
     import configs

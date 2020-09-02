@@ -30,21 +30,21 @@ class Jarvis:
             playsound("tmp.mp3")
             os.remove("tmp.mp3")
 
-    def mic_input(self):
+    def voice_to_text(self):
         r = sr.Recognizer()
         with sr.Microphone() as source:
-            print("Say something!")
-            self.txt2speech("Say Something!")
+            print('Say something...')
+            self.txt2speech('Say something...')
+            r.pause_threshold = 1
+            r.adjust_for_ambient_noise(source, duration=1)
             audio = r.listen(source)
         try:
-            print("You: ", r.recognize_google(audio))
-            return r.recognize_google(audio)
+            command = r.recognize_google(audio).lower()
+            print('You said: ' + command + '\n')
         except sr.UnknownValueError:
-            self.txt2speech("Sorry I couldn't understand, please try again")
-            # print("Google Speech Recognition could not understand audio")
-        except sr.RequestError as e:
-            self.txt2speech("Sorry I couldn't understand, please try again")
-            # print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            print('....')
+            command = self.voice_to_text()
+        return command
 
     def txt_input(self):
         inp = input("Enter Anything: " or "Nothing")
@@ -55,7 +55,7 @@ class Jarvis:
 
     def get_user_input(self, inp_src):
         if inp_src == "mic":
-            inp = self.mic_input()
+            inp = self.voice_to_text()
         if inp_src == "txt":
             inp = self.txt_input()
         inp = inp.lower()

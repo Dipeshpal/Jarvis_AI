@@ -38,7 +38,7 @@ After installing the library you can import the module-
 `import JarvisAI`
 It will start automatically, you will asked to enter text (input).
 
-#### Commands-
+#### Commands and features-
 
 1. **Setup Jarvis Ai-**
 	Setup basic details about user which [Jarvis](https://github.com/Dipeshpal/Jarvis_AI) will use to provide results to user.
@@ -62,6 +62,8 @@ It will start automatically, you will asked to enter text (input).
 6. **Open any website-**
 	- **Example:** open facebook.com / open amazon.in	
 	
+7. **Input from Voice-** No command needed, with latest version `0.1.0` we have added voice input. May not work on Linux or Mac, they can use version `0.0.7` but this version doesn't have much features.
+
 	**Working on new features like chatbot, notes, reminder, perform task, show photos from PC etc**
 
 
