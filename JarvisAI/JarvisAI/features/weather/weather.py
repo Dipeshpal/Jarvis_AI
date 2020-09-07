@@ -1,5 +1,4 @@
 import requests
-import string
 
 
 def get_temperature(json_data):
@@ -40,20 +39,6 @@ def main_weather(city):
     return weather_details
 
 
-def weather_app(data, models):
-    inp = data['user_input']
-    nlp = models['spacy_nlp']
-    inp = string.capwords(inp)  # capitalize first letter of each word
-    doc = nlp(f'u{inp}')  # doc is a simple string
-
-    for ent in doc.ents:  # analyse the text
-        if ent.label_ == "GPE":  # check if label is city
-            city = ent.text
-            weather_res = main_weather(city)
-            return weather_res
-        else:
-            user_config = data['user_config']
-            city = user_config["city"]
-            weather_res = main_weather(city)
-            return weather_res
-
+def weather_app(city):
+    weather_res = main_weather(city)
+    return weather_res

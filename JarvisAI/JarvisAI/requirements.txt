@@ -1,6 +1,7 @@
-numpy
 gtts
 playsound
 SpeechRecognition
-spacy
 pipwin
+lxml
+beautifulsoup4
+wikipedia
