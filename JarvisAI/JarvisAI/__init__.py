@@ -24,7 +24,7 @@ try:
     import features.send_mail.send_mail
     import features.date_time.date_time
     import features.launch_app.launch_app
-    import features.news.news as news_
+    import features.news.news as nw
     import features.tell_me_about.tell_me_about as tma
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
@@ -32,7 +32,7 @@ except Exception as e:
     from JarvisAI.features.send_mail import send_mail
     from JarvisAI.features.date_time import date_time
     from JarvisAI.features.launch_app import launch_app
-    from JarvisAI.features.news import news
+    from JarvisAI.features.news import news as nw
     from JarvisAI.features.tell_me_about import tell_me_about as tma
 
 
@@ -157,7 +157,7 @@ class JarvisAssistant:
         Fetch top news of the day from news.google.com/news/rss
         :return: news list of string if True, False if fail
         """
-        return news_.news()
+        return nw.news()
 
     def tell_me(self, topic='tell me about Taj Mahal'):
         """
