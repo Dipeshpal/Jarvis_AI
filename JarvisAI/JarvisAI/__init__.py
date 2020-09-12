@@ -3,7 +3,6 @@ import os
 from gtts import gTTS
 from playsound import playsound
 import sys
-import string
 
 try:
     import pyaudio
@@ -18,7 +17,6 @@ except Exception as e:
             print("Install pyaudio manually")
         import pyaudio
 
-
 # import custom features
 try:
     import features.weather.weather as wea
@@ -26,8 +24,8 @@ try:
     import features.send_mail.send_mail
     import features.date_time.date_time
     import features.launch_app.launch_app
-    import features.news.news
-    import features.tell_me_about.tell_me_about
+    import features.news.news as news_
+    import features.tell_me_about.tell_me_about as tma
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -35,7 +33,7 @@ except Exception as e:
     from JarvisAI.features.date_time import date_time
     from JarvisAI.features.launch_app import launch_app
     from JarvisAI.features.news import news
-    from JarvisAI.features.tell_me_about import tell_me_about
+    from JarvisAI.features.tell_me_about import tell_me_about as tma
 
 
 class JarvisAssistant:
@@ -159,7 +157,7 @@ class JarvisAssistant:
         Fetch top news of the day from news.google.com/news/rss
         :return: news list of string if True, False if fail
         """
-        return news.news()
+        return news_.news()
 
     def tell_me(self, topic='tell me about Taj Mahal'):
         """
@@ -167,7 +165,7 @@ class JarvisAssistant:
         :param topic: any string is valid options
         :return: First 500 character from wikipedia if True, False if fail
         """
-        tell_me_about.tell_me(topic)
+        return tma.tell_me_about(topic)
 
 
 if __name__ == '__main__':
@@ -177,11 +175,12 @@ if __name__ == '__main__':
     # res = obj.website_opener("facebook.com")
     # res = obj.send_mail()
     # res = obj.launch_app("edge")
-    res = obj.weather("mumbai")
-    # res = obj.news()
+    # res = obj.weather("mumbai")
+    res = obj.news()
     # res = obj.tell_me()
     # res = obj.tell_me_time()
     # res = obj.tell_me_date()
     # res = obj.shutdown()
     print(res)
-
+    # obj.text2speech(res[0])
+    # obj.text2speech(res[1])
