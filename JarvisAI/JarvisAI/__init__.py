@@ -26,6 +26,9 @@ try:
     import features.launch_app.launch_app
     import features.news.news as nw
     import features.tell_me_about.tell_me_about as tma
+    import features.face_recognition.dataset_create as dc
+    import features.face_recognition.train as train
+    import features.face_recognition.predict as predict
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -34,6 +37,9 @@ except Exception as e:
     from JarvisAI.features.launch_app import launch_app
     from JarvisAI.features.news import news as nw
     from JarvisAI.features.tell_me_about import tell_me_about as tma
+    from JarvisAI.features.face_recognition import dataset_create as dc
+    from JarvisAI.features.face_recognition import train as train
+    from JarvisAI.features.face_recognition import predict as predict
 
 
 class JarvisAssistant:
@@ -167,6 +173,69 @@ class JarvisAssistant:
         """
         return tma.tell_me_about(topic)
 
+    def datasetcreate(self, dataset_path='datasets', class_name='Demo',
+                      haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
+                      eyecascade_path='haarcascade/haarcascade_eye.xml', eye_detect=False,
+                      save_face_only=True, no_of_samples=100,
+                      width=128, height=128, color_mode=False):
+        """
+        Dataset Create by face detection
+        :param dataset_path: str (example: 'folder_of_dataset')
+        :param class_name: str (example: 'folder_of_dataset')
+        :param haarcascade_path: str (example: 'haarcascade_frontalface_default.xml)
+        :param eyecascade_path: str (example: 'haarcascade_eye.xml)
+        :param eye_detect: bool (example:True)
+        :param save_face_only: bool (example:True)
+        :param no_of_samples: int (example: 100)
+        :param width: int (example: 128)
+        :param height: int (example: 128)
+        :param color_mode: bool (example:False)
+        :return: None
+        """
+        obj = dc.DatasetCreate(dataset_path=dataset_path, class_name=class_name,
+                               haarcascade_path=haarcascade_path,
+                               eyecascade_path=eyecascade_path, eye_detect=eye_detect,
+                               save_face_only=save_face_only, no_of_samples=no_of_samples,
+                               width=width, height=height, color_mode=color_mode)
+        obj.create()
+
+    def face_recognition_train(self, data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,
+                               model_path='model'):
+        """
+        Train TF Keras model according to dataset path
+        :param data_dir: str (example: 'folder_of_dataset')
+        :param batch_size: int (example:32)
+        :param img_height: int (example:128)
+        :param img_width: int (example:128)
+        :param epochs: int (example:10)
+        :param model_path: str (example: 'model')
+        :return: None
+        """
+        obj = train.Classifier(data_dir=data_dir, batch_size=batch_size, img_height=img_height,
+                               img_width=img_width, epochs=epochs, model_path=model_path)
+        obj.start()
+
+    def predict_faces(self, class_name=None, img_height=128, img_width=128,
+                      haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
+                      eyecascade_path='haarcascade/haarcascade_eye.xml', model_path='model',
+                      color_mode=False):
+        """
+        Predict Face
+        :param class_name: Type-List (example: ['class1', 'class2'] )
+        :param img_height: int (example:128)
+        :param img_width: int (example:128)
+        :param haarcascade_path: str (example: 'haarcascade_frontalface_default.xml)
+        :param eyecascade_path: str (example: 'haarcascade_eye.xml)
+        :param model_path: str (example: 'model')
+        :param color_mode: bool (example: False)
+        :return: None
+        """
+        obj = predict.Predict(class_name=class_name, img_height=img_height, img_width=img_width,
+                              haarcascade_path=haarcascade_path,
+                              eyecascade_path=eyecascade_path, model_path=model_path,
+                              color_mode=color_mode)
+        obj.cap_and_predict()
+
 
 if __name__ == '__main__':
     obj = JarvisAssistant()
@@ -176,11 +245,12 @@ if __name__ == '__main__':
     # res = obj.send_mail()
     # res = obj.launch_app("edge")
     # res = obj.weather("mumbai")
-    res = obj.news()
+    # res = obj.news()
     # res = obj.tell_me()
     # res = obj.tell_me_time()
     # res = obj.tell_me_date()
     # res = obj.shutdown()
-    print(res)
+    # print(res)
     # obj.text2speech(res[0])
     # obj.text2speech(res[1])
+    obj.datasetcreate()
