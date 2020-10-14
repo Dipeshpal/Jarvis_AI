@@ -1,6 +1,6 @@
 # JarvisAI
 
-***Last Upadted: 02 September, 2020***
+***Last Upadted: 14 October, 2020***
 
  1. What is Jarvis Ai?
  2. Prerequisite
@@ -42,10 +42,12 @@ response = obj.mic_input()
 print(response)
 ```
 
+**Check this script for more examples-**
+https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main.py
 
 #### Commands and features-
 
-The functionality is cleared by methods name.  You can check the code for example.
+The functionality is cleared by methods name.  You can check the code for example. These are the names of available functions you can use after creating JarvisAI's object-
 
 1. mic_input
 2. text2speech
@@ -58,6 +60,9 @@ The functionality is cleared by methods name.  You can check the code for exampl
 9. weather
 10. news 
 11. tell_me
+12. datasetcreate (It will create face dataset)
+13. face_recognition_train (It will train the TF Keras Model based on CNN)
+14. predict_faces (Predict real-time faces)
 
 
 ## 4. How to contribute?
