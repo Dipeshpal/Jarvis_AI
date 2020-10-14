@@ -29,6 +29,7 @@ try:
     import features.face_recognition.dataset_create as dc
     import features.face_recognition.train as train
     import features.face_recognition.predict as predict
+    import features.face_recognition.face_reco as fr
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -40,6 +41,7 @@ except Exception as e:
     from JarvisAI.features.face_recognition import dataset_create as dc
     from JarvisAI.features.face_recognition import train as train
     from JarvisAI.features.face_recognition import predict as predict
+    from JarvisAI.features.face_recognition import face_reco as fr
 
 
 class JarvisAssistant:
@@ -192,12 +194,13 @@ class JarvisAssistant:
         :param color_mode: bool (example:False)
         :return: None
         """
-        obj = dc.DatasetCreate(dataset_path=dataset_path, class_name=class_name,
+
+        obj = fr.DatasetCreate(dataset_path=dataset_path, class_name=class_name,
                                haarcascade_path=haarcascade_path,
                                eyecascade_path=eyecascade_path, eye_detect=eye_detect,
                                save_face_only=save_face_only, no_of_samples=no_of_samples,
                                width=width, height=height, color_mode=color_mode)
-        obj.create()
+        obj.datasetcreate()
 
     def face_recognition_train(self, data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,
                                model_path='model'):
@@ -211,9 +214,9 @@ class JarvisAssistant:
         :param model_path: str (example: 'model')
         :return: None
         """
-        obj = train.Classifier(data_dir=data_dir, batch_size=batch_size, img_height=img_height,
+        obj = fr.FaceRecognizerTrain(data_dir=data_dir, batch_size=batch_size, img_height=img_height,
                                img_width=img_width, epochs=epochs, model_path=model_path)
-        obj.start()
+        obj.train()
 
     def predict_faces(self, class_name=None, img_height=128, img_width=128,
                       haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
@@ -230,11 +233,11 @@ class JarvisAssistant:
         :param color_mode: bool (example: False)
         :return: None
         """
-        obj = predict.Predict(class_name=class_name, img_height=img_height, img_width=img_width,
+        obj = fr.Predict(class_name=class_name, img_height=img_height, img_width=img_width,
                               haarcascade_path=haarcascade_path,
                               eyecascade_path=eyecascade_path, model_path=model_path,
                               color_mode=color_mode)
-        obj.cap_and_predict()
+        obj.predictfaces()
 
 
 if __name__ == '__main__':
