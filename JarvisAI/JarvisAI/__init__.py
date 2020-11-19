@@ -203,7 +203,7 @@ class JarvisAssistant:
         obj.datasetcreate()
 
     def face_recognition_train(self, data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,
-                               model_path='model'):
+                               model_path='model', pretrained=None, base_model_trainable=False):
         """
         Train TF Keras model according to dataset path
         :param data_dir: str (example: 'folder_of_dataset')
@@ -212,10 +212,13 @@ class JarvisAssistant:
         :param img_width: int (example:128)
         :param epochs: int (example:10)
         :param model_path: str (example: 'model')
+        :param pretrained: str (example: None, 'VGG16', 'ResNet50', 'InceptionV3')
+        :param base_model_trainable: bool (example: False (Enable if you want to train the pretrained model's layer))
         :return: None
         """
         obj = fr.FaceRecognizerTrain(data_dir=data_dir, batch_size=batch_size, img_height=img_height,
-                               img_width=img_width, epochs=epochs, model_path=model_path)
+                                     img_width=img_width, epochs=epochs, model_path=model_path, pretrained=pretrained,
+                                     base_model_trainable=base_model_trainable)
         obj.train()
 
     def predict_faces(self, class_name=None, img_height=128, img_width=128,
@@ -234,9 +237,9 @@ class JarvisAssistant:
         :return: None
         """
         obj = fr.Predict(class_name=class_name, img_height=img_height, img_width=img_width,
-                              haarcascade_path=haarcascade_path,
-                              eyecascade_path=eyecascade_path, model_path=model_path,
-                              color_mode=color_mode)
+                         haarcascade_path=haarcascade_path,
+                         eyecascade_path=eyecascade_path, model_path=model_path,
+                         color_mode=color_mode)
         obj.predictfaces()
 
 

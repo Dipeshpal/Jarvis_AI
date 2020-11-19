@@ -3,7 +3,6 @@ import pathlib
 import glob
 import os
 
-
 obj = auto_face_recognition.AutoFaceRecognition()
 
 
@@ -26,15 +25,15 @@ class DatasetCreate:
 
     def datasetcreate(self):
         obj.datasetcreate(dataset_path=self.dataset_path, class_name=self.class_name,
-                           haarcascade_path=self.haarcascade_path,
-                           eyecascade_path=self.eyecascade_path, eye_detect=self.eye_detect,
-                           save_face_only=self.save_face_only, no_of_samples=self.no_of_samples,
-                           width=self.width, height=self.height, color_mode=self.color_mode)
+                          haarcascade_path=self.haarcascade_path,
+                          eyecascade_path=self.eyecascade_path, eye_detect=self.eye_detect,
+                          save_face_only=self.save_face_only, no_of_samples=self.no_of_samples,
+                          width=self.width, height=self.height, color_mode=self.color_mode)
 
 
 class FaceRecognizerTrain:
     def __init__(self, data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,
-                     model_path='model'):
+                 model_path='model', pretrained=None, base_model_trainable=False):
         self.data_dir = data_dir
         self.batch_size = batch_size
         self.img_height = img_height
@@ -42,10 +41,13 @@ class FaceRecognizerTrain:
         self.class_names = None
         self.epochs = epochs
         self.model_path = model_path
+        self.pretrained = pretrained
+        self.base_model_trainable = base_model_trainable
 
     def train(self):
         obj.face_recognition_train(data_dir=self.data_dir, batch_size=self.batch_size, img_height=self.img_height,
-                           img_width=self.img_width, epochs=self.epochs, model_path=self.model_path)
+                                   img_width=self.img_width, epochs=self.epochs, model_path=self.model_path,
+                                   pretrained=self.pretrained, base_model_trainable=self.base_model_trainable)
 
 
 class Predict:
@@ -64,6 +66,6 @@ class Predict:
 
     def predictfaces(self):
         obj.predict_faces(class_name=self.class_name, img_height=self.img_height, img_width=self.img_width,
-                              haarcascade_path=self.haarcascade_path,
-                              eyecascade_path=self.eyecascade_path, model_path=self.model_path,
-                              color_mode=self.color_mode)
+                          haarcascade_path=self.haarcascade_path,
+                          eyecascade_path=self.eyecascade_path, model_path=self.model_path,
+                          color_mode=self.color_mode)

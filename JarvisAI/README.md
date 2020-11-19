@@ -1,6 +1,7 @@
+
 # JarvisAI
 
-***Last Upadted: 14 October, 2020***
+***Last Upadted: 14 November, 2020***
 
  1. What is Jarvis Ai?
  2. Prerequisite
