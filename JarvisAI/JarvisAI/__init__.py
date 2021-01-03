@@ -48,7 +48,7 @@ class JarvisAssistant:
     def __init__(self):
         pass
 
-    def mic_input(self):
+    def mic_input(self,lang='en'):
         """
         Fetch input from mic
         :return: user's voice input as text if true, false if fail
@@ -61,7 +61,7 @@ class JarvisAssistant:
                 r.adjust_for_ambient_noise(source, duration=1)
                 audio = r.listen(source)
             try:
-                command = r.recognize_google(audio).lower()
+                command = r.recognize_google(audio,language=lang).lower()
                 print('You said: ' + command + '\n')
             except sr.UnknownValueError:
                 print('....')
@@ -71,14 +71,14 @@ class JarvisAssistant:
             print(e)
             return False
 
-    def text2speech(self, text):
+    def text2speech(self, text, lang='en'):
         """
         Convert any text to speech
         :param text: text (String)
         :return: True / False (Play sound if True otherwise write exception to log and return False)
         """
         try:
-            myobj = gTTS(text=text, lang='en', slow=False)
+            myobj = gTTS(text=text, lang=lang, slow=False)
             myobj.save("tmp.mp3")
             playsound("tmp.mp3")
             os.remove("tmp.mp3")
@@ -86,7 +86,7 @@ class JarvisAssistant:
         except Exception as e:
             mytext = "Sorry I couldn't understand, or not implemented to handle this input"
             print(mytext)
-            myobj = gTTS(text=mytext, lang='en', slow=False)
+            myobj = gTTS(text=mytext, lang=lang, slow=False)
             myobj.save("tmp.mp3")
             playsound("tmp.mp3")
             os.remove("tmp.mp3")
