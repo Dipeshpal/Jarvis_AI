@@ -252,9 +252,17 @@ class JarvisAssistant:
         obj.predictfaces()
 
     def show_me_my_images(self):
+        """
+        This function will show images from local directory. Make sure to run setup() first to setup local directory.
+        :return: Bool
+        """
         return my_photos.show_me_my_images()
 
     def show_google_photos(self):
+        """
+        This function will open "https://photos.google.com/" in your browser.
+        :return: Bool
+        """
         return gp.google_photos()
 
 
