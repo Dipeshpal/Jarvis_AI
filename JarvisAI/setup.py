@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="JarvisAI",
-    version="0.2.1",
+    version="0.2.2",
     author="Dipesh",
     author_email="dipeshpal17@gmail.com",
     description="JarvisAI is AI python library",
@@ -16,9 +16,9 @@ setuptools.setup(
     url="https://github.com/Dipeshpal/Jarvis_AI",
     include_package_data=True,
     packages=find_namespace_packages(include=['JarvisAI.*', 'JarvisAI']),
-    install_requires=['numpy==1.18.5', 'gtts', 'playsound', 'SpeechRecognition',
-                      'pipwin', 'lxml',
-                      'beautifulsoup4', 'wikipedia', 'pipwin', 'auto_face_recognition'],
+    install_requires=['numpy==1.18.5', 'gtts==2.2.1', 'playsound==1.2.2',
+                      'SpeechRecognition==3.8.1', 'pipwin==0.5.0', 'lxml==4.6.1',
+                      'beautifulsoup4==4.9.3', 'wikipedia==1.4.0', 'auto_face_recognition'],
 
     classifiers=[
         "Programming Language :: Python :: 3",

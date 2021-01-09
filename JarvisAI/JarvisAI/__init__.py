@@ -3,6 +3,7 @@ import os
 from gtts import gTTS
 from playsound import playsound
 import sys
+import json
 
 try:
     import pyaudio
@@ -30,6 +31,9 @@ try:
     import features.face_recognition.train as train
     import features.face_recognition.predict as predict
     import features.face_recognition.face_reco as fr
+    import features.show_me_my_images.show_me_my_images as my_photos
+    import features.setup.setup as setup_assistant
+    import features.google_photos.google_photos as gp
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -42,13 +46,18 @@ except Exception as e:
     from JarvisAI.features.face_recognition import train as train
     from JarvisAI.features.face_recognition import predict as predict
     from JarvisAI.features.face_recognition import face_reco as fr
-
+    from JarvisAI.features.show_me_my_images import show_me_my_images as my_photos
+    from JarvisAI.features.setup import setup as setup_assistant
+    from JarvisAI.features.google_photos import google_photos as gp
 
 class JarvisAssistant:
     def __init__(self):
         pass
 
-    def mic_input(self,lang='en'):
+    def setup(self):
+        return setup_assistant.setup()
+
+    def mic_input(self, lang='en'):
         """
         Fetch input from mic
         :return: user's voice input as text if true, false if fail
@@ -61,7 +70,7 @@ class JarvisAssistant:
                 r.adjust_for_ambient_noise(source, duration=1)
                 audio = r.listen(source)
             try:
-                command = r.recognize_google(audio,language=lang).lower()
+                command = r.recognize_google(audio, language=lang).lower()
                 print('You said: ' + command + '\n')
             except sr.UnknownValueError:
                 print('....')
@@ -242,10 +251,17 @@ class JarvisAssistant:
                          color_mode=color_mode)
         obj.predictfaces()
 
+    def show_me_my_images(self):
+        return my_photos.show_me_my_images()
+
+    def show_google_photos(self):
+        return gp.google_photos()
+
 
 if __name__ == '__main__':
     obj = JarvisAssistant()
-    # res = obj.mic_input()
+    print(obj.show_me_my_images())
+    # res = obj.mic_input(lang='hi')
     # obj.text2speech("hello")
     # res = obj.website_opener("facebook.com")
     # res = obj.send_mail()
@@ -256,7 +272,4 @@ if __name__ == '__main__':
     # res = obj.tell_me_time()
     # res = obj.tell_me_date()
     # res = obj.shutdown()
-    # print(res)
-    # obj.text2speech(res[0])
-    # obj.text2speech(res[1])
-    obj.datasetcreate()
+    # obj.datasetcreate()

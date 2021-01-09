@@ -3,6 +3,10 @@ from bs4 import BeautifulSoup as soup
 
 
 def news():
+    """
+    This method will tells top 15 current NEWS
+    :return: list / bool
+    """
     try:
         news_url = "https://news.google.com/news/rss"
         Client = urlopen(news_url)

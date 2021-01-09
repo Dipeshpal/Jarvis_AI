@@ -1,6 +1,6 @@
 # JarvisAI
 
-***Last Upadted: 14 October, 2020***
+***Last Updated: 09 January, 2021***
 
  1. What is Jarvis Ai?
  2. Prerequisite
@@ -45,24 +45,41 @@ print(response)
 **Check this script for more examples-**
 https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main.py
 
-#### Commands and features-
+#### Available Methods-
 
 The functionality is cleared by methods name.  You can check the code for example. These are the names of available functions you can use after creating JarvisAI's object-
 
-1. mic_input
-2. text2speech
-3. shutdown
-4. website_opener
-5. send_mail
-6. tell_me_date
-7. tell_me_time
-8. launch_any_app
-9. weather
-10. news 
-11. tell_me
-12. datasetcreate (It will create face dataset)
-13. face_recognition_train (It will train the TF Keras Model based on CNN)
-14. predict_faces (Predict real-time faces)
+```
+import JarvisAI
+obj = JarvisAI.JarvisAssistant()
+response = obj.mic_input()
+```
+
+1. res = obj.mic_input(lang='en')
+2. res = obj.website_opener("facebook.com")
+3. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")
+4. res = obj.launch_app("edge")
+5. res = obj.weather(city='Mumbai')
+6. res = obj.news()
+7. res = obj.tell_me(topic='tell me about Taj Mahal')
+8. res = obj.tell_me_time()
+9. res = obj.tell_me_date()
+10. res = obj.shutdown()
+11. res = obj.text2speech(text='Hello, how are you?', lang='en')
+12. res = obj.datasetcreate(dataset_path='datasets', class_name='Demo',
+                      haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
+                      eyecascade_path='haarcascade/haarcascade_eye.xml', eye_detect=False,
+                      save_face_only=True, no_of_samples=100,
+                      width=128, height=128, color_mode=False)
+13. res = obj.face_recognition_train(data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,
+                               model_path='model', pretrained=None, base_model_trainable=False)
+14. res = obj.predict_faces(class_name=None, img_height=128, img_width=128,
+                      haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
+                      eyecascade_path='haarcascade/haarcascade_eye.xml', model_path='model',
+                      color_mode=False)
+15. res = obj.setup()
+16. res = obj.show_me_my_images()
+17. res= show_google_photos()
 
 
 ## 4. How to contribute?
@@ -185,7 +202,7 @@ Example: `import JarvisAI.tell_me_date`
 Lots of possibilities, GUI, Integrate with GPT-3, support for android, IOT, Home Automation, APIs, as pip package etc.
 
 
-## FAQs for Contributers-
+## FAQs for Contributors-
 1. What I can install?
 Ans: You can install any library you want in your module, make sure it is opensource and compatible with win/linux/mac.
 
@@ -196,7 +213,7 @@ Ans: Read the example above. And make sure your code is compatible with win/linu
 Ans: Existing code.
 
 4.  Credits-
-Ans: You will definetly get credit for your contribution.
+Ans: You will definitely get credit for your contribution.
 
 5. Note-
 Ans: Once you created your module, test it with different environment (windows / linux). Make sure the quality of code because your features will get added to the JarvisAI and publish as PyPi project.
@@ -206,5 +223,5 @@ Ans. Contact me on any of my social media or Email.
 
 ### **Let's make it big.**
 
-***Feel free to use my code, don't forget to metion credit.
-All the contributers will get credits in this repo.***
+***Feel free to use my code, don't forget to mention credit.
+All the contributors will get credits in this repo.***
