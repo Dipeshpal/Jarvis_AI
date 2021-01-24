@@ -3,6 +3,9 @@ import os
 from gtts import gTTS
 from playsound import playsound
 import sys
+import configparser
+import random
+
 
 try:
     import pyaudio
@@ -34,6 +37,7 @@ try:
     import features.setup.setup as setup_assistant
     import features.google_photos.google_photos as gp
     import features.joke.joke
+    import features.hot_word_detection.hot_word_detection as wake_word
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -50,6 +54,7 @@ except Exception as e:
     from JarvisAI.features.setup import setup as setup_assistant
     from JarvisAI.features.google_photos import google_photos as gp
     from JarvisAI.features.joke import joke
+    from JarvisAI.features.hot_word_detection import hot_word_detection as wake_word
 
 
 class JarvisAssistant:
@@ -68,15 +73,35 @@ class JarvisAssistant:
         del obj_setup
         return response
 
+    def hot_word_detect(self, lang='en'):
+        """
+        Hot word (wake word / background listen) detection
+        :param lang: str
+            default 'en'
+        :return: Bool, str
+            status, command
+        """
+        return wake_word.hot_word_detection(lang=lang)
+
     def mic_input(self, lang='en'):
         """
         Fetch input from mic
-        :return: user's voice input as text if true, false if fail
+        :param lang: str
+            default 'en'
+        :return: str/Bool
+            user's voice input as text if true/ false if fail
         """
+        config = configparser.ConfigParser()
+        config.read('config/config.ini')
+        user_name = config['default']['user_name']
+
         try:
             r = sr.Recognizer()
             with sr.Microphone() as source:
-                print('Say something...')
+                greeting = random.choice(["Hello", "Hi"])
+                msg = greeting + ' ' + user_name + ',' + ' How may I help you?'
+                print(msg)
+                self.text2speech(msg)
                 r.pause_threshold = 1
                 r.adjust_for_ambient_noise(source, duration=1)
                 audio = r.listen(source)
@@ -94,8 +119,12 @@ class JarvisAssistant:
     def text2speech(self, text, lang='en'):
         """
         Convert any text to speech
-        :param text: text (String)
-        :return: True / False (Play sound if True otherwise write exception to log and return False)
+        :param text: str
+            text (String)
+        :param lang: str
+            default 'en'
+        :return: Bool
+            True / False (Play sound if True otherwise write exception to log and return False)
         """
         try:
             myobj = gTTS(text=text, lang=lang, slow=False)
@@ -116,7 +145,8 @@ class JarvisAssistant:
     def shutdown(self):
         """
         Shutdown the Jarvis API, exit from program
-        :return: if no error then exit from program, False if Fail
+        :return: None/bool
+            if no error then exit from program, False if Fail
         """
         try:
             self.text2speech('Good bye. Have a nice day')
@@ -128,8 +158,10 @@ class JarvisAssistant:
     def website_opener(self, domain):
         """
         This will open website according to domain
-        :param domain: any domain, example "youtube.com"
-        :return: True if success, False if fail
+        :param domain: str
+            any domain, example "youtube.com"
+        :return: Bool
+            True if success, False if fail
         """
         return website_open.website_opener(domain)
 
@@ -137,41 +169,52 @@ class JarvisAssistant:
         """
         This function will send mail to user according to input params
         Currently on =ly support Gmail
-        :param sender_email: Email id of sender
-        :param sender_password: Password
-        :param receiver_email: Email id of receiver
-        :param msg: Message or mail you want to send
-        :return: True if success, False if fail
+        :param sender_email: str
+            Email id of sender
+        :param sender_password: str
+            Password
+        :param receiver_email: str
+            Email id of receiver
+        :param msg: str
+            Message or mail you want to send
+        :return: Bool
+            True if success, False if fail
         """
         return send_mail(sender_email, sender_password, receiver_email, msg)
 
     def tell_me_date(self):
         """
         Just return date as string
-        :return: date if success, False if fail
+        :return: str/Bool
+            date if success, False if fail
         """
         return date_time.date()
 
     def tell_me_time(self):
         """
         This function will return time
-        :return: Time if success, False if fail
+        :return: str/Bool
+            Time if success, False if fail
         """
         return date_time.time()
 
     def launch_any_app(self, path_of_app='C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'):
         """
         Launch any windows application according to application path
-        :param path_of_app: path of exe
-        :return: True if success and open the application, False if fail
+        :param path_of_app: str
+            path of exe
+        :return: Bool
+            True if success and open the application, False if fail
         """
         return launch_app.launch_app(path_of_app)
 
     def weather(self, city='Indore'):
         """
         Return weather
-        :param city: Any city of this world
-        :return: weather info as string if True, or False
+        :param city: str
+            Any city of this world
+        :return: str/bool
+            weather info as string if True, or False
         """
         try:
             res = wea.weather_app(city)
@@ -183,15 +226,18 @@ class JarvisAssistant:
     def news(self):
         """
         Fetch top news of the day from news.google.com/news/rss
-        :return: news list of string if True, False if fail
+        :return: list/bool
+            news list of string if True, False if fail
         """
         return nw.news()
 
     def tell_me(self, topic='tell me about Taj Mahal'):
         """
         Tells about anything from wikipedia
-        :param topic: any string is valid options
-        :return: First 500 character from wikipedia if True, False if fail
+        :param topic: str
+            any string is valid options
+        :return: list/bool
+            First 500 character from wikipedia if True, False if fail
         """
         return tma.tell_me_about(topic)
 

@@ -1,6 +1,4 @@
 import subprocess
-import getpass
-import json
 import configparser
 
 

@@ -81,7 +81,7 @@ response = obj.mic_input()
 16. res = obj.show_me_my_images()
 17. res= show_google_photos()
 18. res = tell_me_joke(language='en', category='neutral')
-
+19. res = hot_word_detect(lang='en')
 
 ## 4. How to contribute?
 
