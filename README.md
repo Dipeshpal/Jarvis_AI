@@ -1,6 +1,6 @@
 # JarvisAI
 
-***Last Updated: 09 January, 2021***
+***Last Updated: 24 January, 2021***
 
  1. What is Jarvis Ai?
  2. Prerequisite
@@ -56,7 +56,7 @@ response = obj.mic_input()
 ```
 
 1. res = obj.mic_input(lang='en')
-2. res = obj.website_opener("facebook.com")
+2. res = obj.website_opener("facebook")
 3. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")
 4. res = obj.launch_app("edge")
 5. res = obj.weather(city='Mumbai')
@@ -80,7 +80,8 @@ response = obj.mic_input()
 15. res = obj.setup()
 16. res = obj.show_me_my_images()
 17. res= show_google_photos()
-
+18. res = tell_me_joke(language='en', category='neutral')
+19. res = hot_word_detect(lang='en')
 
 ## 4. How to contribute?
 
