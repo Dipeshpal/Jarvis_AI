@@ -3,7 +3,6 @@ import os
 from gtts import gTTS
 from playsound import playsound
 import sys
-import json
 
 try:
     import pyaudio
@@ -34,6 +33,7 @@ try:
     import features.show_me_my_images.show_me_my_images as my_photos
     import features.setup.setup as setup_assistant
     import features.google_photos.google_photos as gp
+    import features.joke.joke
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -49,13 +49,24 @@ except Exception as e:
     from JarvisAI.features.show_me_my_images import show_me_my_images as my_photos
     from JarvisAI.features.setup import setup as setup_assistant
     from JarvisAI.features.google_photos import google_photos as gp
+    from JarvisAI.features.joke import joke
+
 
 class JarvisAssistant:
     def __init__(self):
         pass
 
     def setup(self):
-        return setup_assistant.setup()
+        """
+        Method to define configuration related to assistant
+        :return: Bool
+            True if setup done
+            False if setup cancel or interrupt
+        """
+        obj_setup = setup_assistant.Setup()
+        response = obj_setup.setup_assistant()
+        del obj_setup
+        return response
 
     def mic_input(self, lang='en'):
         """
@@ -265,11 +276,25 @@ class JarvisAssistant:
         """
         return gp.google_photos()
 
+    def tell_me_joke(self, language='en', category='neutral'):
+        """
+        Function to tell a joke
+        Read https://pyjok.es/api/ for more details
+        :param language: str
+            default "en"
+        :param category: str
+            default "neutral"
+        :return: str
+            "Joke:
+        """
+        return joke.tell_me_joke(lang=language, cat=category)
+
 
 if __name__ == '__main__':
     obj = JarvisAssistant()
-    print(obj.show_me_my_images())
-    # res = obj.mic_input(lang='hi')
+    # print(obj.text2speech_male())
+    res = obj.tell_me_joke()
+    print(res)
     # obj.text2speech("hello")
     # res = obj.website_opener("facebook.com")
     # res = obj.send_mail()
