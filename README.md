@@ -55,6 +55,11 @@ obj = JarvisAI.JarvisAssistant()
 response = obj.mic_input()
 ```
 
+First of all setup initial settings of the project by calling setup function.
+```
+res = obj.setup()
+```
+
 1. res = obj.mic_input(lang='en')
 2. res = obj.website_opener("facebook")
 3. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")
