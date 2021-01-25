@@ -55,7 +55,8 @@ obj = JarvisAI.JarvisAssistant()
 response = obj.mic_input()
 ```
 
-First of all setup initial settings of the project by calling setup function.
+**_Note:_** _First of all setup initial settings of the project by calling setup function._
+
 ```
 res = obj.setup()
 ```
