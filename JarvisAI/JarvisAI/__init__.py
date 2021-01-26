@@ -6,7 +6,6 @@ import sys
 import configparser
 import random
 
-
 try:
     import pyaudio
 except Exception as e:
@@ -81,7 +80,15 @@ class JarvisAssistant:
         :return: Bool, str
             status, command
         """
-        return wake_word.hot_word_detection(lang=lang)
+        try:
+            status, command = wake_word.hot_word_detection(lang=lang)
+            print(status, command)
+        except wake_word.DefaultFileNotFound as e:
+            print("Unable to locate configuraton file 'config/config.ini'. Creating NOW...")
+            self.setup()
+        except Exception as e:
+            status = command = False
+        return status, command
 
     def mic_input(self, lang='en'):
         """
@@ -231,15 +238,17 @@ class JarvisAssistant:
         """
         return nw.news()
 
-    def tell_me(self, topic='tell me about Taj Mahal'):
+    def tell_me(self, topic='India', sentences=1):
         """
-        Tells about anything from wikipedia
+        TIt tells about anything from wikipedia in summary
         :param topic: str
             any string is valid options
-        :return: list/bool
-            First 500 character from wikipedia if True, False if fail
+        :param sentences: int
+            number of sentence
+        :return: str
+            Summary of topic
         """
-        return tma.tell_me_about(topic)
+        return tma.tell_me_about(topic, sentences)
 
     def datasetcreate(self, dataset_path='datasets', class_name='Demo',
                       haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',

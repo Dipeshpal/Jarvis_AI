@@ -1,12 +1,10 @@
 import wikipedia
-import re
+import string
 
 
-def tell_me_about(topic):
+def tell_me_about(topic, sentences):
     try:
-        ny = wikipedia.page(topic)
-        res = str(ny.content[:500].encode('utf-8'))
-        res = re.sub('[^a-zA-Z.\d\s]', '', res)[1:]
+        res = wikipedia.summary(title=string.capwords(topic), sentences=sentences, auto_suggest=False)
         return res
     except Exception as e:
         print(e)

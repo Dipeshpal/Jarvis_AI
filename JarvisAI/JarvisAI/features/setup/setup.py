@@ -1,9 +1,10 @@
 import os
 import configparser
+import sys
 
 
 class Setup:
-    def start_sconfig(self, config):
+    def start_config(self, config):
         default = 'default'
         config.add_section('default')
 
@@ -32,6 +33,9 @@ class Setup:
                 print("No changes done")
                 return False
             else:
-                return self.start_sconfig(config)
+                self.start_config(config)
         else:
-            return self.start_sconfig(config)
+            self.start_config(config)
+        print("Setup DONE")
+        print("Exiting from program, need restart after setup")
+        sys.exit()

@@ -9,9 +9,14 @@
  5. Future?
  
 ## 1. What is Jarvis AI-
-Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. Well, you can contribute on this project to make it more powerful.
+JarvisAI is a Python library that makes it easy to create virtual assistant projects.
+JarvisAI uses a selection of machine learning algorithms, logical programming and other modules to produce different types of responses. This makes it easy for developers to create chat bots, virtual assistant etc. and automate conversations and action with users.
 
-Check more details here- https://github.com/Dipeshpal/Jarvis_AI
+
+Wiki Page: https://dipeshpal.in/Jarvis_AI/
+GitHub: https://github.com/Dipeshpal/Jarvis_AI
+Examples: https://github.com/Dipeshpal/Jarvis-Assisant
+
 
 ## 2. Prerequisite-
 
@@ -55,19 +60,13 @@ obj = JarvisAI.JarvisAssistant()
 response = obj.mic_input()
 ```
 
-**_Note:_** _First of all setup initial settings of the project by calling setup function._
-
-```
-res = obj.setup()
-```
-
 1. res = obj.mic_input(lang='en')
 2. res = obj.website_opener("facebook")
 3. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")
 4. res = obj.launch_app("edge")
 5. res = obj.weather(city='Mumbai')
 6. res = obj.news()
-7. res = obj.tell_me(topic='tell me about Taj Mahal')
+7. res = obj.tell_me(topic='India', sentences=1)
 8. res = obj.tell_me_time()
 9. res = obj.tell_me_date()
 10. res = obj.shutdown()
