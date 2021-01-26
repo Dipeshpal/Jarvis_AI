@@ -12,9 +12,12 @@
 JarvisAI is a Python library that makes it easy to create virtual assistant projects.
 JarvisAI uses a selection of machine learning algorithms, logical programming and other modules to produce different types of responses. This makes it easy for developers to create chat bots, virtual assistant etc. and automate conversations and action with users.
 
+Pypi: https://pypi.org/project/JarvisAI
 
-Wiki Page: https://dipeshpal.in/Jarvis_AI/
+Wiki Page: https://dipeshpal.in/Jarvis_AI
+
 GitHub: https://github.com/Dipeshpal/Jarvis_AI
+
 Examples: https://github.com/Dipeshpal/Jarvis-Assisant
 
 
