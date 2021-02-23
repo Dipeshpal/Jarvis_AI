@@ -1,25 +1,19 @@
 # JarvisAI
 
-***Last Updated: 26 January, 2021***
+***Last Updated: 21 February, 2021***
 
- 1. What is Jarvis Ai?
+ 1. What is Jarvis AI?
  2. Prerequisite
  3. Getting Started- How to use it?
  4. How to contribute?
  5. Future?
  
 ## 1. What is Jarvis AI-
-JarvisAI is a Python library that makes it easy to create virtual assistant projects.
-JarvisAI uses a selection of machine learning algorithms, logical programming and other modules to produce different types of responses. This makes it easy for developers to create chat bots, virtual assistant etc. and automate conversations and action with users.
+Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.
 
-Pypi: https://pypi.org/project/JarvisAI
+This project is crated only for those who is having interest in building Virtual Assistant. Generally it took lots of time to write code from scratch to build Virtual Assistant. So, I have build an Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.
 
-Wiki Page: https://dipeshpal.in/Jarvis_AI
-
-GitHub: https://github.com/Dipeshpal/Jarvis_AI
-
-Examples: https://github.com/Dipeshpal/Jarvis-Assisant
-
+Check more details here- https://github.com/Dipeshpal/Jarvis_AI
 
 ## 2. Prerequisite-
 
@@ -46,7 +40,7 @@ After installing the library you can import the module-
 ```
 import JarvisAI
 obj = JarvisAI.JarvisAssistant()
-response = obj.mic_input()
+response = obj.mic_input_ai() # mic_input() can be also used
 print(response)
 ```
 
@@ -60,36 +54,43 @@ The functionality is cleared by methods name.  You can check the code for exampl
 ```
 import JarvisAI
 obj = JarvisAI.JarvisAssistant()
-response = obj.mic_input()
+response = obj.mic_input_ai()
+```
+
+**_Note:_** _First of all setup initial settings of the project by calling setup function._
+
+```
+res = obj.setup()
 ```
 
 1. res = obj.mic_input(lang='en')
-2. res = obj.website_opener("facebook")
-3. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")
-4. res = obj.launch_app("edge")
-5. res = obj.weather(city='Mumbai')
-6. res = obj.news()
-7. res = obj.tell_me(topic='India', sentences=1)
-8. res = obj.tell_me_time()
-9. res = obj.tell_me_date()
-10. res = obj.shutdown()
-11. res = obj.text2speech(text='Hello, how are you?', lang='en')
-12. res = obj.datasetcreate(dataset_path='datasets', class_name='Demo',
+2. res = obj.mic_input_ai(record_seconds=5, debug=False)
+3. res = obj.website_opener("facebook")
+4. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")
+5. res = obj.launch_app("edge")
+6. res = obj.weather(city='Mumbai')
+7. res = obj.news()
+8. res = obj.tell_me(topic='tell me about Taj Mahal')
+9. res = obj.tell_me_time()
+10. res = obj.tell_me_date()
+11. res = obj.shutdown()
+12. res = obj.text2speech(text='Hello, how are you?', lang='en')
+13. res = obj.datasetcreate(dataset_path='datasets', class_name='Demo',
                       haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
                       eyecascade_path='haarcascade/haarcascade_eye.xml', eye_detect=False,
                       save_face_only=True, no_of_samples=100,
                       width=128, height=128, color_mode=False)
-13. res = obj.face_recognition_train(data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,
+14. res = obj.face_recognition_train(data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,
                                model_path='model', pretrained=None, base_model_trainable=False)
-14. res = obj.predict_faces(class_name=None, img_height=128, img_width=128,
+15. res = obj.predict_faces(class_name=None, img_height=128, img_width=128,
                       haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
                       eyecascade_path='haarcascade/haarcascade_eye.xml', model_path='model',
                       color_mode=False)
-15. res = obj.setup()
-16. res = obj.show_me_my_images()
-17. res= show_google_photos()
-18. res = tell_me_joke(language='en', category='neutral')
-19. res = hot_word_detect(lang='en')
+16. res = obj.setup()
+17. res = obj.show_me_my_images()
+18. res= show_google_photos()
+19. res = tell_me_joke(language='en', category='neutral')
+20. res = hot_word_detect(lang='en')
 
 ## 4. How to contribute?
 
