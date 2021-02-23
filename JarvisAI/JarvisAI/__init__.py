@@ -37,6 +37,7 @@ try:
     import features.google_photos.google_photos as gp
     import features.joke.joke
     import features.hot_word_detection.hot_word_detection as wake_word
+    import features.mic_input_ai.mic_input_ai.SpeechRecognition as SpeechRecognitionAI
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -54,11 +55,12 @@ except Exception as e:
     from JarvisAI.features.google_photos import google_photos as gp
     from JarvisAI.features.joke import joke
     from JarvisAI.features.hot_word_detection import hot_word_detection as wake_word
+    from JarvisAI.features.mic_input_ai.mic_input_ai import SpeechRecognition as SpeechRecognitionAI
 
 
 class JarvisAssistant:
     def __init__(self):
-        pass
+        self.speech_recognition_ai = SpeechRecognitionAI()
 
     def setup(self):
         """
@@ -80,19 +82,13 @@ class JarvisAssistant:
         :return: Bool, str
             status, command
         """
-        try:
-            status, command = wake_word.hot_word_detection(lang=lang)
-            print(status, command)
-        except wake_word.DefaultFileNotFound as e:
-            print("Unable to locate configuraton file 'config/config.ini'. Creating NOW...")
-            self.setup()
-        except Exception as e:
-            status = command = False
-        return status, command
+        return wake_word.hot_word_detection(lang=lang)
 
     def mic_input(self, lang='en'):
         """
         Fetch input from mic
+        Note: mic_input usages Google's Speech Recognition
+        Limitation: After multiple hits API may not work so use mic_input_ai() instead of mic_input
         :param lang: str
             default 'en'
         :return: str/Bool
@@ -122,6 +118,20 @@ class JarvisAssistant:
         except Exception as e:
             print(e)
             return False
+
+    def mic_input_ai(self, record_seconds=5, debug=False):
+        """
+        Fetch input from mic and recognition using Transformers
+        Note: This will download pretrained ML model for the first time only
+        :param record_seconds: int
+            Default 5
+        :param debug: bool
+            Print recording status if True
+        :return: str
+            User's voice input as text
+        """
+        transcription = self.speech_recognition_ai.start_speech_recognition(record_seconds=record_seconds, debug=debug)
+        return transcription
 
     def text2speech(self, text, lang='en'):
         """
@@ -238,17 +248,15 @@ class JarvisAssistant:
         """
         return nw.news()
 
-    def tell_me(self, topic='India', sentences=1):
+    def tell_me(self, topic='tell me about Taj Mahal'):
         """
-        TIt tells about anything from wikipedia in summary
+        Tells about anything from wikipedia
         :param topic: str
             any string is valid options
-        :param sentences: int
-            number of sentence
-        :return: str
-            Summary of topic
+        :return: list/bool
+            First 500 character from wikipedia if True, False if fail
         """
-        return tma.tell_me_about(topic, sentences)
+        return tma.tell_me_about(topic)
 
     def datasetcreate(self, dataset_path='datasets', class_name='Demo',
                       haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',
@@ -347,9 +355,10 @@ class JarvisAssistant:
 
 if __name__ == '__main__':
     obj = JarvisAssistant()
+    # print(obj.mic_input_ai())
     # print(obj.text2speech_male())
     res = obj.tell_me_joke()
-    print(res)
+    # print(res)
     # obj.text2speech("hello")
     # res = obj.website_opener("facebook.com")
     # res = obj.send_mail()
