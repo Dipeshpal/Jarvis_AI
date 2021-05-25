@@ -211,6 +211,12 @@ Example: `import JarvisAI.tell_me_date`
 
 Lots of possibilities, GUI, Integrate with GPT-3, support for android, IOT, Home Automation, APIs, as pip package etc.
 
+### Todo list-
+
+5.1. Do some action with hand gesture.
+
+5.2. More API features
+
 
 ## FAQs for Contributors-
 1. What I can install?
