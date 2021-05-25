@@ -13,7 +13,11 @@ Jarvis AI is a Python Module which is able to perform task like Chatbot, Assista
 
 This project is crated only for those who is having interest in building Virtual Assistant. Generally it took lots of time to write code from scratch to build Virtual Assistant. So, I have build an Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.
 
-Check more details here- https://github.com/Dipeshpal/Jarvis_AI
+**Check more details here:** https://github.com/Dipeshpal/Jarvis_AI
+
+**Check official website here:** https://jarvis-ai-api.herokuapp.com/
+
+**API Documentations:** https://jarvis-ai-api.herokuapp.com/api_docs/
 
 ## 2. Prerequisite-
 
