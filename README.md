@@ -92,9 +92,11 @@ res = obj.setup()
                       color_mode=False)
 16. res = obj.setup()
 17. res = obj.show_me_my_images()
-18. res= show_google_photos()
-19. res = tell_me_joke(language='en', category='neutral')
-20. res = hot_word_detect(lang='en')
+18. res= obj.show_google_photos()
+19. res = obj.tell_me_joke(language='en', category='neutral')
+20. res = obj.hot_word_detect(lang='en')
+21. status, response = obj.get_user_data(token="436c57eab581dbb2253cfa77c41574f6")  # get your token from https://jarvis-ai-api.herokuapp.com/
+22. obj.set_user_data()
 
 ## 4. How to contribute?
 
