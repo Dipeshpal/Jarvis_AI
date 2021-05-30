@@ -356,12 +356,22 @@ class JarvisAssistant:
         return joke.tell_me_joke(lang=language, cat=category)
 
     def get_user_data(self, token=None):
+        """
+        Function to fetch user data
+        More info: https://jarvis-ai-api.herokuapp.com/api_docs/
+        :param token: str
+            default None (get your token from "https://jarvis-ai-api.herokuapp.com/login/")
+        :return: status, response
+        """
         status, res = self.jarvisai_api.get_user_data(token)
         return status, res
 
     def set_user_data(self):
+        """
+        Function to set user data
+        :return: None
+        """
         self.jarvisai_api.set_user_data()
-
 
 
 if __name__ == '__main__':
