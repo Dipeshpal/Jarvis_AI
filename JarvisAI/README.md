@@ -41,6 +41,13 @@ This project is crated only for those who is having interest in building Virtual
 ### Usage and Features-
 
 After installing the library you can import the module-
+
+Example-
+
+1. Basic Usages: https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main.py
+
+2. Advance Usages (Wake up using Hand Gesture): https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main_advance_usages.py
+	
 ```
 import JarvisAI
 obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4')  # or JarvisAI.JarvisAssistant(sync=False) 
