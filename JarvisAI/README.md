@@ -43,7 +43,7 @@ This project is crated only for those who is having interest in building Virtual
 After installing the library you can import the module-
 ```
 import JarvisAI
-obj = JarvisAI.JarvisAssistant()
+obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4')  # or JarvisAI.JarvisAssistant(sync=False) 
 response = obj.mic_input_ai() # mic_input() can be also used
 print(response)
 ```
@@ -57,8 +57,8 @@ The functionality is cleared by methods name.  You can check the code for exampl
 
 ```
 import JarvisAI
-obj = JarvisAI.JarvisAssistant()
-response = obj.mic_input_ai()
+obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4') # or JarvisAI.JarvisAssistant(sync=False) 
+response = obj.mic_input_ai()  # mic_input() can be also used
 ```
 
 **_Note:_** _First of all setup initial settings of the project by calling setup function._
@@ -97,6 +97,11 @@ res = obj.setup()
 20. res = obj.hot_word_detect(lang='en')
 21. status, response = obj.get_user_data(token="436c57eab581dbb2253cfa77c41574f6")  # get your token from https://jarvis-ai-api.herokuapp.com/
 22. obj.set_user_data()
+23. obj.get_user_data()
+24. obj.jarvisai_configure_hand_detector(camera=0, detectionCon=0.7, maxHands=2, cam_display=True, cam_height=480,
+                                         cam_width=888)
+	
+25. jarvisai_detect_hands(self, message="")
 
 ## 4. How to contribute?
 
@@ -219,9 +224,9 @@ Lots of possibilities, GUI, Integrate with GPT-3, support for android, IOT, Home
 
 ### Todo list-
 
-5.1. Do some action with hand gesture.
+5.1. More API features
 
-5.2. More API features
+5.2. You tell me
 
 
 ## FAQs for Contributors-

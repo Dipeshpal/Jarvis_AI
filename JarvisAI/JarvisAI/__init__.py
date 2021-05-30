@@ -5,6 +5,7 @@ from playsound import playsound
 import sys
 import configparser
 import random
+from lazyme.string import color_print as cprint
 
 try:
     import pyaudio
@@ -39,6 +40,7 @@ try:
     import features.hot_word_detection.hot_word_detection as wake_word
     import features.mic_input_ai.mic_input_ai.SpeechRecognition as SpeechRecognitionAI
     import features.jarvisai_api.jarvisai_api.JarvisAIAPI
+    import features.detection.detection.Detections
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -58,12 +60,26 @@ except Exception as e:
     from JarvisAI.features.hot_word_detection import hot_word_detection as wake_word
     from JarvisAI.features.mic_input_ai.mic_input_ai import SpeechRecognition as SpeechRecognitionAI
     from JarvisAI.features.jarvisai_api.jarvisai_api import JarvisAIAPI
+    from JarvisAI.features.detection.detection import Detections
 
 
 class JarvisAssistant:
-    def __init__(self):
+    def __init__(self, sync=True, token=None):
+        if token is None or not sync:
+            print("\n")
+            cprint("Set 'obj = JarvisAI.JarvisAssistant(sync=False, token='xyz')' if you do not want to use API",
+                   color='green')
+            cprint("Obtain your token from: http://jarvis-ai-api.herokuapp.com/", color='green')
+            cprint("Its free to use. Even API services is also free. \n"
+                   "Well, JarvisAI need support of your to keep this project and it's API alive.\n"
+                   "So, your contribution/donation will be appreciated. \n"
+                   , color='blue')
+            cprint("DONATE: https://www.buymeacoffee.com/dipeshpal", color='red')
+        self.sync = sync
+        self.token = token
         self.speech_recognition_ai = SpeechRecognitionAI()
         self.jarvisai_api = JarvisAIAPI()
+        self.obj_detection = Detections()
 
     def setup(self):
         """
@@ -97,9 +113,24 @@ class JarvisAssistant:
         :return: str/Bool
             user's voice input as text if true/ false if fail
         """
-        config = configparser.ConfigParser()
-        config.read('config/config.ini')
-        user_name = config['default']['user_name']
+        if self.sync == False:
+            config = configparser.ConfigParser()
+            config.read('config/config.ini')
+            user_name = config['default']['user_name']
+        else:
+            if self.token is None:
+                cprint("TOKEN NOT FOUND",
+                       color='yellow')
+                cprint("Set 'obj = JarvisAI.JarvisAssistant(sync=true, token='xyz')' if you want to use this API",
+                       color='red')
+                cprint("Obtain your token from: http://jarvis-ai-api.herokuapp.com/", color='green')
+                print("Currently using local config from 'config/config.ini' . . .")
+                config = configparser.ConfigParser()
+                config.read('config/config.ini')
+                user_name = config['default']['user_name']
+            else:
+                status, res = self.jarvisai_api.get_user_data(self.token)
+                user_name = res['data']['name_']
 
         try:
             r = sr.Recognizer()
@@ -355,15 +386,20 @@ class JarvisAssistant:
         """
         return joke.tell_me_joke(lang=language, cat=category)
 
-    def get_user_data(self, token=None):
+    def get_user_data(self):
         """
         Function to fetch user data
         More info: https://jarvis-ai-api.herokuapp.com/api_docs/
-        :param token: str
-            default None (get your token from "https://jarvis-ai-api.herokuapp.com/login/")
         :return: status, response
         """
-        status, res = self.jarvisai_api.get_user_data(token)
+        if self.token is None:
+            cprint("TOKEN NOT FOUND",
+                   color='yellow')
+            cprint("Set 'obj = JarvisAI.JarvisAssistant(sync=true, token='xyz')' if you want to use this API",
+                   color='red')
+            cprint("Obtain your token from: http://jarvis-ai-api.herokuapp.com/", color='green')
+
+        status, res = self.jarvisai_api.get_user_data(self.token)
         return status, res
 
     def set_user_data(self):
@@ -373,12 +409,48 @@ class JarvisAssistant:
         """
         self.jarvisai_api.set_user_data()
 
+    def jarvisai_configure_hand_detector(self, camera=0, detectionCon=0.7, maxHands=2, cam_display=True, cam_height=480,
+                                         cam_width=888):
+        """
+        This function is for hand detection configuration.
+        Before using 'jarvisai_detect_hands' you need to call this function to setup things.
+        @param camera: int (example:0)
+            Your device camera number
+        @param detectionCon: int (example:0.5)
+            The accuracy of hand detection
+        @param maxHands: int (example:2)
+            Maximum number of hands you want to detect in single frame
+        @param cam_display: Bool (example:True)
+            Set 'False' if you do not want to display camera window
+        @param cam_height: int (Example: 480)
+            Resolution of camera window height
+        @param cam_width: int (Example: 888)
+            Resolution of camera window width
+        """
+        self.obj_detection.configure_hand_detector(camera, detectionCon, maxHands, cam_display, cam_height, cam_width)
+
+    def jarvisai_detect_hands(self, message=""):
+        """
+        This function detect the hands and return number of fingers with hand type.
+        @param message: str (example: Hello!)
+        @return:
+            fingers: list (Number of fingers up),
+            hand_type: string ('Left' or 'Right' Hand),
+            cv2: cv2 object for advance usages,
+            img: image array from your camera for advance usages,
+            cap: The cap is from VideoCapture object ('cap = cv2.VideoCapture(camera) ) for advance usages.'
+            For ADVANCE USAGES REFER: https://docs.opencv.org/master/index.html
+        """
+        fingers, hand_type, cv2, img, cap = self.obj_detection.detect_hands(message)
+        return fingers, hand_type, cv2, img, cap
+
 
 if __name__ == '__main__':
     obj = JarvisAssistant()
+    # obj.jarvisai_detect_hands()
     # print(obj.mic_input_ai())
     # print(obj.text2speech_male())
-    res = obj.tell_me_joke()
+    # res = obj.tell_me_joke()
     # print(res)
     # obj.text2speech("hello")
     # res = obj.website_opener("facebook.com")

@@ -19,6 +19,7 @@ class JarvisAIAPI:
 
 if __name__ == '__main__':
     obj = JarvisAIAPI()
-    status, res = obj.get_user_data("5ec64be7ff718ac25917c198f3d7a4")
+    status, res = obj.get_user_data("xxxxx")
     print(status)
     print(res)
+    print(type(res))
