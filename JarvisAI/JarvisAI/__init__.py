@@ -38,6 +38,7 @@ try:
     import features.joke.joke
     import features.hot_word_detection.hot_word_detection as wake_word
     import features.mic_input_ai.mic_input_ai.SpeechRecognition as SpeechRecognitionAI
+    import features.jarvisai_api.jarvisai_api.JarvisAIAPI
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -56,11 +57,13 @@ except Exception as e:
     from JarvisAI.features.joke import joke
     from JarvisAI.features.hot_word_detection import hot_word_detection as wake_word
     from JarvisAI.features.mic_input_ai.mic_input_ai import SpeechRecognition as SpeechRecognitionAI
+    from JarvisAI.features.jarvisai_api.jarvisai_api import JarvisAIAPI
 
 
 class JarvisAssistant:
     def __init__(self):
         self.speech_recognition_ai = SpeechRecognitionAI()
+        self.jarvisai_api = JarvisAIAPI()
 
     def setup(self):
         """
@@ -351,6 +354,14 @@ class JarvisAssistant:
             "Joke:
         """
         return joke.tell_me_joke(lang=language, cat=category)
+
+    def get_user_data(self, token=None):
+        status, res = self.jarvisai_api.get_user_data(token)
+        return status, res
+
+    def set_user_data(self):
+        self.jarvisai_api.set_user_data()
+
 
 
 if __name__ == '__main__':

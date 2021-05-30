@@ -1,6 +1,6 @@
 # JarvisAI
 
-***Last Updated: 21 February, 2021***
+***Last Updated: 30 May, 2021***
 
  1. What is Jarvis AI?
  2. Prerequisite
@@ -13,7 +13,11 @@ Jarvis AI is a Python Module which is able to perform task like Chatbot, Assista
 
 This project is crated only for those who is having interest in building Virtual Assistant. Generally it took lots of time to write code from scratch to build Virtual Assistant. So, I have build an Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.
 
-Check more details here- https://github.com/Dipeshpal/Jarvis_AI
+**Check more details here:** https://github.com/Dipeshpal/Jarvis_AI
+
+**Check official website here:** https://jarvis-ai-api.herokuapp.com/
+
+**API Documentations:** https://jarvis-ai-api.herokuapp.com/api_docs/
 
 ## 2. Prerequisite-
 
@@ -88,9 +92,11 @@ res = obj.setup()
                       color_mode=False)
 16. res = obj.setup()
 17. res = obj.show_me_my_images()
-18. res= show_google_photos()
-19. res = tell_me_joke(language='en', category='neutral')
-20. res = hot_word_detect(lang='en')
+18. res= obj.show_google_photos()
+19. res = obj.tell_me_joke(language='en', category='neutral')
+20. res = obj.hot_word_detect(lang='en')
+21. status, response = obj.get_user_data(token="436c57eab581dbb2253cfa77c41574f6")  # get your token from https://jarvis-ai-api.herokuapp.com/
+22. obj.set_user_data()
 
 ## 4. How to contribute?
 
@@ -210,6 +216,12 @@ Example: `import JarvisAI.tell_me_date`
 ## 5. Future?
 
 Lots of possibilities, GUI, Integrate with GPT-3, support for android, IOT, Home Automation, APIs, as pip package etc.
+
+### Todo list-
+
+5.1. Do some action with hand gesture.
+
+5.2. More API features
 
 
 ## FAQs for Contributors-
