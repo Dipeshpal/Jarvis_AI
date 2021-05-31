@@ -1,27 +1,27 @@
 # JarvisAI
 
-***Last Updated: 30 May, 2021***
+***Last Updated: 31 May, 2021***
 
  1. What is Jarvis AI?
- 2. Prerequisite
+ 2. Prerequisites
  3. Getting Started- How to use it?
  4. How to contribute?
  5. Future?
  
 ## 1. What is Jarvis AI-
-Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.
+Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers and other open source libraries and frameworks. Well, you can contribute on this project to make it more powerful.
 
-This project is crated only for those who is having interest in building Virtual Assistant. Generally it took lots of time to write code from scratch to build Virtual Assistant. So, I have build an Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.
+This project is created only for those who is having interest in building Virtual Assistant. Generally, it takes a lot of time to write code from scratch to build Virtual Assistants. So, I have build an Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.
 
 **Check more details here:** https://github.com/Dipeshpal/Jarvis_AI
 
 **Check official website here:** https://jarvis-ai-api.herokuapp.com/
 
-**API Documentations:** https://jarvis-ai-api.herokuapp.com/api_docs/
+**API Documentation:** https://jarvis-ai-api.herokuapp.com/api_docs/
 
-## 2. Prerequisite-
+## 2. Prerequisites-
 
-* To use it only Python (> 3.6) is required.
+* To use this project only Python Version > 3.6 is required.
 * To contribute in project: Python is the only prerequisite for basic scripting, Machine Learning and Deep Learning knowledge will help this model to do task like AI-ML. Read How to contribute section of this page.
 
 ## 3. Getting Started (How to use it)-
@@ -32,8 +32,10 @@ This project is crated only for those who is having interest in building Virtual
  It will install all the required package automatically.
  
  *If anything not install then you can install requirements manually.* 
+ 
  `pip install -r requirements.txt`
- The [requirementx.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/requirements.txt) can be found [here](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/requirements.txt).
+ 
+ The `requirements.txt` can be found [here](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/requirements.txt).
  
  https://pypi.org/project/JarvisAI/
  
@@ -44,14 +46,25 @@ After installing the library you can import the module-
 
 Example-
 
-1. Basic Usages: https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main.py
+1. Basic Usage: 
+   
+   https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main.py
 
-2. Advance Usages (Wake up using Hand Gesture): https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main_advance_usages.py
+2. Advance Usage (Wake up using Hand Gestures): 
+   
+   https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main_advance_usages.py
 	
 ```
 import JarvisAI
-obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4')  # or JarvisAI.JarvisAssistant(sync=False) 
-response = obj.mic_input_ai() # mic_input() can be also used
+obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4')  
+response = obj.mic_input_ai() 
+print(response)
+```
+OR
+```
+import JarvisAI
+obj = JarvisAI.JarvisAssistant(sync=False) 
+response = mic_input() 
 print(response)
 ```
 
@@ -60,12 +73,18 @@ https://github.com/Dipeshpal/Jarvis-Assisant/blob/master/scripts/main.py
 
 #### Available Methods-
 
-The functionality is cleared by methods name.  You can check the code for example. These are the names of available functions you can use after creating JarvisAI's object-
+The functionality is cleared by method names. For example, you can check the code. These are the names of available methods you can use after creating JarvisAI's object-
 
 ```
 import JarvisAI
-obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4') # or JarvisAI.JarvisAssistant(sync=False) 
-response = obj.mic_input_ai()  # mic_input() can be also used
+obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4') 
+response = obj.mic_input_ai()
+```
+OR
+```
+import JarvisAI
+obj = JarvisAI.JarvisAssistant(sync=False) 
+response = mic_input() 
 ```
 
 **_Note:_** _First of all setup initial settings of the project by calling setup function._
@@ -112,15 +131,15 @@ res = obj.setup()
 
 ## 4. How to contribute?
 
- 1. Clone this [reop](https://github.com/Dipeshpal/Jarvis_AI)
+ 1. Clone this [repository](https://github.com/Dipeshpal/Jarvis_AI)
  2. Create virtual environment in python.
- 3. Install requirements from [requirements.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/requirements.txt).
+ 3. Install requirements from [requirements.txt](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/requirements.txt) using
 	 `pip install requirements.txt`
-4. Now run, [__ init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/__init__.py)
-	`python __init__.py` and understand the working.
+4. Now, run [__ init__.py](https://github.com/Dipeshpal/Jarvis_AI/blob/master/JarvisAI/JarvisAI/__init__.py)
+	using `python __init__.py` and try to understand the working.
 
-	***Guidelines to add your own scripts / modules-***
-	Lets understand the projects structure first-
+	***Guidelines to add to your own scripts / modules-***
+	Lets understand the project structure first-
 
 	```
 	JarvisAI:.
@@ -227,35 +246,41 @@ Example: `import JarvisAI.tell_me_date`
 
 ## 5. Future?
 
-Lots of possibilities, GUI, Integrate with GPT-3, support for android, IOT, Home Automation, APIs, as pip package etc.
+There are lots of possibilities like GUI, Integrate with GPT-3, support for android, IOT, Home Automation, APIs, as pip package etc.
 
 ### Todo list-
 
 5.1. More API features
 
-5.2. You tell me
+5.2. You can tell me
 
 
 ## FAQs for Contributors-
-1. What I can install?
-Ans: You can install any library you want in your module, make sure it is opensource and compatible with win/linux/mac.
+1. What can I install?
 
-2. Code format?
-Ans: Read the example above. And make sure your code is compatible with win/linux/mac.
+   Ans: You can install any library you want in your module, make sure it is opensource and compatible with win/linux/mac.
+
+2. What is the code format?
+
+   Ans: Read the example above. And make sure your code is compatible with win/linux/mac.
 
 3. What should I not change?
-Ans: Existing code.
 
-4.  Credits-
-Ans: You will definitely get credit for your contribution.
+   Ans: Existing code.
 
-5. Note-
-Ans: Once you created your module, test it with different environment (windows / linux). Make sure the quality of code because your features will get added to the JarvisAI and publish as PyPi project.
+4. Would I get credits?
+  
+   Ans: You will definitely get credit for your contribution.
+
+5. **Important Note**-
+
+   Once you created your module, test it with different environment (windows / linux). Make sure the quality of code because your features will get added to the JarvisAI and publish as PyPi project.
 
 6. Help / Contact?
-Ans. Contact me on any of my social media or Email.
+
+   Ans. Contact me on any of my social media or Email.
 
 ### **Let's make it big.**
 
 ***Feel free to use my code, don't forget to mention credit.
-All the contributors will get credits in this repo.***
+All the contributors will get credits in this repository.***
