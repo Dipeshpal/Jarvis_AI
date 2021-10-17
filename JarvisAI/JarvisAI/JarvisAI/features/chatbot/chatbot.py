@@ -1,5 +1,4 @@
 import sys
-
 from transformers import pipeline, Conversation
 import wikipedia
 import re
@@ -11,15 +10,12 @@ warnings.filterwarnings('ignore')
 
 try:
     import en_core_web_sm
-
     nlp = en_core_web_sm.load()
 except Exception as e:
     print(e, "Downloading...")
     import os
-
     os.system('python -m spacy download en')
     import en_core_web_sm
-
     nlp = en_core_web_sm.load()
 
 
@@ -41,6 +37,12 @@ class SearchAnything:
             self.question_answering = pipeline("question-answering")
         else:
             self.question_answering = pipeline("question-answering", model="mrm8488/bert-small-finetuned-squadv2")
+
+
+    # def get_answer_from_context(self, question, context):
+    #     result = self.question_answering(question=question, context=context)
+    #     return [result['answer']]
+
 
     def get_context_from_question(self, question):
         output = get_keyword(question)
@@ -159,6 +161,7 @@ def start_chatbot_small(input_text, model_dict=None):
 
 
 if __name__ == '__main__':
-    pass
+    # pass
+    start_chatbot_small()
     # start_chatbot(high_accuracy=True)
     # start_chatbot_with_internet_search(high_accuracy=False)

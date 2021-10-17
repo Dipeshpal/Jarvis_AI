@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="JarvisAI",
-    version="3.2",
+    version="3.3",
     author="Dipesh",
     author_email="dipeshpal17@gmail.com",
     description="JarvisAI is AI python library",

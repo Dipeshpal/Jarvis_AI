@@ -44,6 +44,7 @@ try:
     import features.chatbot.chatbot.start_chatbot_large as chatbot_lrg
     import features.chatbot.chatbot.start_chatbot_small as chatbot_sml
     import features.chatbot.chatbot.load_chatbot_models as load_ch_model
+    import features.chatbot.todo.make_todo
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
     from JarvisAI.features.website_open import website_open
@@ -67,10 +68,12 @@ except Exception as e:
     from JarvisAI.features.chatbot.chatbot import start_chatbot_large as chatbot_lrg
     from JarvisAI.features.chatbot.chatbot import start_chatbot_small as chatbot_sml
     from JarvisAI.features.chatbot.chatbot import load_chatbot_models as load_ch_model
+    from JarvisAI.features.chatbot.todo import make_todo
 
 
 class JarvisAssistant:
-    def __init__(self, sync=True, token=None, disable_msg=False, load_chatbot_model=True, high_accuracy_chatbot_model=False,
+    def __init__(self, sync=True, token=None, disable_msg=False, load_chatbot_model=True,
+                 high_accuracy_chatbot_model=False,
                  chatbot_large=False):
         if load_chatbot_model:
             self.chatbot_model = load_ch_model(high_accuracy_chatbot_model, chatbot_large)
@@ -86,8 +89,9 @@ class JarvisAssistant:
                        "So, your contribution/donation will be appreciated. \n"
                        , color='blue')
                 cprint("DONATE: https://www.buymeacoffee.com/dipeshpal", color='red')
-                cprint("Set 'obj = JarvisAI.JarvisAssistant(disable_msg=True)' if you do not want to display this message",
-                       color='green')
+                cprint(
+                    "Set 'obj = JarvisAI.JarvisAssistant(disable_msg=True)' if you do not want to display this message",
+                    color='green')
                 cprint("Initializing JarvisAI...", color='yellow')
         self.sync = sync
         self.token = token
@@ -245,7 +249,7 @@ class JarvisAssistant:
         :return: Bool
             True if success, False if fail
         """
-        return send_mail(sender_email, sender_password, receiver_email, msg)
+        return send_mail.send_mail(sender_email, sender_password, receiver_email, msg)
 
     def tell_me_date(self):
         """
@@ -497,22 +501,83 @@ class JarvisAssistant:
             print("Exiting now, try again...")
         return chatbot_lrg(input_text, self.chatbot_model)
 
-    if __name__ == '__main__':
-        pass
-        # obj = JarvisAssistant()
-        # obj.jarvisai_detect_hands()
-        # print(obj.mic_input_ai())
-        # print(obj.text2speech_male())
-        # res = obj.tell_me_joke()
-        # print(res)
-        # obj.text2speech("hello")
-        # res = obj.website_opener("facebook.com")
-        # res = obj.send_mail()
-        # res = obj.launch_app("edge")
-        # res = obj.weather("mumbai")
-        # res = obj.news()
-        # res = obj.tell_me()
-        # res = obj.tell_me_time()
-        # res = obj.tell_me_date()
-        # res = obj.shutdown()
-        # obj.datasetcreate()
+    # def show_me_my_list(self):
+    #     """
+    #     chatbot_large needs to be set True
+    #     obj = JarvisAssistant(..., chatbot_large=True)
+    #     """
+    #     user_data = self.jarvisai_api.get_user_raw_data(self.token)[1]
+    #     print(user_data)
+    #     my_list = user_data['data']['raw_data'].replace("'", '"')
+    #     my_list = json.loads(my_list).get('user_list', [])
+    #     return my_list
+    #
+    # def create_new_list(self, input_text: str = 'add milk in my shopping list'):
+    #     list_name, items = make_todo(input_text, question_answering_model=self.chatbot_model[
+    #         'intent_model'].question_answering)
+    #
+    #     dict_data = {
+    #         'user_list': [
+    #             {
+    #                 list_name: items
+    #             }
+    #         ]
+    #     }
+    #     status, _ = self.jarvisai_api.update_user_data(self.token, dict_data)
+    #     if status == 200:
+    #         msg = "Items added successfully"
+    #         return True, msg
+    #     else:
+    #         msg = "Something went wrong, contact developer."
+    #         return False, msg
+    #
+    # def delete_particular_list(self):
+    #     my_list = self.show_me_my_list()
+    #     try:
+    #         msg = f"\n\nYou have {len(my_list)} list, Enter respected number to delete entire list"
+    #         self.text2speech(msg)
+    #         for index, list_name in enumerate(my_list):
+    #             print(index, ": ", list(list_name.keys())[0])
+    #         index = input("Enter List Number: ")
+    #         my_list = my_list.pop(index)
+    #         dict_data = {
+    #             'user_list': my_list
+    #         }
+    #         status_update, _ = self.jarvisai_api.update_user_data(self.token, dict_data)
+    #         if status_update == 200:
+    #             msg = "List Updated successfully"
+    #             return True, msg
+    #         else:
+    #             msg = "Something went wrong, contact developer."
+    #             return False, msg
+    #     except Exception as e:
+    #         return False, e
+
+
+if __name__ == '__main__':
+    obj = JarvisAssistant(sync=True, token='adc0a911a43f8b5edce4b44f4c65f7', disable_msg=False,
+                          load_chatbot_model=True, high_accuracy_chatbot_model=False,
+                          chatbot_large=True)
+    print(obj.get_user_data())
+    # print(obj.create_new_list())
+    # print("-----------------------")
+    # print(obj.show_me_my_list())
+    # print(obj.get_user_data())
+
+    # obj = JarvisAssistant()
+    # obj.jarvisai_detect_hands()
+    # print(obj.mic_input_ai())
+    # print(obj.text2speech_male())
+    # res = obj.tell_me_joke()
+    # print(res)
+    # obj.text2speech("hello")
+    # res = obj.website_opener("facebook.com")
+    # res = obj.send_mail()
+    # res = obj.launch_app("edge")
+    # res = obj.weather("mumbai")
+    # res = obj.news()
+    # res = obj.tell_me()
+    # res = obj.tell_me_time()
+    # res = obj.tell_me_date()
+    # res = obj.shutdown()
+    # obj.datasetcreate()
