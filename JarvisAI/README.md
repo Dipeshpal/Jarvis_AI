@@ -1,7 +1,7 @@
 
   
 # JarvisAI    
- ***Last Updated: 27 Oct, 2021***     
+ ***Last Updated: 24 Oct, 2021***     
     
 1. What is Jarvis AI?    
  2. Prerequisite    
