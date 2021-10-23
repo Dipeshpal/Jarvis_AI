@@ -1,7 +1,7 @@
 
   
 # JarvisAI    
- ***Last Updated: 19 Sep, 2021***     
+ ***Last Updated: 27 Oct, 2021***     
     
 1. What is Jarvis AI?    
  2. Prerequisite    
@@ -116,7 +116,10 @@ obj.mic_input_ai()  # mic_input() can be also used ```
 24. obj.jarvisai_detect_hands(self, message="")    
 25. obj.chatbot_base(input_text='how are you')   # You must set obj=JarvisAI.JarvisAssistant(load_chatbot_model=True)  
 26. obj.chatbot_large(input_text='how are you')  # You must set obj=JarvisAI.JarvisAssistant(load_chatbot_model=True)  
-    
+27. obj.create_new_list('add milk in my shopping list')
+28.	obj.delete_particular_list('delete my shopping list')
+29. obj.show_me_my_list()
+
     ------
 
 ## 4. How to contribute?    
@@ -257,34 +260,37 @@ Ans. Contact me on any of my social media or Email.
 ### **Let's make it big.**    
    
 **What's new?-**    
- 1. **17 Oct, 2021-**  
+ 1. **24 Oct, 2021-**
+	
+	New features added, features number 27, 28 and 29.
+ 
+ 2. **17 Oct, 2021-**  
 		- Bug Fixes
 		- Docs Update
 
- 2. **19 Sep, 2021-**  
+ 3. **19 Sep, 2021-**  
      
-	   Chatbot feature is added. Two methods are newly added (26, 27 check 'Usage and Features').   
-	   It used Transformers based AI models to reponse users general queries.   
+	   Chatbot features added. Two new methods added (25, 26 check 'Usage and Features').   
+	   It used Transformers based AI models to response users general queries.   
 	     
-	   Below answers depends on the type of chatbot you have choosen and type of accuracy you have choosen.  
+	   Below answers depends on the type of chatbot you choose and type of accuracy you have choosen.  
      
    - Example (chatbot_small) [Directly answered from chatbot model's knowledge base]-  
         
-          user >> How are you?  
-		  AI >> I am good, how are you?  
+         user >> How are you?
+	 	AI >> I am good, how are you?  
 
-- Eaxmple (chatbot_large) [Fetched data from internet and answered it after analyzing the gathered data]-  
+ - Example (chatbot_large) [Fetched data from internet and answered it after analyzing the gathered data]-  
 
 		user >> Who is president of India?  
 		AI >> Ram Nath Kovind  
 
- - Eaxmple (chatbot_large) [Fetched some of the URL from Internet]-       
- 
+ - Example (chatbot_large) [Fetched some of the URL from Internet]-
 
 	     user >> who is the captain of team India? 
 	     AI >> URL1, URL2, URL3  
 
-3. **Before 19 Sep, 2021-**  
+4. **Before 19 Sep, 2021-**  
      
    Features 1-25 added. Check 'Usage and Features'  
   
