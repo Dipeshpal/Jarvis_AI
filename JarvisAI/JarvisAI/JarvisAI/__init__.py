@@ -539,6 +539,12 @@ class JarvisAssistant:
             'intent_model'].question_answering)
         return status, msg
 
+    def show_me_some_tech_news(self):
+        nw.show_me_some_tech_news()
+
+    def show_me_some_tech_videos(self):
+        nw.show_me_some_tech_videos()
+
 
 if __name__ == '__main__':
     obj = JarvisAssistant(sync=True, token='adc0a911a43f8b5edce4b44f4c65f7', disable_msg=False,

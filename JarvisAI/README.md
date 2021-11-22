@@ -260,15 +260,29 @@ Ans. Contact me on any of my social media or Email.
 ### **Let's make it big.**    
    
 **What's new?-**    
- 1. **24 Oct, 2021-**
+
+ 1. **22 Nov, 2021-**
+	
+	Now you can add and delete items in list.
+	
+	Example: you can say- "add milk in my shopping list".
+	
+	It will create list name with "Shopping", and you can delete or show this list with following options-
+	It uses deep learning models to identify list name and list items, so there might be some inaccuracy in results. 
+
+		27. obj.create_new_list('add milk in my shopping list')
+		28.	obj.delete_particular_list('delete my shopping list')
+		29. obj.show_me_my_list()
+
+ 2. **24 Oct, 2021-**
 	
 	New features added, features number 27, 28 and 29.
  
- 2. **17 Oct, 2021-**  
+ 3. **17 Oct, 2021-**  
 		- Bug Fixes
 		- Docs Update
 
- 3. **19 Sep, 2021-**  
+ 4. **19 Sep, 2021-**  
      
 	   Chatbot features added. Two new methods added (25, 26 check 'Usage and Features').   
 	   It used Transformers based AI models to response users general queries.   
@@ -290,7 +304,7 @@ Ans. Contact me on any of my social media or Email.
 	     user >> who is the captain of team India? 
 	     AI >> URL1, URL2, URL3  
 
-4. **Before 19 Sep, 2021-**  
+ 5. **Before 19 Sep, 2021-**  
      
    Features 1-25 added. Check 'Usage and Features'  
   
