@@ -47,6 +47,7 @@ try:
     import features.chatbot.todo.make_todo
     import features.chatbot.todo.read_notes_if_exist
     import features.chatbot.todo.delete_todo
+    import features.utilities.utilities
 
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
@@ -72,6 +73,7 @@ except Exception as e:
     from JarvisAI.features.chatbot.chatbot import start_chatbot_small as chatbot_sml
     from JarvisAI.features.chatbot.chatbot import load_chatbot_models as load_ch_model
     from JarvisAI.features.chatbot.todo import make_todo, read_notes_if_exist, delete_todo
+    from JarvisAI.features.utilities import utilities
 
 
 class JarvisAssistant:
@@ -553,7 +555,6 @@ if __name__ == '__main__':
     print(obj.get_user_data())
     print(obj.show_me_my_list())
     print(obj.create_new_list())
-    print("-----------------------")
     print(obj.create_new_list('add medicine in my market list'))
     print(obj.show_me_my_list())
     print(obj.delete_particular_list())
