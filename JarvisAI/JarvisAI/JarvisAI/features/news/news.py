@@ -36,7 +36,7 @@ def show_me_some_tech_news():
 
 def show_me_some_tech_videos():
     try:
-        url = "https://www.youtube.com/channel/UCGEoRAK92fUk2kY3kSJMR_Q"
+        url = "https://www.youtube.com/c/TechPortOfficial"
         webbrowser.open(url)
         return True
     except Exception as e:

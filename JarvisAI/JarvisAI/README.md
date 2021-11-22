@@ -119,7 +119,9 @@ obj.mic_input_ai()  # mic_input() can be also used ```
 27. obj.create_new_list('add milk in my shopping list')
 28.	obj.delete_particular_list('delete my shopping list')
 29. obj.show_me_my_list()
-
+30. obj.show_me_some_tech_news()  # It will show tech news in your browser
+31. obj.show_me_some_tech_videos() # It will show tech videos in your browser
+	
     ------
 
 ## 4. How to contribute?    
@@ -263,17 +265,24 @@ Ans. Contact me on any of my social media or Email.
 
  1. **22 Nov, 2021-**
 	
-	Now you can add and delete items in list.
+	* Now you can add and delete items in list.
 	
-	Example: you can say- "add milk in my shopping list".
+		Example: you can say- "add milk in my shopping list".
+		
+		It will create list name with "Shopping", and you can delete or show this list with following options-
+		It uses deep learning models to identify list name and list items, so there might be some inaccuracy in results. 
 	
-	It will create list name with "Shopping", and you can delete or show this list with following options-
-	It uses deep learning models to identify list name and list items, so there might be some inaccuracy in results. 
-
-		27. obj.create_new_list('add milk in my shopping list')
-		28.	obj.delete_particular_list('delete my shopping list')
-		29. obj.show_me_my_list()
-
+			obj.create_new_list('add milk in my shopping list')
+			obj.delete_particular_list('delete my shopping list')
+			obj.show_me_my_list()
+	
+	* Show tech news and Videos-
+	 	 ```
+	 	 obj.show_me_some_tech_news()  # It will show tech news in your browser
+		
+		 obj.show_me_some_tech_videos() # It will show tech videos in your browser
+		```
+	 
  2. **24 Oct, 2021-**
 	
 	New features added, features number 27, 28 and 29.
