@@ -121,7 +121,10 @@ obj.mic_input_ai()  # mic_input() can be also used ```
 29. obj.show_me_my_list()
 30. obj.show_me_some_tech_news()  # It will show tech news in your browser
 31. obj.show_me_some_tech_videos() # It will show tech videos in your browser
-	
+32.	obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4', disable_msg=False,
+                               load_chatbot_model=False, high_accuracy_chatbot_model=False,
+                               chatbot_large=False, backend_tts_api='pyttsx3') # you must set backend_tts_api='pyttsx3' for different voices options (Read 'What's new' of '20 Dec, 2021' update section of this page for more details.)
+     	
     ------
 
 ## 4. How to contribute?    
@@ -263,40 +266,61 @@ Ans. Contact me on any of my social media or Email.
    
 **What's new?-**    
 
- 1. **22 Nov, 2021-**
-	
-	* Now you can add and delete items in list.
-	
-		Example: you can say- "add milk in my shopping list".
-		
-		It will create list name with "Shopping", and you can delete or show this list with following options-
-		It uses deep learning models to identify list name and list items, so there might be some inaccuracy in results. 
-	
-			obj.create_new_list('add milk in my shopping list')
-			obj.delete_particular_list('delete my shopping list')
-			obj.show_me_my_list()
-	
-	* Show tech news and Videos-
-	 	 ```
-	 	 obj.show_me_some_tech_news()  # It will show tech news in your browser
-		
-		 obj.show_me_some_tech_videos() # It will show tech videos in your browser
-		```
-	 
- 2. **24 Oct, 2021-**
-	
-	New features added, features number 27, 28 and 29.
- 
- 3. **17 Oct, 2021-**  
-		- Bug Fixes
-		- Docs Update
+ 1. **20 Dec, 2021-**
 
- 4. **19 Sep, 2021-**  
+	Male Voice Added (if your system support pyttsx3 module and your system have multiple voices inbuilt)
+	
+    You can try different voices. This is one time setup. You can reset your voice by deleting 'configs/JarvisAI-Voice.txt' file in your working directory. This file will be created during first run of the program only if you are using pyttsx3.
+ 
+    *Usages-*
+
+    ```
+    import JarvisAI
+    # backend_tts_api='pyttsx3' for different voices options
+     # backend_tts_api='gtts' for female voice by google text to speech library
+    obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4', disable_msg=False,
+                               load_chatbot_model=False, high_accuracy_chatbot_model=False,
+                               chatbot_large=False, backend_tts_api='pyttsx3')
+     ```
+    
+     What is 'configs/JarvisAI-Voice.txt' file contains?
+    - Voice information in plain text (do not modify this file manually)
+
+    
+ 2. **22 Nov, 2021-**
+	
+    * Now you can add and delete items in list.
+	
+        Example: you can say- "add milk in my shopping list".
+		
+        It will create list name with "Shopping", and you can delete or show this list with following options-
+        It uses deep learning models to identify list name and list items, so there might be some inaccuracy in results. 
+	
+            obj.create_new_list('add milk in my shopping list')
+            obj.delete_particular_list('delete my shopping list')
+            obj.show_me_my_list()
+	
+    * Show tech news and Videos-
+          ```
+          obj.show_me_some_tech_news()  # It will show tech news in your browser
+		
+         obj.show_me_some_tech_videos() # It will show tech videos in your browser
+        ```
+	 
+ 3. **24 Oct, 2021-**
+	
+    New features added, features number 27, 28 and 29.
+ 
+ 4. **17 Oct, 2021-**  
+        - Bug Fixes
+        - Docs Update
+
+ 5. **19 Sep, 2021-**  
      
-	   Chatbot features added. Two new methods added (25, 26 check 'Usage and Features').   
-	   It used Transformers based AI models to response users general queries.   
+       Chatbot features added. Two new methods added (25, 26 check 'Usage and Features').   
+       It used Transformers based AI models to response users general queries.   
 	     
-	   Below answers depends on the type of chatbot you choose and type of accuracy you have choosen.  
+       Below answers depends on the type of chatbot you choose and type of accuracy you have choosen.  
      
    - Example (chatbot_small) [Directly answered from chatbot model's knowledge base]-  
         

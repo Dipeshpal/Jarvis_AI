@@ -15,18 +15,18 @@ class Setup:
         config[default]['user_name'] = user_name
         config[default]['photos'] = photos_dir
 
-        with open('config/config.ini', 'w') as configfile:
+        with open('configs/config.ini', 'w') as configfile:
             config.write(configfile)
 
         print("Setup Done")
         return True
 
     def setup_assistant(self):
-        if not os.path.exists('config'):
-            os.makedirs('config')
+        if not os.path.exists('configs'):
+            os.makedirs('configs')
         config = configparser.ConfigParser()
 
-        if os.path.exists('config'):
+        if os.path.exists('configs'):
             sure = str(input("Your current configuration will be deleted, are you sure (y/n): ") or "n")
             if sure == "n":
                 print("No changes done")

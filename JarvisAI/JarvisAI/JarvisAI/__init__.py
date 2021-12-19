@@ -1,6 +1,7 @@
 import speech_recognition as sr
 import os
 from gtts import gTTS
+import pyttsx3
 from playsound import playsound
 import sys
 import configparser
@@ -47,7 +48,7 @@ try:
     import features.chatbot.todo.make_todo
     import features.chatbot.todo.read_notes_if_exist
     import features.chatbot.todo.delete_todo
-    import features.utilities.utilities
+    # import features.utilities.utilities
 
 except Exception as e:
     from JarvisAI.features.weather import weather as wea
@@ -73,16 +74,26 @@ except Exception as e:
     from JarvisAI.features.chatbot.chatbot import start_chatbot_small as chatbot_sml
     from JarvisAI.features.chatbot.chatbot import load_chatbot_models as load_ch_model
     from JarvisAI.features.chatbot.todo import make_todo, read_notes_if_exist, delete_todo
-    from JarvisAI.features.utilities import utilities
+    # from JarvisAI.features.utilities import utilities
 
 
 class JarvisAssistant:
     def __init__(self, sync=True, token=None, disable_msg=False, load_chatbot_model=True,
                  high_accuracy_chatbot_model=False,
-                 chatbot_large=False):
+                 chatbot_large=False, backend_tts_api='pyttsx3'):
+
+        # Check TTS Backend
+        backends = ['pyttsx3', 'gtts']
+        if backend_tts_api not in backends:
+            raise ValueError("Invalid backend_tts_api type. Expected one of: %s" % backends)
+        self.backend_tts_api = backend_tts_api
+
+        # Check Chatbot Model
         if load_chatbot_model:
             self.chatbot_model = load_ch_model(high_accuracy_chatbot_model, chatbot_large)
         self.load_chatbot_model = load_chatbot_model
+
+        # Check Sync Token
         if token is None or not sync:
             if not disable_msg:
                 print("\n")
@@ -98,6 +109,7 @@ class JarvisAssistant:
                     "Set 'obj = JarvisAI.JarvisAssistant(disable_msg=True)' if you do not want to display this message",
                     color='green')
                 cprint("Initializing JarvisAI...", color='yellow')
+
         self.sync = sync
         self.token = token
         self.speech_recognition_ai = SpeechRecognitionAI()
@@ -136,7 +148,7 @@ class JarvisAssistant:
         :return: str/Bool
             user's voice input as text if true/ false if fail
         """
-        if self.sync == False:
+        if not self.sync:
             config = configparser.ConfigParser()
             config.read('config/config.ini')
             user_name = config['default']['user_name']
@@ -153,7 +165,18 @@ class JarvisAssistant:
                 user_name = config['default']['user_name']
             else:
                 status, res = self.jarvisai_api.get_user_data(self.token)
-                user_name = res['data']['name_']
+                if not res['status']:
+                    if res['message'] == 'Invalid Token':
+                        cprint('Invalid Token',
+                               color='red')
+                        cprint("Obtain your token from: http://jarvis-ai-api.herokuapp.com/", color='green')
+                        raise Exception(f'Invalid Token: {self.token}')
+                    else:
+                        cprint(res['message'],
+                               color='red')
+                        raise Exception(res['message'])
+                else:
+                    user_name = res['data']['name_']
 
         try:
             r = sr.Recognizer()
@@ -193,6 +216,9 @@ class JarvisAssistant:
     def text2speech(self, text, lang='en'):
         """
         Convert any text to speech
+        You can use GTTS or PYTTSX3 as backend for Text to Speech.
+        PYTTSX3 may support different voices (male/female) depends upon your system.
+        You can set backend of tts while creating object of JarvisAI class. Default is PYTTSX3.
         :param text: str
             text (String)
         :param lang: str
@@ -200,21 +226,64 @@ class JarvisAssistant:
         :return: Bool
             True / False (Play sound if True otherwise write exception to log and return False)
         """
-        try:
-            myobj = gTTS(text=text, lang=lang, slow=False)
-            myobj.save("tmp.mp3")
-            playsound("tmp.mp3")
-            os.remove("tmp.mp3")
-            return True
-        except Exception as e:
-            mytext = "Sorry I couldn't understand, or not implemented to handle this input"
-            print(mytext)
-            myobj = gTTS(text=mytext, lang=lang, slow=False)
-            myobj.save("tmp.mp3")
-            playsound("tmp.mp3")
-            os.remove("tmp.mp3")
-            print(e)
-            return False
+        if self.backend_tts_api == 'gtts':
+            # for gtts Backend
+            try:
+                myobj = gTTS(text=text, lang=lang, slow=False)
+                myobj.save("tmp.mp3")
+                playsound("tmp.mp3")
+                os.remove("tmp.mp3")
+                return True
+            except Exception as e:
+                # mytext = "Sorry I couldn't understand, or not implemented to handle this input"
+                # print(mytext)
+                # myobj = gTTS(text=mytext, lang=lang, slow=False)
+                # myobj.save("tmp.mp3")
+                # playsound("tmp.mp3")
+                # os.remove("tmp.mp3")
+                print(e)
+                print("or You may reached free limit of 'gtts' API. Use 'pyttsx3' as backend for unlimited use.")
+                return False
+        else:
+            # for pyttsx3 Backend
+            engine = pyttsx3.init()
+            voices = engine.getProperty('voices')
+
+            try:
+                voice_file_name = "configs/JarvisAI-Voice.txt"
+                if not os.path.exists(voice_file_name):
+                    cprint("You can try different voices. This is one time setup. You can reset your voice by deleting"
+                           "'configs/JarvisAI-Voice.txt' file in your working directory.",
+                           color='blue')
+                    cprint("Your System Support Following Voices- ",
+                           color='blue')
+                    voices_dict = {}
+                    for index, voice in enumerate(voices):
+                        print(f"{index}: ", voice.id)
+                        voices_dict[str(index)] = voice.id
+                    option = input(f"Choose any- {list(voices_dict.keys())}: ")
+                    with open(voice_file_name, 'w') as f:
+                        f.write(voices_dict.get(option, voices[0].id))
+                    with open(voice_file_name, 'r') as f:
+                        voice_property = f.read()
+                else:
+                    with open(voice_file_name, 'r') as f:
+                        voice_property = f.read()
+            except Exception as e:
+                print(e)
+                print("Error occurred while creating config file for voices in pyttsx3 in 'text2speech'.",
+                      "Contact maintainer/developer of JarvisAI")
+            try:
+                engine.setProperty('voice', voice_property)
+                engine.say(text)
+                engine.runAndWait()
+                return True
+            except Exception as e:
+                print(e)
+                print("Error occurred while using pyttsx3 in 'text2speech'.",
+                      "or Your system may not support pyttsx3 backend. Use 'gtts' as backend.",
+                      "Contact maintainer/developer of JarvisAI.")
+                return False
 
     def shutdown(self):
         """
