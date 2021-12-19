@@ -70,11 +70,28 @@ obj.mic_input_ai()  # mic_input() can be also used ```
 
  **Available Parameters-**    
  1. sync (bool): It is used to sync your JarvisAI setting with server. We don't use this information for any purpose, it's just for better user experience. If you enable this you need to add your token also. You can get your token from JarvisAI's official website.     
-2. Token (str): It is the token which you can obtain from the JarvisAI's official website. This features help to sync your setting each time run the assistant.    
-3. disable_msg (bool): It enables/disable the JarvisAI's initialization message.    
-4. load_chatbot_model (bool): If you want to use our AI based ChatBot model then you need to enable this. Without enabling this you can't use 'chatbot_base' or 'chatbot_large' functions. Disable this if you don't want to use JarvisAI's chatbot feature.    
-5. high_accuracy_chatbot_model (bool): All the AI's models will use some amount of bandwidth while downloading the models from Transformers Hub. Higher accuracy model will give you high accuracy, and size of these model is also high which required lot's or memory (RAM) while loading for the inference. If you have low memory system or less internet data then set this option to False. If it is false, it will load small model, which is around 1GB - 2GB and it has pretty much good accuracy.    
-6. chatbot_large (bool): If it is True it means, In case chatbot can't answer, or it recognizes the intent of your query is different from normal conversation then it will use Wikipedia/Internet to resolve your query, and it will analyze (summarize) extracted data from internet before response. You can use 'chatbot_large' with 'high_accuracy_chatbot_model=False' for better experience and lower RAM (internet data). Well, 'chatbot_large=False' only answer you queries based on it's AI model knowledge base, it doesn't use Wikipedia/Internet.       
+ 2. Token (str): It is the token which you can obtain from the JarvisAI's official website. This features help to sync your setting each time run the assistant.    
+ 3. disable_msg (bool): It enables/disable the JarvisAI's initialization message.    
+ 4. load_chatbot_model (bool): If you want to use our AI based ChatBot model then you need to enable this. Without enabling this you can't use 'chatbot_base' or 'chatbot_large' functions. Disable this if you don't want to use JarvisAI's chatbot feature.    
+ 5. high_accuracy_chatbot_model (bool): All the AI's models will use some amount of bandwidth while downloading the models from Transformers Hub. Higher accuracy model will give you high accuracy, and size of these model is also high which required lot's or memory (RAM) while loading for the inference. If you have low memory system or less internet data then set this option to False. If it is false, it will load small model, which is around 1GB - 2GB and it has pretty much good accuracy.    
+ 6. chatbot_large (bool): If it is True it means, In case chatbot can't answer, or it recognizes the intent of your query is different from normal conversation then it will use Wikipedia/Internet to resolve your query, and it will analyze (summarize) extracted data from internet before response. You can use 'chatbot_large' with 'high_accuracy_chatbot_model=False' for better experience and lower RAM (internet data). Well, 'chatbot_large=False' only answer you queries based on it's AI model knowledge base, it doesn't use Wikipedia/Internet.       
+ 7. backend_tts_api (str): Male Voice Added (if your system support pyttsx3 module and your system have multiple voices inbuilt)
+	
+    You can try different voices. This is one time setup. You can reset your voice by deleting 'configs/JarvisAI-Voice.txt' file in your working directory. This file will be created during first run of the program only if you are using pyttsx3.
+ 
+    *Usages-*
+
+    ```
+    import JarvisAI
+    # backend_tts_api='pyttsx3' for different voices options
+     # backend_tts_api='gtts' for female voice by google text to speech library
+    obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4', disable_msg=False,
+                               load_chatbot_model=False, high_accuracy_chatbot_model=False,
+                               chatbot_large=False, backend_tts_api='pyttsx3')
+     ```
+    
+     What is 'configs/JarvisAI-Voice.txt' file contains?
+    - Voice information in plain text (do not modify this file manually)
     
 **_Note:_** _First of all setup initial settings of the project by calling setup function._    
  
