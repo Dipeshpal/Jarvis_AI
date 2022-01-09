@@ -150,7 +150,7 @@ class JarvisAssistant:
         """
         if not self.sync:
             config = configparser.ConfigParser()
-            config.read('config/config.ini')
+            config.read('configs/config.ini')
             user_name = config['default']['user_name']
         else:
             if self.token is None:
@@ -159,9 +159,9 @@ class JarvisAssistant:
                 cprint("Set 'obj = JarvisAI.JarvisAssistant(sync=true, token='xyz')' if you want to use this API",
                        color='red')
                 cprint("Obtain your token from: http://jarvis-ai-api.herokuapp.com/", color='green')
-                print("Currently using local config from 'config/config.ini' . . .")
+                print("Currently using local config from 'configs/config.ini' . . .")
                 config = configparser.ConfigParser()
-                config.read('config/config.ini')
+                config.read('configs/config.ini')
                 user_name = config['default']['user_name']
             else:
                 status, res = self.jarvisai_api.get_user_data(self.token)

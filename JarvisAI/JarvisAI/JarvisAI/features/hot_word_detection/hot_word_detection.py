@@ -12,7 +12,7 @@ def hot_word_detection(lang='en'):
         status, command
     """
     config = configparser.ConfigParser()
-    config.read('config/config.ini')
+    config.read('configs/config.ini')
     bot_name = config['default']['bot_name']
     try:
         r = sr.Recognizer()

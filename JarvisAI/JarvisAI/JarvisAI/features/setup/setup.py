@@ -26,8 +26,8 @@ class Setup:
             os.makedirs('configs')
         config = configparser.ConfigParser()
 
-        if os.path.exists('configs'):
-            sure = str(input("Your current configuration will be deleted, are you sure (y/n): ") or "n")
+        if not os.path.exists('configs/config.ini'):
+            sure = str(input("No Config Found. Create New (y/n): ") or "n")
             if sure == "n":
                 print("No changes done")
                 return False

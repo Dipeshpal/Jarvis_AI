@@ -8,7 +8,7 @@ def show_me_my_images():
     :return: Bool
     """
     config = configparser.ConfigParser()
-    config.read('config/config.ini')
+    config.read('configs/config.ini')
     try:
         path = config['default']['photos']
         path = path.split(",")
