@@ -1,16 +1,15 @@
 import setuptools
 from setuptools import find_namespace_packages
 
-
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="JarvisAI",
-    version="3.6",
+    version="3.7.1",
     author="Dipesh",
     author_email="dipeshpal17@gmail.com",
-    description="JarvisAI is AI python library",
+    description="JarvisAI is python library to build your own AI virtual assistant with natural language processing.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Dipeshpal/Jarvis_AI",
@@ -29,4 +28,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    project_urls={
+        'Documentation': 'pypi.org/project/JarvisAI/',
+        'Donate': 'https://www.buymeacoffee.com/dipeshpal',
+        'Say Thanks!': 'https://youtube.com/techportofficial',
+        'Source': 'https://github.com/Dipeshpal/Jarvis_AI',
+    },
 )

@@ -366,6 +366,22 @@ class JarvisAssistant:
             res = False
         return res
 
+    def get_weather(self, text):
+        """
+        Return weather by auto-detecting city just pass text.
+        Example: "Tell me weather in Indore" or "Tell me weather"
+        :param text: str
+            Any city of this world
+        :return: str/bool
+            weather info as string if True, or False
+        """
+        try:
+            res = wea.weather_app(text)
+        except Exception as e:
+            print(e)
+            res = False
+        return res
+
     def news(self):
         """
         Fetch top news of the day from news.google.com/news/rss
