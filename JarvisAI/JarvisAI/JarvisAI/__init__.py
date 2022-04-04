@@ -48,6 +48,8 @@ try:
     import features.chatbot.todo.make_todo
     import features.chatbot.todo.read_notes_if_exist
     import features.chatbot.todo.delete_todo
+    import features.chatbot.jarvis_ai_neural_engine.neural_engine
+
     # import features.utilities.utilities
 
 except Exception as e:
@@ -74,12 +76,14 @@ except Exception as e:
     from JarvisAI.features.chatbot.chatbot import start_chatbot_small as chatbot_sml
     from JarvisAI.features.chatbot.chatbot import load_chatbot_models as load_ch_model
     from JarvisAI.features.chatbot.todo import make_todo, read_notes_if_exist, delete_todo
+    from JarvisAI.features.chatbot.jarvis_ai_neural_engine import neural_engine
     # from JarvisAI.features.utilities import utilities
 
 
 class JarvisAssistant:
     def __init__(self, sync=True, token=None, disable_msg=False, load_chatbot_model=True,
                  high_accuracy_chatbot_model=False,
+                 high_accuracy_chatbot_model_with_neural_engine=False,
                  chatbot_large=False, backend_tts_api='pyttsx3'):
 
         # Check TTS Backend
@@ -92,6 +96,13 @@ class JarvisAssistant:
         if load_chatbot_model:
             self.chatbot_model = load_ch_model(high_accuracy_chatbot_model, chatbot_large)
         self.load_chatbot_model = load_chatbot_model
+
+        # high_accuracy_chatbot_model_with_neural_engine
+        self.high_accuracy_chatbot_model_with_neural_engine = high_accuracy_chatbot_model_with_neural_engine
+        if high_accuracy_chatbot_model_with_neural_engine:
+            self.jarvisai_neural_engine_obj = neural_engine.JarvisAINeuralEngine()
+        else:
+            self.jarvisai_neural_engine_obj = None
 
         # Check Sync Token
         if token is None or not sync:
@@ -579,7 +590,7 @@ class JarvisAssistant:
 
     def chatbot_large(self, input_text):
         """
-        If chat bot can't answer then it will do wikipedia/google search
+        If chatbot can't answer then it will do wikipedia/google search
         Note:
            1. Use 'chatbot_large' if you have high memory
            2. Set 'JarvisAI.JarvisAssistant(high_accuracy_chatbot_model=True)' for high memory system (It gives high accuracy)
@@ -590,6 +601,31 @@ class JarvisAssistant:
             print("You need to Set 'JarvisAI.JarvisAssistant(load_chatbot_model=True)' first")
             print("Exiting now, try again...")
         return chatbot_lrg(input_text, self.chatbot_model)
+
+    def chatbot_advance(self, input_text, enable_google=False, enable_youtube=False):
+        """
+        If chatbot can't answer then it will do wikipedia/google search
+        Note:
+            1. Set 'JarvisAI.JarvisAssistant(load_chatbot_model=False)'
+            2. Set 'JarvisAI.JarvisAssistant(high_accuracy_chatbot_model=False)'
+            3. Set 'JarvisAI.JarvisAssistant(chatbot_large=False)'
+            4. Set 'JarvisAI.JarvisAssistant(high_accuracy_chatbot_model_with_neural_engine=True)'
+            It is recommended to use 'high_accuracy_chatbot_model_with_neural_engine' or 'chatbot_large'
+        @param input_text: str (example: Hello!)
+        @param enable_google: bool (example: True)
+        @param enable_youtube: bool (example: True)
+        @return response: dict
+        @return status: bool
+        """
+        if not self.high_accuracy_chatbot_model_with_neural_engine:
+            print(
+                "You need to Set 'JarvisAI.JarvisAssistant(high_accuracy_chatbot_model_with_neural_engine=True)'"
+                " first to use 'chatbot_advance'")
+            return None, False
+        else:
+            response = self.jarvisai_neural_engine_obj.predict_outcome(text=input_text, enable_google=enable_google,
+                                                                       enable_youtube=enable_youtube)
+        return response, True
 
     def show_me_my_list(self):
         """
