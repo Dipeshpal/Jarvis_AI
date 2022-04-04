@@ -1,7 +1,13 @@
 
   
 # JarvisAI    
- ***Last Updated: 24 Oct, 2021***     
+ ***Last Updated: 05 Apr, 2022***   
+ 
+# NOTE
+
+This is the final update (05 Apr, 2022) on this libray. You can still use this library. We have introduce new library [AdonisAI](https://pypi.org/project/AdonisAI)
+
+AdonisAI is as advance version of JarvisAI which is lightweight but more powerful. AdonisAI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This library is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.
     
 1. What is Jarvis AI?    
  2. Prerequisite    
@@ -9,7 +15,7 @@
  4. How to contribute?    
  5. Future?    
 
-## Check Out Lightweight Version (More Powerful) of JarvisAI-
+## Check Out Lightweight (More Powerful) Version  of JarvisAI-
 
 AdonisAI: https://pypi.org/project/AdonisAI
 
@@ -289,7 +295,15 @@ Ans. Contact me on any of my social media or Email.
    
 **What's new?-**    
 
- 1. **20 Dec, 2021-**
+ 1. **05 Apr, 2022-**
+
+	This is the final update on this libray. You can still use this library. We have introduce new library [AdonisAI](https://pypi.org/project/AdonisAI)
+	
+	AdonisAI is as advance version of JarvisAI which is lightweight but more powerful. AdonisAI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This library is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.
+	
+	In this last update we mostly update the documentation.
+
+ 2. **20 Dec, 2021-**
 
 	Male Voice Added (if your system support pyttsx3 module and your system have multiple voices inbuilt)
 	
@@ -310,7 +324,7 @@ Ans. Contact me on any of my social media or Email.
     - Voice information in plain text (do not modify this file manually)
 
     
- 2. **22 Nov, 2021-**
+ 3. **22 Nov, 2021-**
 	
     * Now you can add and delete items in list.
 	
@@ -330,15 +344,15 @@ Ans. Contact me on any of my social media or Email.
          obj.show_me_some_tech_videos() # It will show tech videos in your browser
         ```
 	 
- 3. **24 Oct, 2021-**
+ 4. **24 Oct, 2021-**
 	
     New features added, features number 27, 28 and 29.
  
- 4. **17 Oct, 2021-**  
+ 5. **17 Oct, 2021-**  
         - Bug Fixes
         - Docs Update
 
- 5. **19 Sep, 2021-**  
+ 6. **19 Sep, 2021-**  
      
        Chatbot features added. Two new methods added (25, 26 check 'Usage and Features').   
        It used Transformers based AI models to response users general queries.   
@@ -360,7 +374,7 @@ Ans. Contact me on any of my social media or Email.
 	     user >> who is the captain of team India? 
 	     AI >> URL1, URL2, URL3  
 
- 5. **Before 19 Sep, 2021-**  
+ 7. **Before 19 Sep, 2021-**  
      
    Features 1-25 added. Check 'Usage and Features'  
   

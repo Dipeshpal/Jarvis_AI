@@ -1,16 +1,26 @@
 
   
 # JarvisAI    
- ***Last Updated: 24 Oct, 2021***     
+ ***Last Updated: 05 Apr, 2022***   
+ 
+# NOTE
+
+This is the final update (05 Apr, 2022) on this libray. You can still use this library. We have introduce new library [AdonisAI](https://pypi.org/project/AdonisAI)
+
+AdonisAI is as advance version of JarvisAI which is lightweight but more powerful. AdonisAI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This library is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.
     
 1. What is Jarvis AI?    
  2. Prerequisite    
  3. Getting Started- How to use it?    
  4. How to contribute?    
  5. Future?    
-     
-## 1. What is Jarvis AI- 
 
+## Check Out Lightweight (More Powerful) Version  of JarvisAI-
+
+AdonisAI: https://pypi.org/project/AdonisAI
+
+     
+## 1. What is Jarvis AI-
 Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.    
     
 This project is crated only for those who is having interest in building Virtual Assistant. Generally it took lots of time to write code from scratch to build Virtual Assistant. So, I have build an Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.    
@@ -21,10 +31,6 @@ This project is crated only for those who is having interest in building Virtual
     
 **API Documentations:** https://jarvis-ai-api.herokuapp.com/api_docs/    
     
-
-**🆕 [BETA] Rapid API Usages (Do everything with API no need to run heavy task on your system):** https://rapidapi.com/dipeshpal17/api/jarvisai-api
-
-
 ## 2. Prerequisite-    
  * To use it only Python (> 3.6) is required.    
 * To contribute in project: Python is the only prerequisite for basic scripting, Machine Learning and Deep Learning knowledge will help this model to do task like AI-ML. Read How to contribute section of this page.    
@@ -104,52 +110,51 @@ obj.mic_input_ai()  # mic_input() can be also used ```
  ``` res = obj.setup() ```    
  
  1. res = obj.mic_input(lang='en')    
- 2. res = obj.mic_input_ai(record_seconds=5, debug=False)    
- 3. res = obj.website_opener("facebook")    
- 4. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")    
- 5. res = obj.launch_app("edge")    
- 6. res = obj.weather(city='Mumbai')    
- 7. res = obj.news()    
- 8. res = obj.tell_me(topic='tell me about Taj Mahal')    
- 9. res = obj.tell_me_time()    
- 10. res = obj.tell_me_date()    
- 11. res = obj.shutdown()    
- 12. res = obj.text2speech(text='Hello, how are you?', lang='en')    
- 13. res = obj.datasetcreate(dataset_path='datasets', class_name='Demo',    
-                       haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',    
-                       eyecascade_path='haarcascade/haarcascade_eye.xml', eye_detect=False,    
-                       save_face_only=True, no_of_samples=100,    
-                       width=128, height=128, color_mode=False)    
- 14. res = obj.face_recognition_train(data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,    
-                                model_path='model', pretrained=None, base_model_trainable=False)    
- 15. res = obj.predict_faces(class_name=None, img_height=128, img_width=128,    
-                       haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',    
-                       eyecascade_path='haarcascade/haarcascade_eye.xml', model_path='model',    
-                       color_mode=False)    
- 16. res = obj.setup()    
- 17. res = obj.show_me_my_images()    
- 18. res= obj.show_google_photos()    
- 19. res = obj.tell_me_joke(language='en', category='neutral')    
- 20. res = obj.hot_word_detect(lang='en')    
- 21. status, response = obj.get_user_data(token="436c57eab581dbb2253cfa77c41574f6")  # get your token from https://jarvis-ai-api.herokuapp.com/    
- 22. obj.set_user_data()    
- 23. obj.jarvisai_configure_hand_detector(camera=0, detectionCon=0.7, maxHands=2, cam_display=True, cam_height=480,    
-                                          cam_width=888)    
+2. res = obj.mic_input_ai(record_seconds=5, debug=False)    
+3. res = obj.website_opener("facebook")    
+4. res = obj.send_mail(sender_email=None, sender_password=None, receiver_email=None, msg="Hello")    
+5. res = obj.launch_app("edge")    
+6. res = obj.weather(city='Mumbai')    
+7. res = obj.news()    
+8. res = obj.tell_me(topic='tell me about Taj Mahal')    
+9. res = obj.tell_me_time()    
+10. res = obj.tell_me_date()    
+11. res = obj.shutdown()    
+12. res = obj.text2speech(text='Hello, how are you?', lang='en')    
+13. res = obj.datasetcreate(dataset_path='datasets', class_name='Demo',    
+                      haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',    
+                      eyecascade_path='haarcascade/haarcascade_eye.xml', eye_detect=False,    
+                      save_face_only=True, no_of_samples=100,    
+                      width=128, height=128, color_mode=False)    
+14. res = obj.face_recognition_train(data_dir='datasets', batch_size=32, img_height=128, img_width=128, epochs=10,    
+                               model_path='model', pretrained=None, base_model_trainable=False)    
+15. res = obj.predict_faces(class_name=None, img_height=128, img_width=128,    
+                      haarcascade_path='haarcascade/haarcascade_frontalface_default.xml',    
+                      eyecascade_path='haarcascade/haarcascade_eye.xml', model_path='model',    
+                      color_mode=False)    
+16. res = obj.setup()    
+17. res = obj.show_me_my_images()    
+18. res= obj.show_google_photos()    
+19. res = obj.tell_me_joke(language='en', category='neutral')    
+20. res = obj.hot_word_detect(lang='en')    
+21. status, response = obj.get_user_data(token="436c57eab581dbb2253cfa77c41574f6")  # get your token from https://jarvis-ai-api.herokuapp.com/    
+22. obj.set_user_data()    
+23. obj.jarvisai_configure_hand_detector(camera=0, detectionCon=0.7, maxHands=2, cam_display=True, cam_height=480,    
+                                         cam_width=888)    
        
- 24. obj.jarvisai_detect_hands(self, message="")    
- 25. obj.chatbot_base(input_text='how are you')   # You must set obj=JarvisAI.JarvisAssistant(load_chatbot_model=True)  
- 26. obj.chatbot_large(input_text='how are you')  # You must set obj=JarvisAI.JarvisAssistant(load_chatbot_model=True)  
- 27. obj.create_new_list('add milk in my shopping list')
- 28. obj.delete_particular_list('delete my shopping list')
- 29. obj.show_me_my_list()
- 30. obj.show_me_some_tech_news()  # It will show tech news in your browser
- 31. obj.show_me_some_tech_videos() # It will show tech videos in your browser
- 32. obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4', disable_msg=False,
-                                load_chatbot_model=False, high_accuracy_chatbot_model=False,
-                                chatbot_large=False, backend_tts_api='pyttsx3') # you must set backend_tts_api='pyttsx3' for different voices options (Read 'What's new' of '20 Dec, 2021' update section of this page for more details.)
-  33. obj = JarvisAI.get_weather(text='What is the weather in Mumbai?')  # Return weather by auto-detecting city just pass text.
-
-     ------
+24. obj.jarvisai_detect_hands(self, message="")    
+25. obj.chatbot_base(input_text='how are you')   # You must set obj=JarvisAI.JarvisAssistant(load_chatbot_model=True)  
+26. obj.chatbot_large(input_text='how are you')  # You must set obj=JarvisAI.JarvisAssistant(load_chatbot_model=True)  
+27. obj.create_new_list('add milk in my shopping list')
+28.	obj.delete_particular_list('delete my shopping list')
+29. obj.show_me_my_list()
+30. obj.show_me_some_tech_news()  # It will show tech news in your browser
+31. obj.show_me_some_tech_videos() # It will show tech videos in your browser
+32.	obj = JarvisAI.JarvisAssistant(sync=True, token='5ec64be7ff718ac25917c198f3d7a4', disable_msg=False,
+                               load_chatbot_model=False, high_accuracy_chatbot_model=False,
+                               chatbot_large=False, backend_tts_api='pyttsx3') # you must set backend_tts_api='pyttsx3' for different voices options (Read 'What's new' of '20 Dec, 2021' update section of this page for more details.)
+     	
+    ------
 
 ## 4. How to contribute?    
     
@@ -290,24 +295,17 @@ Ans. Contact me on any of my social media or Email.
    
 **What's new?-**    
 
- 1. **13 Jan, 2022-**
-    
-    Version: JarvisAI==3.7
+ 1. **05 Apr, 2022-**
 
-    * Now it can automatically find your city name and return weather information.    
-    
-      ```
-       obj = JarvisAI.get_weather(text='What is the weather in Mumbai?')  # Return weather by auto-detecting city just pass text.
-      ```
-      
-    * 🆕 Rapid API Usages (Do everything with API no need to run heavy task on your system):** https://rapidapi.com/dipeshpal17/api/jarvisai-api
-      
-      All AI-ML models will run on our servers. So you don't need to install heavy library. Just use API key and get the result. WIP for optimization.
-    
+	This is the final update on this libray. You can still use this library. We have introduce new library [AdonisAI](https://pypi.org/project/AdonisAI)
+	
+	AdonisAI is as advance version of JarvisAI which is lightweight but more powerful. AdonisAI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This library is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.
+	
+	In this last update we mostly update the documentation.
 
  2. **20 Dec, 2021-**
 
-    Male Voice Added (if your system support pyttsx3 module and your system have multiple voices inbuilt)
+	Male Voice Added (if your system support pyttsx3 module and your system have multiple voices inbuilt)
 	
     You can try different voices. This is one time setup. You can reset your voice by deleting 'configs/JarvisAI-Voice.txt' file in your working directory. This file will be created during first run of the program only if you are using pyttsx3.
  
@@ -326,7 +324,7 @@ Ans. Contact me on any of my social media or Email.
     - Voice information in plain text (do not modify this file manually)
 
     
- 2. **22 Nov, 2021-**
+ 3. **22 Nov, 2021-**
 	
     * Now you can add and delete items in list.
 	
@@ -346,15 +344,15 @@ Ans. Contact me on any of my social media or Email.
          obj.show_me_some_tech_videos() # It will show tech videos in your browser
         ```
 	 
- 3. **24 Oct, 2021-**
+ 4. **24 Oct, 2021-**
 	
     New features added, features number 27, 28 and 29.
  
- 4. **17 Oct, 2021-**  
+ 5. **17 Oct, 2021-**  
         - Bug Fixes
         - Docs Update
 
- 5. **19 Sep, 2021-**  
+ 6. **19 Sep, 2021-**  
      
        Chatbot features added. Two new methods added (25, 26 check 'Usage and Features').   
        It used Transformers based AI models to response users general queries.   
@@ -376,7 +374,7 @@ Ans. Contact me on any of my social media or Email.
 	     user >> who is the captain of team India? 
 	     AI >> URL1, URL2, URL3  
 
- 5. **Before 19 Sep, 2021-**  
+ 7. **Before 19 Sep, 2021-**  
      
    Features 1-25 added. Check 'Usage and Features'  
   

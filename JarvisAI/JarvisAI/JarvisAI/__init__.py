@@ -108,6 +108,10 @@ class JarvisAssistant:
         if token is None or not sync:
             if not disable_msg:
                 print("\n")
+                cprint(
+                    "Note: This library is no longer in development. "
+                    "Check Out Lightweight (More Powerful) Version of JarvisAI- \n"
+                    "AdonisAI: https://pypi.org/project/AdonisAI \n\n", color='red')
                 cprint("Set 'obj = JarvisAI.JarvisAssistant(sync=False)' if you do not want to use API",
                        color='green')
                 cprint("Obtain your token from: http://jarvis-ai-api.herokuapp.com/", color='green')

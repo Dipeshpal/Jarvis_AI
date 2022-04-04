@@ -84,4 +84,4 @@ opencv-python==4.5.2.52
 cvzone==1.1.1
 pyttsx3
 spacy
-googlesearch-python=1.0.1
+googlesearch-python==1.0.1
