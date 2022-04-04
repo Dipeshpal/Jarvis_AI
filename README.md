@@ -8,6 +8,11 @@
  3. Getting Started- How to use it?    
  4. How to contribute?    
  5. Future?    
+
+## Check Out Lightweight Version (More Powerful) of JarvisAI-
+
+AdonisAI: https://pypi.org/project/AdonisAI
+
      
 ## 1. What is Jarvis AI-
 Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.    
