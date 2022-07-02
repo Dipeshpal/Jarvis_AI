@@ -5,7 +5,7 @@ try:
     nlp = spacy.load('en_core_web_sm')
 except Exception as e:
     print(e)
-    print(str(e).split('.')[0] + "Please wait while we download the model")
+    print(str(e).split('.')[0] + ". Please wait while we download the model")
     import os
 
     os.system('python -m spacy download en_core_web_sm')
@@ -47,8 +47,11 @@ def main_weather(city):
     units_format = "&units=metric"
     final_url = api_address + city + units_format
     json_data = requests.get(final_url).json()
-    weather_details = get_weather_data(json_data, city)
-    return weather_details
+    if json_data['cod'] == 200:
+        return get_weather_data(json_data, city)
+    else:
+        return "I am sorry, I could not find the weather for {}".format(city) + ".\nError code: {}".format(
+            json_data['message'])
 
 
 def weather_app(city):
@@ -56,8 +59,8 @@ def weather_app(city):
     return weather_res
 
 
-def get_weather(text):
-    doc = nlp(text)
+def get_weather(inp_command, *args, **kwargs):
+    doc = nlp(inp_command)
     city = None
     for ent in doc.ents:
         city = ent.text

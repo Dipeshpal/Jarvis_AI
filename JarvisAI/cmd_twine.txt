@@ -1,2 +1,3 @@
 python setup.py sdist bdist_wheel
 twine upload dist/*
+pyarmor obfuscate --bootstrap 3 --exact --platform windows.x86_64 --platform windows.x86 --platform linux.x86_64 --platform linux.x86 --platform darwin.x86_64 manager.py

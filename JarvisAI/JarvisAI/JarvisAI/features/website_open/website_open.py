@@ -2,7 +2,8 @@ import webbrowser
 import re
 
 
-def website_opener(domain):
+def website_opener(input_text):
+    domain = input_text.lower().split(" ")[-1]
     extension = re.search(r"[.]", domain)
     if not extension:
         if not domain.endswith(".com"):

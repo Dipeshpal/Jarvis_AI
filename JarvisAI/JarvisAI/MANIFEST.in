@@ -1,0 +1,1 @@
+recursive-include JarvisAI *.dll *.so *.dylib

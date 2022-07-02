@@ -1,7 +1,7 @@
 import datetime
 
 
-def date():
+def date(*args, **kwargs):
     """
     Just return date as string
     :return: date if success, False if fail
@@ -14,7 +14,7 @@ def date():
     return date
 
 
-def time():
+def time(*args, **kwargs):
     """
     Just return date as string
     :return: time if success, False if fail

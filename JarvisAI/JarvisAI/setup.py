@@ -1,12 +1,12 @@
 import setuptools
 from setuptools import find_namespace_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="JarvisAI",
-    version="3.9",
+    version="4.0",
     author="Dipesh",
     author_email="dipeshpal17@gmail.com",
     description="JarvisAI is python library to build your own AI virtual assistant with natural language processing.",
@@ -15,13 +15,14 @@ setuptools.setup(
     url="https://github.com/Dipeshpal/Jarvis_AI",
     include_package_data=True,
     packages=find_namespace_packages(include=['JarvisAI.*', 'JarvisAI']),
-    install_requires=['numpy', 'gtts==2.2.1', 'playsound==1.2.2',
-                      'SpeechRecognition==3.8.1', 'pipwin==0.5.0', 'lxml==4.6.1', 'pyjokes',
-                      'beautifulsoup4==4.9.3', 'wikipedia==1.4.0', 'auto_face_recognition', 'transformers==4.3.2',
-                      'lazyme==0.0.23', 'librosa==0.8.0', "torch==1.7.1", "requests", "opencv-contrib-python==4.5.2.52",
-                      "opencv-python==4.5.2.52", "cvzone==1.1.1", "pyttsx3", "googlesearch-python", "spacy",
-                      "mediapipe==0.8.8", "googlesearch-python==1.0.1", "youtube-search-python==1.5.3", "shutup==0.1.3"],
-
+    install_requires=['numpy', 'gtts', 'playsound', 'pyscreenshot', "opencv-python",
+                      'SpeechRecognition', 'pipwin', 'lxml', 'pyjokes',
+                      'beautifulsoup4', 'wikipedia', 'scipy', 'download',
+                      "torch", 'lazyme', "requests", "pyttsx3", "googlesearch-python",
+                      "spacy", 'textdistance', 'pywhatkit', "googlesearch-python",
+                      "youtube-search-python", "shutup", 'Flask', 'speedtest-cli',
+                      'pytube', 'pycountry', 'phonetics', 'fuzzywuzzy', 'googletrans', 'wave',
+                      'deepspeech', 'webrtcvad', 'halo', 'playsound==1.2.2', 'pyaudio'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
