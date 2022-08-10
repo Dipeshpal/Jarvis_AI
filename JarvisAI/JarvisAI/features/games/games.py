@@ -12,4 +12,4 @@ def play_games(inp_command):
 
 
 if __name__ == '__main__':
-    play_games()
+    play_games('inp_command')
