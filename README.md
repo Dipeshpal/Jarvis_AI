@@ -90,7 +90,7 @@ The JarvisAI’s architecture is divided into two parts.
  
    You need only this piece of code-  
 
-```
+```python
 import JarvisAI  
 	 
 # create your own function  
