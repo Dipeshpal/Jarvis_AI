@@ -125,3 +125,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+JarvisAI/JarvisAI/user_configs/speech_engine.txt
+JarvisAI/JarvisAI/user_configs/api_key.txt
+JarvisAI/.idea/misc.xml
+JarvisAI/.idea/JarvisAI.iml
+*.iml
+*.iml
