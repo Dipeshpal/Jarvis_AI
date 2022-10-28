@@ -4,7 +4,8 @@ try:
     from services.authenticate import verify_user
     from services.speech_to_text.speech_to_text import speech_to_text_google
     from services.text_to_speech.text_to_speech import text_to_speech
-    from services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai
+    from services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai, \
+        make_decision_jarvisai_string_matching
     from services.api_management_service.dist.manager import management as management_service
     from CONSTANT import Constant
     from features_default import dict_of_features, what_can_i_do
@@ -12,7 +13,8 @@ except:
     from JarvisAI.services.authenticate import verify_user
     from JarvisAI.services.speech_to_text.speech_to_text import speech_to_text_google
     from JarvisAI.services.text_to_speech.text_to_speech import text_to_speech
-    from JarvisAI.services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai
+    from JarvisAI.services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai, \
+        make_decision_jarvisai_string_matching
     from JarvisAI.services.api_management_service.dist.manager import management as management_service
     from JarvisAI.CONSTANT import Constant
     from JarvisAI.features_default import dict_of_features, what_can_i_do
@@ -268,11 +270,15 @@ class JarvisAI(InputsMethods, OutputMethods):
         else:
             task, accuracy_ = make_decision_jarvisai(self.api_key, inp)
         if self.display_intent:
-            print("===========>", task.upper(), "<===========")
+            print("===========>", task.upper(), "with accuracy", accuracy_, "<===========")
         if accuracy_ > 0.5:
             fun = dict_of_features[task]
         else:
-            fun = dict_of_features["conversation"]
+            classes = list(dict_of_features.keys())
+            task = make_decision_jarvisai_string_matching(classes, inp)
+            fun = dict_of_features[task]
+            print("===========>", task.upper(), "<===========")
+        #     fun = dict_of_features["conversation"]
         # perform action
         if fun is not None:
             call_out = fun(inp)
@@ -333,10 +339,10 @@ if __name__ == "__main__":
         return feature_command + ' Executed'
 
 
-    obj = JarvisAI(input_method=InputsMethods.voice_input_google_api,
-                   output_method=OutputMethods.voice_output,
+    obj = JarvisAI(input_method=InputsMethods.text_input,
+                   output_method=OutputMethods.text_output,
                    backend_tts_api='pyttsx3',
-                   api_key="5ba317a681c5d42361cda5b9f9ba7d0e",
+                   api_key="c6fd2013918f9bc9a12c5394a819af49",
                    detect_wake_word=False,
                    wake_word_detection_method=InputsMethods.voice_input_google_api,
                    bot_name="Jarvis",

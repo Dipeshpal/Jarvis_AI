@@ -1,6 +1,7 @@
 import datetime
 import cv2
 import os
+import time
 
 
 def click_pic(inp_command):
@@ -18,7 +19,8 @@ def click_pic(inp_command):
         cv2.imwrite(f"photos/{t.second, t.minute, t.hour, t.day, t.month}_photo.png", image)
         #     As soon as the image is saved we will stop recording
         del camera
-        return f"Saved on: photos/{t.second, t.minute, t.hour, t.day, t.month}_photo.png"
+        print(f"Photo taken: photos/{t.second, t.minute, t.hour, t.day, t.month}_photo.png")
+        return "Photo taken"
     except Exception as e:
         return "Error: " + str(e) + "\n Unable to take photo"
 

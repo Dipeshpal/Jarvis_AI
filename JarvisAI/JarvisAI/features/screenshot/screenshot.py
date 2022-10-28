@@ -11,7 +11,8 @@ def take_screenshot(inp_command):
         if not os.path.exists("screenshot"):
             os.mkdir("screenshot")
         image.save(f"screenshot/{a.day, a.month, a.year}_screenshot.png")
-        return f"screenshot/{a.day, a.month, a.year}_screenshot.png Successfully taken"
+        print(f"Screenshot taken: screenshot/{a.day, a.month, a.year}_screenshot.png ")
+        return f"Screenshot taken"
     except Exception as e:
         print(e)
         return "Unable to take screenshot"

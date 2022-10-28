@@ -174,7 +174,10 @@ READ MORE: Google Speech API (Pricing and Key) at: https://cloud.google.com/spee
 16. you can check internet speed: Say- “check internet speed”  
 17. you can download a youtube video: Say- “download youtube video”  
 18. you can check covid cases: Say- “covid cases in < country>”, “covid cases < country>”  
-19. you can ask to play games: Say- “play games”’  
+19. you can ask to play games: Say- “play games” 
+20. you can ask places near me: Say- "cafe near me"
+21. you can say : Say- "i am bored"
+22. you can control volume: Say- "open volume controller"
 
 ### 5.2. Supported Input/Output Methods (Which option do I need to choose?)-  
   

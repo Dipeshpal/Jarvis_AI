@@ -104,19 +104,18 @@ def custom_function(feature_command="custom command"):
 	# perform some tasks # return is optional  
 	return feature_command + ' Executed'  
   
-  
-obj = JarvisAI.JarvisAI(input_method=InputsMethods.voice_input_google_api,  
-						output_method=OutputMethods.voice_output,  
-						backend_tts_api='pyttsx3',  
-						api_key="5ba317a681c5d42361cda5b9f9ba7d0e",  
-						detect_wake_word=False,  
-						wake_word_detection_method=InputsMethods.voice_input_google_api,  
-						bot_name="Jarvis",  
-						display_intent=True,   
-						google_speech_recognition_input_lang='en',  
-						google_speech_recognition_key=None,  
-						google_speech_recognition_duration_listening=5)  
-  
+obj = JarvisAI.JarvisAI(input_method=JarvisAI.InputsMethods.voice_input_google_api,
+                        output_method=JarvisAI.OutputMethods.voice_output,
+                        backend_tts_api='pyttsx3',
+                        api_key="c6fd2013918f9bc9a12c5394a819af49",
+                        detect_wake_word=False,
+                        wake_word_detection_method=JarvisAI.InputsMethods.voice_input_google_api,
+                        bot_name="Jarvis",
+                        display_intent=True,
+                        google_speech_recognition_input_lang='en',
+                        google_speech_recognition_key=None,
+                        google_speech_recognition_duration_listening=5)  
+ 
 obj.register_feature(feature_obj=custom_function, feature_command='custom feature')  
   
 obj.start()
@@ -174,7 +173,10 @@ READ MORE: Google Speech API (Pricing and Key) at: https://cloud.google.com/spee
 16. you can check internet speed: Say- “check internet speed”  
 17. you can download a youtube video: Say- “download youtube video”  
 18. you can check covid cases: Say- “covid cases in < country>”, “covid cases < country>”  
-19. you can ask to play games: Say- “play games”’  
+19. you can ask to play games: Say- “play games” 
+20. you can ask places near me: Say- "cafe near me"
+21. you can say : Say- "i am bored"
+22. you can control volume: Say- "open volume controller"
 
 ### 5.2. Supported Input/Output Methods (Which option do I need to choose?)-  
   

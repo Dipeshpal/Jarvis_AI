@@ -55,6 +55,26 @@ def make_decision_jarvisai(secret_key, string):
     return res
 
 
+def make_decision_jarvisai_string_matching(classes_list, input_string):
+    try:
+        answer = []
+        answer_ = {}
+        answer_li = []
+        for clas in classes_list:
+            acc = textdistance.jaccard(input_string, clas)
+            answer_li.append({'label': clas, 'confidence': acc})
+            answer.append({'label': clas.strip(), 'confidence': acc})
+            answer_[clas] = acc
+        response = dict()
+        response["data"] = [{'label': max(answer_, key=answer_.get).strip(),
+                             'confidences': answer}]
+        best = response["data"][0]["label"]
+        return best
+    except Exception as e:
+        print(e)
+        return None
+
+
 if __name__ == "__main__":
     inp = "date"
     clss = "asking date, asking time, tell me joke, tell me news, tell me weather, tell me about, open website, play on youtube, send whatsapp message, send email"
