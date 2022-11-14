@@ -342,7 +342,7 @@ if __name__ == "__main__":
     obj = JarvisAI(input_method=InputsMethods.text_input,
                    output_method=OutputMethods.text_output,
                    backend_tts_api='pyttsx3',
-                   api_key="c6fd2013918f9bc9a12c5394a819af49",
+                   api_key="e91bb0bf7feafa0ecf6bb384e867cb98",
                    detect_wake_word=False,
                    wake_word_detection_method=InputsMethods.voice_input_google_api,
                    bot_name="Jarvis",

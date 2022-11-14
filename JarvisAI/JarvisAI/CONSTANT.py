@@ -1,4 +1,4 @@
-BASE_URL = "https://jarvis-ai-api.herokuapp.com/"
+BASE_URL = "https://jarvisai.in/"
 USER_CONFIG_FOLDER = './user_configs/'
 API_KEY_PATH = f'{USER_CONFIG_FOLDER}api_key.txt'
 SPEECH_ENGINE_PATH = f'{USER_CONFIG_FOLDER}speech_engine.txt'

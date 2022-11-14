@@ -19,19 +19,33 @@ This project is crated only for those who is having interest in building Virtual
 8. Contact me  
 9. Donate  
 10. Thank me on-  
+
+## YouTube Tutorial-
+
+Click on the image below to watch the tutorial on YouTube-
+
+**Tutorial 1-**
+
+[![JarvisAI Tutorial 1](https://img.youtube.com/vi/p2hdqB11S-8/0.jpg)](https://www.youtube.com/watch?v=p2hdqB11S-8)
+
+**Tutorial 2-**
+
+[![JarvisAI Tutorial 2](https://img.youtube.com/vi/6p8bhNGtVbA/0.jpg)](https://www.youtube.com/watch?v=6p8bhNGtVbA)
+
+
   
 ## **1. What is Jarvis AI?**  
   
 Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.  
   
-* Official Website:  [Click Here](http://jarvis-ai-api.herokuapp.com/)  
+* Official Website:  [Click Here](https://jarvisai.in)  
   
 * Official Instagram Page:  [Click Here](https://www.instagram.com/_jarvisai_)  
   
   
 ## 2. Prerequisite  
   
-- Get your Free API key from  [http://jarvis-ai-api.herokuapp.com](http://jarvis-ai-api.herokuapp.com/)  
+- Get your Free API key from  [https://jarvisai.in](https://jarvisai.in)  
       
 - To use it only Python (> 3.6) is required.  
       
