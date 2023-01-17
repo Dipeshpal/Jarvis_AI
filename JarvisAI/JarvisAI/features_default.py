@@ -45,30 +45,11 @@ except ImportError as e:
     from .features.volume_control import volume_controller
 
 
-dict_of_features = {
-    'asking date': date_time.date,
-    'asking time': date_time.time,
-    'tell me joke': joke.tell_me_joke,
-    'tell me news': news.news,
-    'asking weather': weather.get_weather,
-    'tell me about': tell_me_about.tell_me_about,
-    'open website': website_open.website_opener,
-    'play on youtube': youtube_play.yt_play,
-    'send whatsapp message': whatsapp_message.send_whatsapp_message,
-    'send email': send_email.send_email,
-    'greet': greet.greet,
-    'goodbye': goodbye.goodbye,
-    # 'conversation': chatbot.chatbot_general_purpose,
-    'take screenshot': screenshot.take_screenshot,
-    'click photo': click_photo.click_pic,
-    # 'check internet speed': internet_speed_test.speed_test,
-    'download youtube video': youtube_video_downloader.download_yt_video,
-    'covid cases': covid_cases.check_command_is_for_covid_cases,  #
-    'play games': games.play_games,
-    'places near me': places_near_me.get_places_near_me,
-    'i am bored': iambored.get_me_suggestion,
-    'volume control': volume_controller.start_volume_control,
-}
+def show_what_can_i_do(*args, **kwargs):
+    print("I can do following things:")
+    for key in dict_of_features.keys():
+        print(key)
+
 
 what_can_i_do = {
     'you can ask me date ': 'Say- "what is the date today"',
@@ -97,5 +78,31 @@ what_can_i_do = {
     'you can control volume': 'Say- "open volume control"'
 }
 
+dict_of_features = {
+    'asking date': date_time.date,
+    'asking time': date_time.time,
+    'tell me joke': joke.tell_me_joke,
+    'tell me news': news.news,
+    'asking weather': weather.get_weather,
+    'tell me about': tell_me_about.tell_me_about,
+    'open website': website_open.website_opener,
+    'play on youtube': youtube_play.yt_play,
+    'send whatsapp message': whatsapp_message.send_whatsapp_message,
+    'send email': send_email.send_email,
+    'greet and hello hi kind of things, general check in': greet.greet,
+    'goodbye': goodbye.goodbye,
+    # 'conversation': chatbot.chatbot_general_purpose,
+    'take screenshot': screenshot.take_screenshot,
+    'click photo': click_photo.click_pic,
+    # 'check internet speed': internet_speed_test.speed_test,
+    'download youtube video': youtube_video_downloader.download_yt_video,
+    'covid cases': covid_cases.check_command_is_for_covid_cases,  #
+    'play games': games.play_games,
+    'places near me': places_near_me.get_places_near_me,
+    'i am bored': iambored.get_me_suggestion,
+    'volume control': volume_controller.start_volume_control,
+    'what can you do': show_what_can_i_do,
+}
+
 if __name__ == '__main__':
-    print(', '.join(list(dict_of_features.keys())))
+    print("', '".join(list(dict_of_features.keys())))

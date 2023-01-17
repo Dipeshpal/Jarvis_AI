@@ -69,6 +69,8 @@ def make_decision_jarvisai_string_matching(classes_list, input_string):
         response["data"] = [{'label': max(answer_, key=answer_.get).strip(),
                              'confidences': answer}]
         best = response["data"][0]["label"]
+        print("Best", best)
+        print("Res", response)
         return best
     except Exception as e:
         print(e)
@@ -80,5 +82,5 @@ if __name__ == "__main__":
     clss = "asking date, asking time, tell me joke, tell me news, tell me weather, tell me about, open website, play on youtube, send whatsapp message, send email"
     # pprint(make_decision_nlp(inp, clss))
     # pprint(make_decision_ai(inp, clss))
-    pprint(make_decision_ai('5ba317a681c5d42361cda5b9f9ba7d0e', inp, clss))
-    pprint(make_decision_jarvisai('5ba317a681c5d42361cda5b9f9ba7d0e', inp))
+    pprint(make_decision_ai('ddcb247ce8b4c56684c83e4f97971af8', inp, clss))
+    pprint(make_decision_jarvisai('ddcb247ce8b4c56684c83e4f97971af8', inp))

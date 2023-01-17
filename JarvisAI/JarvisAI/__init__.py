@@ -6,6 +6,7 @@ try:
     from services.text_to_speech.text_to_speech import text_to_speech
     from services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai, \
         make_decision_jarvisai_string_matching
+    from services.brain.decision_maker_local import make_decision as make_decision_local
     from services.api_management_service.dist.manager import management as management_service
     from CONSTANT import Constant
     from features_default import dict_of_features, what_can_i_do
@@ -15,6 +16,7 @@ except:
     from JarvisAI.services.text_to_speech.text_to_speech import text_to_speech
     from JarvisAI.services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai, \
         make_decision_jarvisai_string_matching
+    from JarvisAI.services.brain.decision_maker_local import make_decision as make_decision_local
     from JarvisAI.services.api_management_service.dist.manager import management as management_service
     from JarvisAI.CONSTANT import Constant
     from JarvisAI.features_default import dict_of_features, what_can_i_do
@@ -103,7 +105,7 @@ class JarvisAI(InputsMethods, OutputMethods):
     def __init__(self, input_method: object, output_method: object, backend_tts_api='pyttsx3', api_key: str = "",
                  detect_wake_word: bool = True, wake_word_detection_method: object = None, bot_name: str = "Jarvis",
                  display_intent: bool = True, google_speech_recognition_input_lang='en',
-                 google_speech_recognition_key=None, google_speech_recognition_duration_listening=5):
+                 google_speech_recognition_key=None, google_speech_recognition_duration_listening=5, warnings=True):
         """
         :param input_method: (object) method to get input from user <allowed values: [InputsMethods.text_input, InputsMethods.voice_input_google_api, InputsMethods.voice_input_deepspeech_streaming]>
         :param output_method: (object) method to give output to user <allowed values: [OutputMethods.text_output, OutputMethods.voice_output]
@@ -134,6 +136,7 @@ class JarvisAI(InputsMethods, OutputMethods):
         self.google_speech_recognition_input_lang = google_speech_recognition_input_lang
         self.google_speech_recognition_key = google_speech_recognition_key
         self.google_speech_recognition_duration_listening = google_speech_recognition_duration_listening
+        self.warnings = warnings
         self.custom_features = {}
         OutputMethods.__init__(self, backend_tts_api=backend_tts_api)
 
@@ -268,30 +271,48 @@ class JarvisAI(InputsMethods, OutputMethods):
             accuracy_ = 100
             task = inp
         else:
-            task, accuracy_ = make_decision_jarvisai(self.api_key, inp)
+            # task, accuracy_ = make_decision_jarvisai(self.api_key, inp)
+
+            # NOTE: If make_decision_local is used, then the accuracy_ is not returned so it is set to 100
+            task = make_decision_local(list(dict_of_features.keys()), inp)
+            accuracy_ = 100
         if self.display_intent:
             print("===========>", task.upper(), "with accuracy", accuracy_, "<===========")
-        if accuracy_ > 0.5:
+        if accuracy_ > 0.7:
             fun = dict_of_features[task]
         else:
             classes = list(dict_of_features.keys())
-            task = make_decision_jarvisai_string_matching(classes, inp)
+            # task = make_decision_jarvisai_string_matching(classes, inp)
+            task = make_decision_jarvisai(classes, inp)
             fun = dict_of_features[task]
-            print("===========>", task.upper(), "<===========")
+            if self.display_intent:
+                print("===========>", task.upper(), "<===========")
         #     fun = dict_of_features["conversation"]
+
         # perform action
         if fun is not None:
             call_out = fun(inp)
         else:
-            call_out = "Sorry, I don't understand your command."
+            if task != 'what can you do':
+                call_out = "Sorry, I don't understand your command."
+            else:
+                call_out = ""
         if not call_out:
-            call_out = "Sorry, I don't understand your command."
+            if task != 'what can you do':
+                call_out = "Sorry, I don't understand your command."
 
         if not self.output_method == OutputMethods.text_output:
             print(call_out)
+
         self.output_method(text=call_out)
         if inp not in list(self.custom_features.keys()):
-            management_service(inp=inp, out=call_out, task=task, secret_key=self.api_key, debug=False)
+            # TODO: Below API is not working
+            try:
+                management_service(inp=inp, out=call_out, task=task, secret_key=self.api_key, debug=True)
+            except Exception as e:
+                if self.warnings:
+                    print("Error in calling management service:", e)
+
 
     @verify_user
     def start(self):
@@ -342,14 +363,15 @@ if __name__ == "__main__":
     obj = JarvisAI(input_method=InputsMethods.text_input,
                    output_method=OutputMethods.text_output,
                    backend_tts_api='pyttsx3',
-                   api_key="e91bb0bf7feafa0ecf6bb384e867cb98",
+                   api_key="ddcb247ce8b4c56684c83e4f97971af8",
                    detect_wake_word=False,
                    wake_word_detection_method=InputsMethods.voice_input_google_api,
                    bot_name="Jarvis",
                    display_intent=True,
                    google_speech_recognition_input_lang='en',
                    google_speech_recognition_key=None,
-                   google_speech_recognition_duration_listening=5
+                   google_speech_recognition_duration_listening=5,
+                   warnings=False,
                    )
 
     obj.register_feature(feature_obj=custom_function, feature_command='custom feature')

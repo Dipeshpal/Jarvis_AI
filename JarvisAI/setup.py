@@ -6,7 +6,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="JarvisAI",
-    version="4.2",
+    version="4.3",
     author="Dipesh",
     author_email="dipeshpal17@gmail.com",
     description="JarvisAI is python library to build your own AI virtual assistant with natural language processing.",
@@ -23,7 +23,7 @@ setuptools.setup(
                       "youtube-search-python", "shutup", 'Flask', 'speedtest-cli',
                       'pytube', 'pycountry', 'phonetics', 'fuzzywuzzy', 'googletrans', 'wave',
                       'deepspeech', 'halo', 'playsound==1.2.2', 'pyaudio', 'mediapipe==0.8.11',
-                      'pycaw'],
+                      'pycaw', 'transformers'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

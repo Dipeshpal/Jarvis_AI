@@ -5,8 +5,7 @@
   
 # Hello, folks! <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">  
   
-This project is crated only for those who is having interest in building Virtual Assistant. Generally it took lots of time to write code from scratch to build Virtual Assistant. So, I have built a Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.  
-  
+This project is created only for those who are interested in building a Virtual Assistant. Generally, it took lots of time to write code from scratch to build a Virtual Assistant. So, I have built a Library called "JarvisAI", which gives you easy functionality to build your own Virtual Assistant.  
 # Content-  
   
 1. What is JarvisAI?  
@@ -36,8 +35,8 @@ Click on the image below to watch the tutorial on YouTube-
   
 ## **1. What is Jarvis AI?**  
   
-Jarvis AI is a Python Module which is able to perform task like Chatbot, Assistant etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers and other opensource libraries and frameworks. Well, you can contribute on this project to make it more powerful.  
-  
+Jarvis AI is a Python Module that is able to perform tasks like Chatbot, Assistant, etc. It provides base functionality for any assistant application. This JarvisAI is built using Tensorflow, Pytorch, Transformers, and other open-source libraries and frameworks. Well, you can contribute to this project to make it more powerful.  
+
 * Official Website:  [Click Here](https://jarvisai.in)  
   
 * Official Instagram Page:  [Click Here](https://www.instagram.com/_jarvisai_)  
@@ -49,8 +48,8 @@ Jarvis AI is a Python Module which is able to perform task like Chatbot, Assista
       
 - To use it only Python (> 3.6) is required.  
       
-- To contribute in project: Python is the only prerequisite for basic scripting, Machine Learning and Deep Learning knowledge will help this model to do task like AI-ML. Read How to contribute section of this page.  
-      
+- To contribute to the project: Python is the only prerequisite for basic scripting, Machine Learning, and Deep Learning knowledge will help this model to do tasks like AI-ML. Read the How to Contribute section of this page.
+
 ## 3. Architecture
 
 The JarvisAI’s architecture is divided into two parts.
@@ -77,15 +76,15 @@ The JarvisAI’s architecture is divided into two parts.
 
 #### Optional Steps (Common Installation Issues)-
 
-* [Optional Step] If Pyaudio is not working or not installed you might need to install it seperately-
+* [Optional Step] If Pyaudio is not working or not installed you might need to install it separately-
 	
-	In the case of Mac OSX do:
+	In the case of Mac OSX do the following:
 	
 	```python
 	brew install portaudio
 	pip install pyaudio
 	```
-	In the case of Windows or Linux do:
+	In the case of Windows or Linux do the following:
 	
 	- Download pyaudio from: lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 	
@@ -128,7 +127,8 @@ obj = JarvisAI.JarvisAI(input_method=JarvisAI.InputsMethods.voice_input_google_a
                         display_intent=True,
                         google_speech_recognition_input_lang='en',
                         google_speech_recognition_key=None,
-                        google_speech_recognition_duration_listening=5)  
+                        google_speech_recognition_duration_listening=5,
+                        warnings=False),  
  
 obj.register_feature(feature_obj=custom_function, feature_command='custom feature')  
   
@@ -179,7 +179,7 @@ READ MORE: Google Speech API (Pricing and Key) at: https://cloud.google.com/spee
 8. you can play on youtube: Say- “play on youtube < video name>”, “play < video name> on youtube”  
 9. you can send a WhatsApp message: Say- “send WhatsApp message’’  
 10. you can send an email: Say- “send email”  
-11. greet: Say- “greet”, “hello”, “hey”, “hi”, “good morning”, “good afternoon”, “good evening”  
+11. greet: Say- “greet”, “hello”, “hey”, “hi”, “good morning”, “good afternoon”, “good evening”, "how are you"
 12. goodbye: Say- “goodbye”, “bye”, “see you later”  
 13. conversation: Say- “conversation”, “chat”, “talk”, “talk with chatbot”  
 14. you can take a screenshot of the current screen: Say- “take screenshot”  
