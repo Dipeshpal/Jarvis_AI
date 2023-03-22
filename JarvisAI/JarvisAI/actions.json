@@ -1,103 +1,94 @@
 [
-    {
-        "intent": "greet and hello hi kind of things",
-        "example": []
-    },
-    {
-        "intent": "goodbye",
-        "example": []
-    },
-    {
-        "intent": "asking date",
-        "example": []
-    },
-    {
-        "intent": "tell me joke",
-        "example": []
-    },
-    {
-        "intent": "asking time",
-        "example": []
-    },
-    {
-        "intent": "tell me about",
-        "example": []
-    },
-    {
-        "intent": "i am bored",
-        "example": []
-    },
-    {
-        "intent": "volume control",
-        "example": []
-    },
-    {
-        "intent": "tell me news",
-        "example": []
-    },
-    {
-        "intent": "click photo",
-        "example": []
-    },
-    {
-        "intent": "places near me",
-        "example": []
-    },
-    {
-        "intent": "play on youtube",
-        "example": []
-    },
-    {
-        "intent": "play games",
-        "example": []
-    },
-    {
-        "intent": "what can you do",
-        "example": []
-    },
-    {
-        "intent": "send email",
-        "example": []
-    },
-    {
-        "intent": "download youtube video",
-        "example": []
-    },
-    {
-        "intent": "asking weather",
-        "example": []
-    },
-    {
-        "intent": "take screenshot",
-        "example": []
-    },
-    {
-        "intent": "open website",
-        "example": []
-    },
-    {
-        "intent": "send whatsapp message",
-        "example": []
-    },
-    {
-        "intent": "covid cases",
-        "example": []
-    },
-    {
-        "intent": "asking weather",
-        "example": []
-    },
-    {
-        "intent": "others",
-        "example": []
-    },
-    {
-        "intent": "general",
-        "example": [
-            "general",
-            "general hello",
-            "general 2",
-            "general g"
-        ]
-    }
+  {
+    "intent": "greet and hello hi kind of things",
+    "example": []
+  },
+  {
+    "intent": "goodbye",
+    "example": []
+  },
+  {
+    "intent": "asking date",
+    "example": []
+  },
+  {
+    "intent": "tell me joke",
+    "example": []
+  },
+  {
+    "intent": "asking time",
+    "example": []
+  },
+  {
+    "intent": "tell me about",
+    "example": []
+  },
+  {
+    "intent": "i am bored",
+    "example": []
+  },
+  {
+    "intent": "volume control",
+    "example": []
+  },
+  {
+    "intent": "tell me news",
+    "example": []
+  },
+  {
+    "intent": "click photo",
+    "example": []
+  },
+  {
+    "intent": "places near me",
+    "example": []
+  },
+  {
+    "intent": "play on youtube",
+    "example": []
+  },
+  {
+    "intent": "play games",
+    "example": []
+  },
+  {
+    "intent": "what can you do",
+    "example": []
+  },
+  {
+    "intent": "send email",
+    "example": []
+  },
+  {
+    "intent": "download youtube video",
+    "example": []
+  },
+  {
+    "intent": "asking weather",
+    "example": []
+  },
+  {
+    "intent": "take screenshot",
+    "example": []
+  },
+  {
+    "intent": "open website",
+    "example": []
+  },
+  {
+    "intent": "send whatsapp message",
+    "example": []
+  },
+  {
+    "intent": "covid cases",
+    "example": []
+  },
+  {
+    "intent": "asking weather",
+    "example": []
+  },
+  {
+    "intent": "others",
+    "example": []
+  }
 ]
