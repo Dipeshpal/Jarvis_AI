@@ -1,379 +1,234 @@
-import sys
+import os
+import json
+import logging
+import requests
 
 try:
-    from services.authenticate import verify_user
-    from services.speech_to_text.speech_to_text import speech_to_text_google
-    from services.text_to_speech.text_to_speech import text_to_speech
-    from services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai, \
-        make_decision_jarvisai_string_matching
-    from services.brain.decision_maker_local import make_decision as make_decision_local
-    from services.api_management_service.dist.manager import management as management_service
-    from CONSTANT import Constant
-    from features_default import dict_of_features, what_can_i_do
+    from utils import input_output
+    from brain import intent_classification
+    from brain import ner
+    from features_manager import action_map
+    from brain.auth import verify_user
 except:
-    from JarvisAI.services.authenticate import verify_user
-    from JarvisAI.services.speech_to_text.speech_to_text import speech_to_text_google
-    from JarvisAI.services.text_to_speech.text_to_speech import text_to_speech
-    from JarvisAI.services.brain.decision_maker_api import make_decision_nlp, make_decision_ai, make_decision_jarvisai, \
-        make_decision_jarvisai_string_matching
-    from JarvisAI.services.brain.decision_maker_local import make_decision as make_decision_local
-    from JarvisAI.services.api_management_service.dist.manager import management as management_service
-    from JarvisAI.CONSTANT import Constant
-    from JarvisAI.features_default import dict_of_features, what_can_i_do
-
-import os
-import phonetics
-from fuzzywuzzy import fuzz
-from playsound import playsound
-from download import download
-
-CONSTANT = Constant()
+    from JarvisAI.utils import input_output
+    from JarvisAI.brain import intent_classification
+    from JarvisAI.brain import ner
+    from JarvisAI.features_manager import action_map
+    from JarvisAI.brain.auth import verify_user
 
 
-class OutputMethods:
-    def __init__(self, backend_tts_api):
-        """
-        Initialize OutputMethods class
-        :param backend_tts_api: str
-            backend_tts_api (String) <allowed values: ['pyttsx3', 'gtts']>
-        """
-        self.backend_tts_api = backend_tts_api
-
-    @staticmethod
-    def text_output(*args, **kwargs):
-        """
-        Print text to console
-        """
-        text = kwargs.get('text')
-        print(text)
-
-    @staticmethod
-    def voice_output(*args, **kwargs):
-        """
-        Play text to speech
-        """
-        text = kwargs.get('text')
-        text_to_speech(text=text, lang='en')
+def action_handler(intent, query):
+    if intent in action_map:
+        logging.info(f"Intent {intent} matched. Calling action {action_map[intent]}")
+        entities = ner.perform_ner(query=query)
+        return action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output)
+    else:
+        logging.info(f"Intent {intent} not found in action map.")
+        return "Sorry, I don't know how to handle this intent."
 
 
-# create a class for inputs methods
-class InputsMethods(OutputMethods):
-    def __init__(self, backend_tts_api):
-        """
-        Initialize InputsMethods class
-        :param backend_tts_api: str
-            backend_tts_api (String) <allowed values: ['pyttsx3', 'gtts']>
-        """
-        super().__init__(backend_tts_api)
+# function to add new actions to the actions_map dictionary
+def add_action(intent: str, action: object):
+    """Add a new action to the action map.
+    @param intent: (String) The intent to be mapped to the action.
+    @param action: (Object) The function to call when the intent is matched.
+    @return: (String) The message to be displayed to the user.
+    """
+    try:
+        action_map[intent] = action
 
-    @staticmethod
-    def text_input(*args, **kwargs):
-        """
-        Get text from user
-        """
-        input_text = input("Say Something: ")
-        return input_text
+        if not os.path.exists('actions.json'):
+            url = "https://raw.githubusercontent.com/Dipeshpal/Jarvis_AI/master/JarvisAI/JarvisAI/actions.json"
+            data = requests.get(url).json()
+            with open('actions.json', 'w') as f:
+                json.dump(data, f)
 
-    @staticmethod
-    def voice_input_google_api(*args, **kwargs):
-        """
-        Get voice input from Google Speech API
-        read more about Google Speech API (Pricing and Key) at: https://cloud.google.com/speech-to-text
-        """
-        google_speech_recognition_input_lang = kwargs.get('google_speech_recognition_input_lang')
-        google_speech_recognition_key = kwargs.get('google_speech_recognition_key')
-        google_speech_recognition_duration_listening = kwargs.get('google_speech_recognition_duration_listening')
-        command, status = speech_to_text_google(input_lang=google_speech_recognition_input_lang,
-                                                key=google_speech_recognition_key,
-                                                duration=google_speech_recognition_duration_listening)
-        if status:
-            return command
-        else:
-            return None
+        with open("actions.json", "r") as f:
+            actions = json.load(f)
 
-    @staticmethod
-    def voice_input_deepspeech_streaming(*args, **kwargs):
-        greeting = kwargs.get('greeting', None)
-        deepspeech_listen_obj = kwargs.get('deepspeech_listen_obj', None)
-        if greeting is not None:
-            OutputMethods.voice_output(text=greeting)
-        asr_deepspeech_stream = next(deepspeech_listen_obj)
-        return asr_deepspeech_stream
+        # Check for duplicates
+        duplicates = [i for i, act in enumerate(actions) if act["intent"] == intent]
+        if len(duplicates) > 1:
+            for i in duplicates[1:]:
+                actions.pop(i)
+            logging.warning(f"Duplicate actions found for intent {intent}. Only the first action will be used.")
+            print(f"Found {len(duplicates)} duplicates for intent '{intent}'. Deleted all but the first.")
 
+        # Check if the action already exists
+        action_exists = False
+        for i, act in enumerate(actions):
+            if act["intent"] == intent:
+                action_exists = True
+                action_index = i
+                break
 
-class JarvisAI(InputsMethods, OutputMethods):
-    def __init__(self, input_method: object, output_method: object, backend_tts_api='pyttsx3', api_key: str = "",
-                 detect_wake_word: bool = True, wake_word_detection_method: object = None, bot_name: str = "Jarvis",
-                 display_intent: bool = True, google_speech_recognition_input_lang='en',
-                 google_speech_recognition_key=None, google_speech_recognition_duration_listening=5, warnings=True):
-        """
-        :param input_method: (object) method to get input from user <allowed values: [InputsMethods.text_input, InputsMethods.voice_input_google_api, InputsMethods.voice_input_deepspeech_streaming]>
-        :param output_method: (object) method to give output to user <allowed values: [OutputMethods.text_output, OutputMethods.voice_output]
-        :param backend_tts_api: (str) [Default 'pyttsx3'] backend tts api to use <allowed values: ['pyttsx3', 'gtts']>
-        :param api_key: (str) [Default ''] api key to use JarvisAI get it from http://jarvis-ai-api.herokuapp.com
-        :param detect_wake_word: (bool) [Default True] detect wake word or not <allowed values: [True, False]>
-        :param wake_word_detection_method: (object) [Default None] method to detect wake word <allowed values: [InputsMethods.voice_input_google_api, InputsMethods.voice_input_deepspeech_streaming]
-        :param bot_name: (str) [Default 'Jarvis'] name of the bot
-        :param display_intent: (bool) [Default True] display intent or not <allowed values: [True, False]>
-        :param google_speech_recognition_input_lang: (str) [Default 'en'] language of the input Check supported languages here: https://cloud.google.com/speech-to-text/docs/languages
-        :param google_speech_recognition_key: (str) [Default None] api key to use Google Speech API
-        :param google_speech_recognition_duration_listening: (int) [Default 5] duration of the listening
-
-        READ MORE: Google Speech API (Pricing and Key) at: https://cloud.google.com/speech-to-text
-        """
-        self.deepspeech_listen_obj = None
-        self.model = None
-        self.vad_audio = None
-        self.ARGS = None
-        self.api_key = api_key
-        self.input_method = input_method
-        self.output_method = output_method
-        self.backend_tts_api = backend_tts_api
-        self.detect_wake_word = detect_wake_word
-        self.wake_word_detection_method = wake_word_detection_method
-        self.bot_name = bot_name
-        self.display_intent = display_intent
-        self.google_speech_recognition_input_lang = google_speech_recognition_input_lang
-        self.google_speech_recognition_key = google_speech_recognition_key
-        self.google_speech_recognition_duration_listening = google_speech_recognition_duration_listening
-        self.warnings = warnings
-        self.custom_features = {}
-        OutputMethods.__init__(self, backend_tts_api=backend_tts_api)
-
-        self.validate_input_output_option()
-
-    def register_feature(self, feature_obj: object, feature_command: str):
-        """
-        Register a feature to JarvisAI
-        :param feature_obj: (object) function that will be called when the feature_command is detected
-        :param feature_command: (str) command to activate the function
-        """
-        if feature_command in list(dict_of_features.keys()):
-            raise ValueError(f"Feature command '{feature_command}' already registered. Change the command name.")
-        dict_temp = {
-            feature_command.lower(): feature_obj
-        }
-        self.custom_features.update(dict_temp)
-        dict_of_features.update(self.custom_features)
-
-    def play_wake_up_sound(self, lock=False):
-        if lock:
-            if not os.path.exists('ai-off.wav'):
-                path = download('https://github.com/Dipeshpal/AdonisAI/raw/main/AdonisAI/utils/ai-off.wav',
-                                'ai-off.wav', progressbar=True)
-            playsound('ai-off.wav')
-        else:
-            if not os.path.exists('wake_up.wav'):
-                path = download('https://github.com/Dipeshpal/AdonisAI/raw/main/AdonisAI/utils/wake_up.wav',
-                                'wake_up.wav', progressbar=True)
-            playsound('wake_up.wav')
-
-    def validate_input_output_option(self):
-        if self.backend_tts_api not in ['pyttsx3', 'gtts']:
-            raise ValueError("Invalid backend_tts_api type. Expected one of: %s" % ['pyttsx3', 'gtts'])
-        else:
-            if not os.path.exists(CONSTANT.USER_CONFIG_FOLDER):
-                os.mkdir(CONSTANT.USER_CONFIG_FOLDER)
-            if not os.path.exists(CONSTANT.SPEECH_ENGINE_PATH):
-                with open(CONSTANT.SPEECH_ENGINE_PATH, 'w') as f:
-                    f.write(self.backend_tts_api)
+        if action_exists:
+            print(f"Previous examples for intent '{intent}': {actions[action_index]['example']}")
+            overwrite = input(f"Intent '{intent}' already exists. Do you want to overwrite? (y/n)")
+            if overwrite.lower() == "y":
+                num_examples = int(input("How many examples do you want to add? (maximum 3): "))
+                examples = []
+                for i in range(num_examples):
+                    examples.append(input(f"Enter example {i + 1} for intent {intent}: "))
+                actions[action_index] = {
+                    "intent": intent,
+                    "example": examples
+                }
             else:
-                with open(CONSTANT.SPEECH_ENGINE_PATH, 'r') as f:
-                    backend_tts_api_tmp = f.read()
-                if backend_tts_api_tmp != self.backend_tts_api:
-                    with open(CONSTANT.SPEECH_ENGINE_PATH, 'w') as f:
-                        f.write(self.backend_tts_api)
-
-        if self.input_method not in [InputsMethods.text_input, InputsMethods.voice_input_google_api,
-                                     InputsMethods.voice_input_deepspeech_streaming]:
-            raise ValueError("Invalid input_method type. Expected one of: %s" % [InputsMethods.text_input,
-                                                                                 InputsMethods.voice_input_google_api,
-                                                                                 InputsMethods.voice_input_deepspeech_streaming])
-        elif self.input_method in [InputsMethods.voice_input_deepspeech_streaming]:
-            try:
-                from services.asr_deepspeech_streaming.streaming import listen as deepspeech_listen, ARGS, vad_audio, \
-                    model
-            except ImportError:
-                from JarvisAI.JarvisAI.services.asr_deepspeech_streaming.streaming import listen as deepspeech_listen, \
-                    ARGS, \
-                    vad_audio, model
-
-            self.ARGS = ARGS
-            self.vad_audio = vad_audio
-            self.model = model
-            self.deepspeech_listen_obj = deepspeech_listen(ARGS, vad_audio, model)
-
-        if self.output_method not in [OutputMethods.text_output, OutputMethods.voice_output]:
-            raise ValueError("Invalid output_method type. Expected one of: %s" % [OutputMethods.text_output,
-                                                                                  OutputMethods.voice_output])
-
-        if self.api_key is None or self.api_key == "":
-            raise ValueError(
-                "Invalid api_key. Expected a valid api_key. Get one from https://jarvis-ai-api.herokuapp.com")
+                return "Intent not overwritten."
         else:
-            if not os.path.exists(CONSTANT.USER_CONFIG_FOLDER):
-                os.mkdir(CONSTANT.USER_CONFIG_FOLDER)
-            if not os.path.exists(CONSTANT.API_KEY_PATH):
-                with open(CONSTANT.API_KEY_PATH, 'w') as f:
-                    f.write(self.api_key)
-            else:
-                with open(CONSTANT.API_KEY_PATH, 'r') as f:
-                    api_key_tmp = f.read()
-                if api_key_tmp != self.api_key:
-                    with open(CONSTANT.API_KEY_PATH, 'w') as f:
-                        f.write(self.api_key)
+            num_examples = int(input("How many examples do you want to add? (maximum 10): "))
+            examples = []
+            for i in range(num_examples):
+                examples.append(input(f"Enter example {i + 1} for intent {intent}: "))
+            actions.append({
+                "intent": intent,
+                "example": examples
+            })
 
-        if self.detect_wake_word:
-            if self.wake_word_detection_method is None:
-                raise ValueError("Invalid wake_word_engine. Expected a valid wake_word_engine. Expected one of: %s" % [
-                    InputsMethods.voice_input_google_api,
-                    InputsMethods.voice_input_deepspeech_streaming])
-            elif self.wake_word_detection_method not in [InputsMethods.voice_input_google_api,
-                                                         InputsMethods.voice_input_deepspeech_streaming]:
-                raise ValueError(
-                    "Invalid wake_word_engine. Expected one of: %s" % [InputsMethods.voice_input_google_api,
-                                                                       InputsMethods.voice_input_deepspeech_streaming])
-            elif self.wake_word_detection_method in [InputsMethods.voice_input_deepspeech_streaming]:
-                if self.deepspeech_listen_obj is None:
-                    print("Loading deepspeech model...")
+        # Write the updated actions back to the file
+        with open("actions.json", "w") as f:
+            json.dump(actions, f, indent=4)
+
+        logging.info(f"Action for intent {intent} has been added/updated. Train new model to use this action.")
+        print(f"Action for intent {intent} has been added/updated. Train new model to use this action.")
+        return f"Action for intent {intent} has been added/updated. Train new model to use this action."
+    except Exception as e:
+        logging.error(f"Error adding action: {e}")
+        raise f"Error adding action: {e}"
+
+
+class JarvisAI(input_output.JarvisInputOutput):
+    def __init__(self, input_mechanism='text', output_mechanism='text',
+                 google_speech_api_key=None, backend_tts_api='pyttsx3',
+                 use_whisper_asr=False, display_logs=False,
+                 api_key=None):
+        super().__init__(input_mechanism=input_mechanism, output_mechanism=output_mechanism,
+                         google_speech_api_key=google_speech_api_key, backend_tts_api=backend_tts_api,
+                         use_whisper_asr=use_whisper_asr, duration_listening=5, display_logs=display_logs,
+                         api_key=api_key)
+
+        if os.path.exists('jarvis.log'):
+            os.remove('jarvis.log')
+
+        self.display_logs = display_logs
+        if not self.display_logs:
+            logging.basicConfig(filename='jarvis.log', level=logging.DEBUG)
+        else:
+            logging.basicConfig(level=logging.DEBUG)
+
+        if not os.path.exists('actions.json'):
+            url = "https://raw.githubusercontent.com/Dipeshpal/Jarvis_AI/master/JarvisAI/JarvisAI/actions.json"
+            data = requests.get(url).json()
+            with open('actions.json', 'w') as f:
+                json.dump(data, f)
+
+
+    def handle_input(self):
+        try:
+            if self.input_mechanism == 'text':
+                return self.text_input()
+            elif self.input_mechanism == 'voice':
+                return self.voice_input()
+            else:
+                available_input_mechanisms = ['text', 'voice']
+                logging.error(f"Invalid input mechanism: {self.input_mechanism}. Available input mechanisms are: "
+                              f"{available_input_mechanisms}")
+                raise Exception("Invalid input mechanism. Available input mechanisms are: {available_input_mechanisms}")
+        except Exception as e:
+            logging.exception(f"An error occurred while handling input. Error: {e}")
+            return f"An error occurred while handling input. Error: {e}"
+
+    def handle_output(self, text):
+        try:
+            if self.output_mechanism == 'text':
+                self.text_output(text)
+            elif self.output_mechanism == 'voice':
+                self.voice_output(text=text)
+            elif self.output_mechanism == 'both':
+                self.text_output(text)
+                self.voice_output(text=text)
+            else:
+                available_output_mechanisms = ['text', 'voice', 'both']
+                logging.error(f"Invalid output mechanism: {self.output_mechanism}. Available output mechanisms are: "
+                              f"{available_output_mechanisms}")
+                raise f"Invalid output mechanism: {self.output_mechanism}. Available output mechanisms are: " \
+                      f"{available_output_mechanisms}"
+        except Exception as e:
+            logging.exception(f"An error occurred while handling output. Error: {e}")
+            self.handle_output(f"An error occurred while handling output. Error: {e}")
+
+    def take_action(self, intent, query):
+        try:
+            if not os.path.exists('actions.json'):
+                # TODO: Add a default actions.json file
+                logging.error("actions.json file not found.")
+                return "actions.json file not found."
+
+            # load the JSON file containing the list of available actions and their respective commands
+            with open('actions.json', 'r') as f:
+                actions = json.load(f)
+
+            # check if the intent matches any of the available actions
+            for action in actions:
+                if action['intent'] == intent:
+                    # if the intent matches, do the action
                     try:
-                        from services.asr_deepspeech_streaming.streaming import listen as deepspeech_listen, ARGS, \
-                            vad_audio, \
-                            model
-                    except ImportError:
-                        from JarvisAI.JarvisAI.services.asr_deepspeech_streaming.streaming import \
-                            listen as deepspeech_listen, \
-                            ARGS, \
-                            vad_audio, model
-                    self.ARGS = ARGS
-                    self.vad_audio = vad_audio
-                    self.model = model
-                    self.deepspeech_listen_obj = deepspeech_listen(ARGS, vad_audio, model)
+                        return action_handler(intent, query)
+                    except Exception as e:
+                        logging.exception(f"An error occurred while performing action. Error: {e}")
+                        self.handle_output(f"An error occurred while performing action. Error: {e}")
 
-    def manage_tasks(self):
-        if not self.detect_wake_word and (self.input_method == InputsMethods.voice_input_google_api or
-                                          self.input_method == InputsMethods.voice_input_deepspeech_streaming):
-            print("Waiting for your command...")
-            # self.play_wake_up_sound()
-        inp = self.input_method(
-            deepspeech_listen_obj=self.deepspeech_listen_obj,
-            google_speech_recognition_input_lang=self.google_speech_recognition_input_lang,
-            google_speech_recognition_key=self.google_speech_recognition_key,
-            google_speech_recognition_duration_listening=self.google_speech_recognition_duration_listening, )
-        if inp is None:
-            return
-        inp = inp.lower()
-        print("You said: " + inp)
-        if inp == "stop" or inp == "exit":
-            return "stop"
+            print(f"Intent {intent} not found in actions.json.")
+            # if no action is matched, return a default message
+            return "Sorry, I don't know how to handle this intent."
+        except Exception as e:
+            logging.exception(f"An error occurred while taking action. Error: {e}")
+            return f"An error occurred while taking action. Error: {e}"
 
-        if inp in list(self.custom_features.keys()):
-            accuracy_ = 100
-            task = inp
-        else:
-            # task, accuracy_ = make_decision_jarvisai(self.api_key, inp)
-
-            # NOTE: If make_decision_local is used, then the accuracy_ is not returned so it is set to 100
-            task = make_decision_local(list(dict_of_features.keys()), inp)
-            accuracy_ = 100
-        if self.display_intent:
-            print("===========>", task.upper(), "with accuracy", accuracy_, "<===========")
-        if accuracy_ > 0.7:
-            fun = dict_of_features[task]
-        else:
-            classes = list(dict_of_features.keys())
-            # task = make_decision_jarvisai_string_matching(classes, inp)
-            task = make_decision_jarvisai(classes, inp)
-            fun = dict_of_features[task]
-            if self.display_intent:
-                print("===========>", task.upper(), "<===========")
-        #     fun = dict_of_features["conversation"]
-
-        # perform action
-        if fun is not None:
-            call_out = fun(inp)
-        else:
-            if task != 'what can you do':
-                call_out = "Sorry, I don't understand your command."
-            else:
-                call_out = ""
-        if not call_out:
-            if task != 'what can you do':
-                call_out = "Sorry, I don't understand your command."
-
-        if not self.output_method == OutputMethods.text_output:
-            print(call_out)
-
-        self.output_method(text=call_out)
-        if inp not in list(self.custom_features.keys()):
-            # TODO: Below API is not working
-            try:
-                management_service(inp=inp, out=call_out, task=task, secret_key=self.api_key, debug=True)
-            except Exception as e:
-                if self.warnings:
-                    print("Error in calling management service:", e)
-
-
+    # don't change this function, do not try to remove verify_user otherwise Jarvis will not work
     @verify_user
     def start(self):
         while True:
-            if self.detect_wake_word:
-                print("Listening for wake word...")
-                wake_word = self.wake_word_detection_method(deepspeech_listen_obj=self.deepspeech_listen_obj)
-                if wake_word is None:
+            try:
+                query = self.handle_input()
+                if query == "" or query is None:
                     continue
-                if wake_word == "shutdown":
-                    print("Shutting down...")
-                    sys.exit()
-                code1 = phonetics.metaphone(wake_word)
-                code2 = phonetics.metaphone(self.bot_name)
-                accuracy = fuzz.ratio(code1, code2)
-                if len(wake_word) > 0 and accuracy > 50:
-                    print("You Said: %s" % self.bot_name)
-                    print("Wake word detected...")
-                    print("Waiting for your command...")
-                    self.play_wake_up_sound()
-                    while True:
-                        signal = self.manage_tasks()
-                        if signal == "stop" or signal == "exit" or signal is None:
-                            self.play_wake_up_sound(lock=True)
-                            break
-                        elif signal == "shutdown":
-                            print("Shutting down...")
-                            sys.exit()
-            else:
-                self.manage_tasks()
+                if query == 'exit':
+                    self.handle_output("Exiting...")
+                    break
+                else:
+                    # NOTE: The query is passed to the intent classification function to get the intent
+                    intent, _ = intent_classification.classify_intent(secret_key=self.api_key, text=query)
+                    print(f"Intent: {intent}")
+                    intent = intent.replace("_", " ")
+                    # PATCH BELOW for date and time if-else
+                    if 'time' in intent:
+                        print(f"Intent: date / {intent}")
+                    else:
+                        print(f"Intent: {intent}")
+                    logging.debug(f"Input: {query}, Intent: {intent}")
+                    response = self.take_action(intent, query)
+                    self.handle_output(response)
+            except Exception as e:
+                logging.exception(f"An error occurred while running Jarvis. Error: {e}")
+                self.handle_output(f"An error occurred while running Jarvis. Error: {e}")
+                raise f"An error occurred while running Jarvis. Error: {e}"
 
 
 if __name__ == "__main__":
-    # create your own function
-    # It must contain parameter 'feature_command' which is the command you want to execute
-    # Return is optional
-    # If you want to provide return value it should only return text (str)
-    # Your return value will be displayed or call out by the choice of OutputMethods of JarvisAI
-
-    def custom_function(
-            feature_command="custom command (which is the command you want to execute)"):
+    def custom_function(*args, **kwargs):
+        command = kwargs.get('query')
+        entities = kwargs.get('entities')
+        print(entities)
         # write your code here to do something with the command
-        # perform some tasks
-        # return is optional
-        return feature_command + ' Executed'
+        # perform some tasks # return is optional
+        return command + ' Executed'
 
 
-    obj = JarvisAI(input_method=InputsMethods.text_input,
-                   output_method=OutputMethods.text_output,
-                   backend_tts_api='pyttsx3',
-                   api_key="ddcb247ce8b4c56684c83e4f97971af8",
-                   detect_wake_word=False,
-                   wake_word_detection_method=InputsMethods.voice_input_google_api,
-                   bot_name="Jarvis",
-                   display_intent=True,
-                   google_speech_recognition_input_lang='en',
-                   google_speech_recognition_key=None,
-                   google_speech_recognition_duration_listening=5,
-                   warnings=False,
-                   )
-
-    obj.register_feature(feature_obj=custom_function, feature_command='custom feature')
-
-    obj.start()
+    jarvis = JarvisAI(input_mechanism='text', output_mechanism='text',
+                      google_speech_api_key=None, backend_tts_api='pyttsx3',
+                      use_whisper_asr=False, display_logs=False,
+                      api_key='527557f2-0b67-4500-8ca0-03766ade589a')
+    # add_action("general", custom_function)
+    jarvis.start()

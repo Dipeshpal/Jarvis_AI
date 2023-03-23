@@ -6,7 +6,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="JarvisAI",
-    version="4.3",
+    version="4.4",
     author="Dipesh",
     author_email="dipeshpal17@gmail.com",
     description="JarvisAI is python library to build your own AI virtual assistant with natural language processing.",
@@ -16,14 +16,10 @@ setuptools.setup(
     include_package_data=True,
     packages=find_namespace_packages(include=['JarvisAI.*', 'JarvisAI']),
     install_requires=['numpy', 'gtts', 'playsound', 'pyscreenshot', "opencv-python",
-                      'SpeechRecognition', 'pipwin', 'lxml', 'pyjokes',
-                      'beautifulsoup4', 'wikipedia', 'scipy', 'download',
-                      "torch", 'lazyme', "requests", "pyttsx3", "googlesearch-python",
-                      "spacy", 'textdistance', 'pywhatkit', "googlesearch-python",
-                      "youtube-search-python", "shutup", 'Flask', 'speedtest-cli',
-                      'pytube', 'pycountry', 'phonetics', 'fuzzywuzzy', 'googletrans', 'wave',
-                      'deepspeech', 'halo', 'playsound==1.2.2', 'pyaudio', 'mediapipe==0.8.11',
-                      'pycaw', 'transformers'],
+                      'SpeechRecognition', 'pyjokes', 'wikipedia', 'scipy', 'lazyme',
+                      "requests", "pyttsx3", "spacy==3.5.0", 'pywhatkit', 'speedtest-cli',
+                      'pytube', 'pycountry', 'playsound', 'pyaudio', 'mediapipe==0.8.11',
+                      'pycaw', 'openai-whisper', 'shutup', 'sounddevice'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -36,5 +32,6 @@ setuptools.setup(
         'Donate': 'https://www.buymeacoffee.com/dipeshpal',
         'Say Thanks!': 'https://youtube.com/techportofficial',
         'Source': 'https://github.com/Dipeshpal/Jarvis_AI',
+        'Contact': 'https://www.dipeshpal.in/social',
     },
 )
