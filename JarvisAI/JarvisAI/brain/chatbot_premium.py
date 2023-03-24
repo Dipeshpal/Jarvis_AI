@@ -2,15 +2,12 @@ import requests
 
 
 def premium_chat(*args, **kwargs):
-    # TODO: add this upcoming feature
     try:
-        return "This feature is not available right now. We are working on it."
-        with open('api_key.txt', 'r') as f:
-            api_key = f.read()
+        api_key = kwargs.get("api_key")
         query = kwargs.get('query')
-        url = f"https://jarvisai.in/premium_chatbot_api?query={query}&secret_key={api_key}"
+        url = f"https://jarvisai.in/chatbot_premium_api?secret_key={api_key}&text={query}"
         response = requests.get(url)
-        return response.json().get("response", "Sorry, I don't know how to handle this intent.")
+        return response.json().get("message",  "Error Code=1. Server is facing some issues. Please try again later.")
     except Exception as e:
         return f"An error occurred while performing premium_chat, connect with developer. Error: {e}"
 

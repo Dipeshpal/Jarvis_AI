@@ -71,5 +71,5 @@ action_map = {
     "send whatsapp message": send_whatsapp_message,
     "covid cases": check_command_is_for_covid_cases,
     "check internet speed": speed_test,
-    "others": chatbot_premium.premium_chat,  # TODO: add this upcoming feature
+    "others": chatbot_premium.premium_chat,
 }

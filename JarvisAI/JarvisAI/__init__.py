@@ -17,11 +17,12 @@ except:
     from JarvisAI.brain.auth import verify_user
 
 
-def action_handler(intent, query):
+def action_handler(intent, query, api_key):
     if intent in action_map:
         logging.info(f"Intent {intent} matched. Calling action {action_map[intent]}")
         entities = ner.perform_ner(query=query)
-        return action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output)
+        return action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output,
+                                  api_key=api_key)
     else:
         logging.info(f"Intent {intent} not found in action map.")
         return "Sorry, I don't know how to handle this intent."
@@ -123,7 +124,6 @@ class JarvisAI(input_output.JarvisInputOutput):
             with open('actions.json', 'w') as f:
                 json.dump(data, f)
 
-
     def handle_input(self):
         try:
             if self.input_mechanism == 'text':
@@ -174,7 +174,7 @@ class JarvisAI(input_output.JarvisInputOutput):
                 if action['intent'] == intent:
                     # if the intent matches, do the action
                     try:
-                        return action_handler(intent, query)
+                        return action_handler(intent, query, self.api_key)
                     except Exception as e:
                         logging.exception(f"An error occurred while performing action. Error: {e}")
                         self.handle_output(f"An error occurred while performing action. Error: {e}")
