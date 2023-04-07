@@ -18,6 +18,24 @@
 9. Donate    
 10. Thank me on-    
   
+## Premium Plan-
+
+What is our premium plan?
+
+- AI will be able to understand all your commands. It will answer all your questions apart from below basic intent.
+
+- It will be able to handle intent- 'others / Unknown Intent'. Free plan doesn't support this.
+
+- It will be automatically upgraded to use GPT-3 based model in the future. Currently, it uses other advance custom AI models to answer queries.
+
+- Currently unlimited API calls. Later we might change / limit.
+
+- Currently, it doesn't remember the previous context of the chat, but soon it will be. We don't store your
+        personal chat information.
+
+**Check out our plan: https://jarvisai.in/dashboard**
+
+
 ## YouTube Tutorial-  
   
 Click on the image below to watch the tutorial on YouTube-  
@@ -167,7 +185,7 @@ These are below supported intent that AI can handle, you can ask in natural lang
  19. send whatsapp message 
  20. covid cases 
  21. check internet speed
- 22. others  / Unknown Intent  (IN PROGRESS)
+ 22. others  / Unknown Intent (Premium Feature)
 
   
 ### 5.2. Supported Input/Output Methods (Which option do I need to choose?)-    
@@ -200,8 +218,10 @@ You can set below parameter while creating object of JarvisAI-
 	    output_mechanism='both'
        
 ## 6. Future/Request Features-    
+
  **WIP**    
  **You tell me**    
+    at dipeshpal17@gmail.com or my social media.
     
  ## 7. Contribute-    
  **Instructions Coming Soon**    
@@ -213,12 +233,15 @@ You can set below parameter while creating object of JarvisAI-
     
     
 ## 9. Donate-    
- [Donate and Contribute to run me this project, and buy a domain](https://www.buymeacoffee.com/dipeshpal)    
+ 
+Consider donating to JarvisAI to support our mission of keeping our servers running 24/7. Your contribution will enable us to continue doing great things and providing valuable services. Every little bit helps!
+
+[Click Here to support](https://www.instamojo.com/@techport/?ref=preview)    
     
 **_Feel free to use my code, don't forget to mention credit. All the contributors will get credits in this repo._**    
  **_Mention below line for credits-_**    
  ***Credits-***    
- - [https://jarvis-ai-api.herokuapp.com](https://jarvis-ai-api.herokuapp.com/)    
+ - [https://jarvisai.in](https://jarvisai.in)    
         
 - [https://github.com/Dipeshpal/Jarvis_AI](https://github.com/Dipeshpal/Jarvis_AI)    
         
