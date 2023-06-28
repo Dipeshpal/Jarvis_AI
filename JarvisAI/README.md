@@ -39,6 +39,11 @@ What is our premium plan?
 ## YouTube Tutorial-  
   
 Click on the image below to watch the tutorial on YouTube-  
+
+**Tutorial Latest-**
+
+[![JarvisAI Tutorial 1](https://img.youtube.com/vi/hPE-kdRmYf8/0.jpg)](https://www.youtube.com/watch?v=hPE-kdRmYf8)  
+
   
 **Tutorial 1-**  
   
@@ -119,22 +124,23 @@ The JarvisAI’s architecture is divided into two parts.
    You need only this piece of code-
 	
 	
-	def custom_function(*args, **kwargs):
+    import JarvisAI
+
+    def custom_function(*args, **kwargs):
         command = kwargs.get('query')
         entities = kwargs.get('entities')
         print(entities)
         # write your code here to do something with the command
         # perform some tasks # return is optional
         return command + ' Executed'
-
-
-    jarvis = JarvisAI.Jarvis(input_mechanism='voice', output_mechanism='both',
-                    google_speech_api_key=None, backend_tts_api='pyttsx3',
-                    use_whisper_asr=False, display_logs=False,
-                    api_key='527557f2-0b67-4500-8ca0-03766ade589a')
-    # add_action("general", custom_function)  # OPTIONAL
-    jarvis.start()
-	
+    
+    
+    jarvis = JarvisAI.JarvisAI(input_mechanism='text', output_mechanism='text',
+                           google_speech_api_key=None, backend_tts_api='pyttsx3',
+                           use_whisper_asr=False, display_logs=False,
+                           api_key='99f605ce-5bf9-4e80-93a3-f367df65aa27')
+    JarvisAI.add_action('custom_function', custom_function)
+    jarvis.start()	
   
    
  ### 4.3. **What's now?**    
@@ -143,10 +149,28 @@ The JarvisAI’s architecture is divided into two parts.
    You can configure  `input_mechanism` and  `output_mechanism` parameter for voice input/output or text input/output.    
     
    ### 4.4. Let's understand the Parameters-    
+    
+For text input-
+    
+    input_mechanism='text'
+
+For voice input-
+    
+    input_mechanism='voice'
+
+For text output-
+    
+    output_mechanism='text'
+    
+For voice output-
+    
+    output_mechanism='voice'
+
+For voice and text output-
+    
+    output_mechanism='both'
      
-  ```bash :param input_method: (object) method to get input from user <allowed values: [InputsMethods.text_input, InputsMethods.voice_input_google_api, InputsMethods.voice_input_deepspeech_streaming]> :param output_method: (object) method to give output to user <allowed values: [OutputMethods.text_output, OutputMethods.voice_output] :param backend_tts_api: (str) [Default 'pyttsx3'] backend tts api to use <allowed values: ['pyttsx3', 'gtts']> :param api_key: (str) [Default ''] api key to use JarvisAI get it from http://jarvis-ai-api.herokuapp.com :param detect_wake_word: (bool) [Default True] detect wake word or not <allowed values: [True, False]> :param wake_word_detection_method: (object) [Default None] method to detect wake word <allowed values: [InputsMethods.voice_input_google_api, InputsMethods.voice_input_deepspeech_streaming] :param bot_name: (str) [Default 'Jarvis'] name of the bot :param display_intent: (bool) [Default True] display intent or not <allowed values: [True, False]> :param google_speech_recognition_input_lang: (str) [Default 'en'] language of the input Check supported languages here: https://cloud.google.com/speech-to-text/docs/languages :param google_speech_recognition_key: (str) [Default None] api key to use Google Speech API :param google_speech_recognition_duration_listening: (int) [Default 5] duration of the listening    
- READ MORE: Google Speech API (Pricing and Key) at: https://cloud.google.com/speech-to-text  
-```   
+
 ## 5. What it can do (Features it supports)-    
     
 1. Currently, it supports only english language    
@@ -192,10 +216,10 @@ These are below supported intent that AI can handle, you can ask in natural lang
 
 You can set below parameter while creating object of JarvisAI-
 
-    jarvis = JarvisAI.Jarvis(input_mechanism='voice', output_mechanism='both',  
-                    google_speech_api_key=None, backend_tts_api='pyttsx3',  
-                    use_whisper_asr=False, display_logs=False,  
-                    api_key='527557f2-0b67-4500-8ca0-03766ade589a')
+    jarvis = JarvisAI.JarvisAI(input_mechanism='text', output_mechanism='text',
+                           google_speech_api_key=None, backend_tts_api='pyttsx3',
+                           use_whisper_asr=False, display_logs=False,
+                           api_key='99f605ce-5bf9-4e80-93a3-f367df65aa27')
     
 1. **For text input-**'    
     
@@ -211,7 +235,7 @@ You can set below parameter while creating object of JarvisAI-
     
 4. **For voice output-**    
 
-	    output_mechanism='text'
+	    output_mechanism='voice'
 
 5. **For voice and text output-**    
 
@@ -221,10 +245,54 @@ You can set below parameter while creating object of JarvisAI-
 
  **WIP**    
  **You tell me**    
-    at dipeshpal17@gmail.com or my social media.
+    at info@jarvisai.in or my www.dipeshpal.in/social
     
  ## 7. Contribute-    
- **Instructions Coming Soon**    
+  
+  1. Clone this repo.
+  2. Create your file in JarvisAI/JarvisAI/features/<your_file.py>
+  3. Write entry function like this-
+  
+  	
+	def some_func(*args, **kwargs):
+	    query = kwargs.get("query")
+	    entities = kwargs.get("entities")
+	    li = ['EVENT', 'FAC', 'GPE', 'LANGUAGE', 'LAW', 'LOC', 'MONEY', 'NORP', 'ORDINAL', 'ORG',
+		  'PERCENT', 'PERSON', 'PRODUCT', 'TIME', 'WORK_OF_ART']
+	    topic = [entity[0] for entity in entities if entity[1] in li][0]
+	    return "This Code Done"
+	
+  - query is the text that is recognized by your microphone
+  
+  - entities Named Entity Recognition is a technique of natural language processing that is used for the categorization of the data
+  
+  - Example-
+	
+	query: who is Narendra Modi
+
+	entities: [('Narendra Modi', 'PERSON')]
+	
+	topic: Narendra Modi
+ 
+ 	So, now you got the topic from query and now you can play with the topic.
+ 
+  4. Your function can return someting text or perform something. Return text will be automatically print / spoken by your system.
+  5. In JarvisAI/JarvisAI/features_manager.py , import and add your function like this
+ 	
+	try:
+    		from features.your_file import some_func
+	except Exception as e:
+		from .features.your_file import some_func
+	
+	action_map = {
+		.....
+		....
+		'your_intent': some_func
+	}
+	
+  6. That's it now raise pull request. I'll verify your code. If working, ethical and all terms are followed, I'll approve.
+  7. You will become contributer.
+
  ## 8. Contact me-    
  - [Instagram](https://www.instagram.com/dipesh_pal17)    
         
@@ -236,7 +304,8 @@ You can set below parameter while creating object of JarvisAI-
  
 Consider donating to JarvisAI to support our mission of keeping our servers running 24/7. Your contribution will enable us to continue doing great things and providing valuable services. Every little bit helps!
 
-[Click Here to support](https://www.instamojo.com/@techport/?ref=preview)    
+
+[Click Here to support](https://www.instamojo.com/@techport/)    
     
 **_Feel free to use my code, don't forget to mention credit. All the contributors will get credits in this repo._**    
  **_Mention below line for credits-_**    
@@ -247,11 +316,11 @@ Consider donating to JarvisAI to support our mission of keeping our servers runn
         
 - [https://www.youtube.com/dipeshpal17](https://www.youtube.com/dipeshpal17)    
         
-- [https://www.instagram.com/dipesh_pal17](https://www.instagram.com/dipesh_pal17/)    
+- [https://www.instagram.com/dipesh_pal17](https://www.instagram.com/_dipeshpal_)
         
     
 ## 10. Thank me on-    
- - Follow me on Instagram:  [https://www.instagram.com/dipesh_pal17](https://www.instagram.com/dipesh_pal17/)    
+ - Follow me on Instagram: [https://www.instagram.com/dipesh_pal17](https://www.instagram.com/_dipeshpal_)  
         
 - Subscribe me on YouTube:  [https://www.youtube.com/dipeshpal17](https://www.youtube.com/dipeshpal17)    
     

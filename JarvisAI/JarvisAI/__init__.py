@@ -18,11 +18,34 @@ except:
 
 
 def action_handler(intent, query, api_key):
+    intent = intent.replace("_", " ")
     if intent in action_map:
         logging.info(f"Intent {intent} matched. Calling action {action_map[intent]}")
         entities = ner.perform_ner(query=query)
-        return action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output,
-                                  api_key=api_key)
+        try:
+            ans = action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output,
+                                     api_key=api_key)
+            if ans == "Entity not found":
+                intent = "others"
+                print(
+                    "Entity not found, calling action for intent 'others'. If you are not upgraded to our premium plan, "
+                    "please upgrade to use this feature.")
+                ans = action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output,
+                                         api_key=api_key)
+                return ans
+            return ans
+        except Exception as e:
+            ans = action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output,
+                                     api_key=api_key)
+            if ans == "Entity not found":
+                intent = "others"
+                print(
+                    "Entity not found, calling action for intent 'others'. If you are not upgraded to our premium plan, "
+                    "please upgrade to use this feature.")
+                ans = action_map[intent](query=query, intent=intent, entities=entities, input_output_fun=input_output,
+                                         api_key=api_key)
+                return ans
+            return ans
     else:
         logging.info(f"Intent {intent} not found in action map.")
         return "Sorry, I don't know how to handle this intent."
@@ -36,6 +59,7 @@ def add_action(intent: str, action: object):
     @return: (String) The message to be displayed to the user.
     """
     try:
+        intent = intent.replace("_", " ")
         action_map[intent] = action
 
         if not os.path.exists('actions.json'):
@@ -160,24 +184,24 @@ class JarvisAI(input_output.JarvisInputOutput):
 
     def take_action(self, intent, query):
         try:
-            if not os.path.exists('actions.json'):
-                # TODO: Add a default actions.json file
-                logging.error("actions.json file not found.")
-                return "actions.json file not found."
-
-            # load the JSON file containing the list of available actions and their respective commands
-            with open('actions.json', 'r') as f:
-                actions = json.load(f)
+            # if not os.path.exists('actions.json'):
+            #     # TODO: Add a default actions.json file
+            #     logging.error("actions.json file not found.")
+            #     return "actions.json file not found."
+            #
+            # # load the JSON file containing the list of available actions and their respective commands
+            # with open('actions.json', 'r') as f:
+            #     actions = json.load(f)
 
             # check if the intent matches any of the available actions
-            for action in actions:
-                if action['intent'] == intent:
-                    # if the intent matches, do the action
-                    try:
-                        return action_handler(intent, query, self.api_key)
-                    except Exception as e:
-                        logging.exception(f"An error occurred while performing action. Error: {e}")
-                        self.handle_output(f"An error occurred while performing action. Error: {e}")
+            # for action in actions:
+            # intent, _ = intent_classification.classify_intent(secret_key=self.api_key, text=query)
+            # if the intent matches, do the action
+            try:
+                return action_handler(intent, query, self.api_key)
+            except Exception as e:
+                logging.exception(f"An error occurred while performing action. Error: {e}")
+                self.handle_output(f"An error occurred while performing action. Error: {e}")
 
             print(f"Intent {intent} not found in actions.json.")
             # if no action is matched, return a default message
@@ -200,10 +224,10 @@ class JarvisAI(input_output.JarvisInputOutput):
                 else:
                     # NOTE: The query is passed to the intent classification function to get the intent
                     intent, _ = intent_classification.classify_intent(secret_key=self.api_key, text=query)
-                    print(f"Intent: {intent}")
-                    intent = intent.replace("_", " ")
+                    # print(f"Intent: {intent}")
+                    # intent = intent.replace("_", " ")
                     # PATCH BELOW for date and time if-else
-                    if 'time' in intent:
+                    if 'time' in intent.replace("_", " "):
                         print(f"Intent: date / {intent}")
                     else:
                         print(f"Intent: {intent}")
@@ -230,5 +254,5 @@ if __name__ == "__main__":
                       google_speech_api_key=None, backend_tts_api='pyttsx3',
                       use_whisper_asr=False, display_logs=False,
                       api_key='527557f2-0b67-4500-8ca0-03766ade589a')
-    # add_action("general", custom_function)
+    add_action("general", custom_function)
     jarvis.start()
